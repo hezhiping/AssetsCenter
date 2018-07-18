@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.assets.mapper.InvestBankMapper" >
+  <resultMap id="BaseResultMap" type="com.assets.pojo.InvestBank" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="psn_code" property="psnCode" jdbcType="INTEGER" />
+    <result column="invest_code" property="investCode" jdbcType="INTEGER" />
+    <result column="current_month_date" property="currentMonthDate" jdbcType="DATE" />
+    <result column="invest_name" property="investName" jdbcType="VARCHAR" />
+    <result column="invest_date" property="investDate" jdbcType="DATE" />
+    <result column="invest_type" property="investType" jdbcType="VARCHAR" />
+    <result column="invest_money" property="investMoney" jdbcType="DECIMAL" />
+    <result column="invest_profit" property="investProfit" jdbcType="DECIMAL" />
+    <result column="invest_profit_date" property="investProfitDate" jdbcType="DATE" />
+    <result column="annualized_rate_return" property="annualizedRateReturn" jdbcType="VARCHAR" />
+    <result column="tag_status" property="tagStatus" jdbcType="CHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, psn_code, invest_code, current_month_date, invest_name, invest_date, invest_type, 
+    invest_money, invest_profit, invest_profit_date, annualized_rate_return, tag_status, 
+    create_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.InvestBankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from invest_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from invest_bank
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from invest_bank
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.assets.pojo.InvestBankExample" >
+    delete from invest_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.assets.pojo.InvestBank" >
+    insert into invest_bank (id, psn_code, invest_code, 
+      current_month_date, invest_name, invest_date, 
+      invest_type, invest_money, invest_profit, 
+      invest_profit_date, annualized_rate_return, tag_status, 
+      create_date)
+    values (#{id,jdbcType=INTEGER}, #{psnCode,jdbcType=INTEGER}, #{investCode,jdbcType=INTEGER}, 
+      #{currentMonthDate,jdbcType=DATE}, #{investName,jdbcType=VARCHAR}, #{investDate,jdbcType=DATE}, 
+      #{investType,jdbcType=VARCHAR}, #{investMoney,jdbcType=DECIMAL}, #{investProfit,jdbcType=DECIMAL}, 
+      #{investProfitDate,jdbcType=DATE}, #{annualizedRateReturn,jdbcType=VARCHAR}, #{tagStatus,jdbcType=CHAR}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.assets.pojo.InvestBank" >
+    insert into invest_bank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="psnCode != null" >
+        psn_code,
+      </if>
+      <if test="investCode != null" >
+        invest_code,
+      </if>
+      <if test="currentMonthDate != null" >
+        current_month_date,
+      </if>
+      <if test="investName != null" >
+        invest_name,
+      </if>
+      <if test="investDate != null" >
+        invest_date,
+      </if>
+      <if test="investType != null" >
+        invest_type,
+      </if>
+      <if test="investMoney != null" >
+        invest_money,
+      </if>
+      <if test="investProfit != null" >
+        invest_profit,
+      </if>
+      <if test="investProfitDate != null" >
+        invest_profit_date,
+      </if>
+      <if test="annualizedRateReturn != null" >
+        annualized_rate_return,
+      </if>
+      <if test="tagStatus != null" >
+        tag_status,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="psnCode != null" >
+        #{psnCode,jdbcType=INTEGER},
+      </if>
+      <if test="investCode != null" >
+        #{investCode,jdbcType=INTEGER},
+      </if>
+      <if test="currentMonthDate != null" >
+        #{currentMonthDate,jdbcType=DATE},
+      </if>
+      <if test="investName != null" >
+        #{investName,jdbcType=VARCHAR},
+      </if>
+      <if test="investDate != null" >
+        #{investDate,jdbcType=DATE},
+      </if>
+      <if test="investType != null" >
+        #{investType,jdbcType=VARCHAR},
+      </if>
+      <if test="investMoney != null" >
+        #{investMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="investProfit != null" >
+        #{investProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="investProfitDate != null" >
+        #{investProfitDate,jdbcType=DATE},
+      </if>
+      <if test="annualizedRateReturn != null" >
+        #{annualizedRateReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="tagStatus != null" >
+        #{tagStatus,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.assets.pojo.InvestBankExample" resultType="java.lang.Integer" >
+    select count(*) from invest_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update invest_bank
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.psnCode != null" >
+        psn_code = #{record.psnCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.investCode != null" >
+        invest_code = #{record.investCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.currentMonthDate != null" >
+        current_month_date = #{record.currentMonthDate,jdbcType=DATE},
+      </if>
+      <if test="record.investName != null" >
+        invest_name = #{record.investName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.investDate != null" >
+        invest_date = #{record.investDate,jdbcType=DATE},
+      </if>
+      <if test="record.investType != null" >
+        invest_type = #{record.investType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.investMoney != null" >
+        invest_money = #{record.investMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.investProfit != null" >
+        invest_profit = #{record.investProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.investProfitDate != null" >
+        invest_profit_date = #{record.investProfitDate,jdbcType=DATE},
+      </if>
+      <if test="record.annualizedRateReturn != null" >
+        annualized_rate_return = #{record.annualizedRateReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tagStatus != null" >
+        tag_status = #{record.tagStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update invest_bank
+    set id = #{record.id,jdbcType=INTEGER},
+      psn_code = #{record.psnCode,jdbcType=INTEGER},
+      invest_code = #{record.investCode,jdbcType=INTEGER},
+      current_month_date = #{record.currentMonthDate,jdbcType=DATE},
+      invest_name = #{record.investName,jdbcType=VARCHAR},
+      invest_date = #{record.investDate,jdbcType=DATE},
+      invest_type = #{record.investType,jdbcType=VARCHAR},
+      invest_money = #{record.investMoney,jdbcType=DECIMAL},
+      invest_profit = #{record.investProfit,jdbcType=DECIMAL},
+      invest_profit_date = #{record.investProfitDate,jdbcType=DATE},
+      annualized_rate_return = #{record.annualizedRateReturn,jdbcType=VARCHAR},
+      tag_status = #{record.tagStatus,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.InvestBank" >
+    update invest_bank
+    <set >
+      <if test="psnCode != null" >
+        psn_code = #{psnCode,jdbcType=INTEGER},
+      </if>
+      <if test="investCode != null" >
+        invest_code = #{investCode,jdbcType=INTEGER},
+      </if>
+      <if test="currentMonthDate != null" >
+        current_month_date = #{currentMonthDate,jdbcType=DATE},
+      </if>
+      <if test="investName != null" >
+        invest_name = #{investName,jdbcType=VARCHAR},
+      </if>
+      <if test="investDate != null" >
+        invest_date = #{investDate,jdbcType=DATE},
+      </if>
+      <if test="investType != null" >
+        invest_type = #{investType,jdbcType=VARCHAR},
+      </if>
+      <if test="investMoney != null" >
+        invest_money = #{investMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="investProfit != null" >
+        invest_profit = #{investProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="investProfitDate != null" >
+        invest_profit_date = #{investProfitDate,jdbcType=DATE},
+      </if>
+      <if test="annualizedRateReturn != null" >
+        annualized_rate_return = #{annualizedRateReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="tagStatus != null" >
+        tag_status = #{tagStatus,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.InvestBank" >
+    update invest_bank
+    set psn_code = #{psnCode,jdbcType=INTEGER},
+      invest_code = #{investCode,jdbcType=INTEGER},
+      current_month_date = #{currentMonthDate,jdbcType=DATE},
+      invest_name = #{investName,jdbcType=VARCHAR},
+      invest_date = #{investDate,jdbcType=DATE},
+      invest_type = #{investType,jdbcType=VARCHAR},
+      invest_money = #{investMoney,jdbcType=DECIMAL},
+      invest_profit = #{investProfit,jdbcType=DECIMAL},
+      invest_profit_date = #{investProfitDate,jdbcType=DATE},
+      annualized_rate_return = #{annualizedRateReturn,jdbcType=VARCHAR},
+      tag_status = #{tagStatus,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

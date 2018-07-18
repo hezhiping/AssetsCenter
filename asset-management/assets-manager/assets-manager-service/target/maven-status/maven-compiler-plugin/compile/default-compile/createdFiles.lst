@@ -1,0 +1,10 @@
+com\assets\service\impl\MenuServiceImpl.class
+com\assets\service\impl\RegisterServiceImpl.class
+com\assets\remote\service\ServiceFactory.class
+com\assets\service\LoginService.class
+com\assets\service\impl\LoginServiceImpl.class
+com\assets\service\RegisterService.class
+com\assets\service\MenuService.class
+com\assets\service\impl\UserImpl.class
+com\assets\service\IUser.class
+com\assets\remote\service\LocalServiceFactory.class

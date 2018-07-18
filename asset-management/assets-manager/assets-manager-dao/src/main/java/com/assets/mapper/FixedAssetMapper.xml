@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.assets.mapper.FixedAssetMapper" >
+  <resultMap id="BaseResultMap" type="com.assets.pojo.FixedAsset" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="asset_name" property="assetName" jdbcType="VARCHAR" />
+    <result column="current_month_date" property="currentMonthDate" jdbcType="DATE" />
+    <result column="psn_code" property="psnCode" jdbcType="INTEGER" />
+    <result column="asset_money" property="assetMoney" jdbcType="DECIMAL" />
+    <result column="tag_status" property="tagStatus" jdbcType="CHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.assets.pojo.FixedAsset" extends="BaseResultMap" >
+    <result column="asset_remark" property="assetRemark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, asset_name, current_month_date, psn_code, asset_money, tag_status, create_date
+  </sql>
+  <sql id="Blob_Column_List" >
+    asset_remark
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.assets.pojo.FixedAssetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fixed_asset
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.FixedAssetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fixed_asset
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="com.assets.pojo.FixedAssetKey" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fixed_asset
+    where id = #{id,jdbcType=INTEGER}
+      and asset_name = #{assetName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.assets.pojo.FixedAssetKey" >
+    delete from fixed_asset
+    where id = #{id,jdbcType=INTEGER}
+      and asset_name = #{assetName,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.assets.pojo.FixedAssetExample" >
+    delete from fixed_asset
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.assets.pojo.FixedAsset" >
+    insert into fixed_asset (id, asset_name, current_month_date, 
+      psn_code, asset_money, tag_status, 
+      create_date, asset_remark)
+    values (#{id,jdbcType=INTEGER}, #{assetName,jdbcType=VARCHAR}, #{currentMonthDate,jdbcType=DATE}, 
+      #{psnCode,jdbcType=INTEGER}, #{assetMoney,jdbcType=DECIMAL}, #{tagStatus,jdbcType=CHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{assetRemark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.assets.pojo.FixedAsset" >
+    insert into fixed_asset
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="assetName != null" >
+        asset_name,
+      </if>
+      <if test="currentMonthDate != null" >
+        current_month_date,
+      </if>
+      <if test="psnCode != null" >
+        psn_code,
+      </if>
+      <if test="assetMoney != null" >
+        asset_money,
+      </if>
+      <if test="tagStatus != null" >
+        tag_status,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="assetRemark != null" >
+        asset_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="assetName != null" >
+        #{assetName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentMonthDate != null" >
+        #{currentMonthDate,jdbcType=DATE},
+      </if>
+      <if test="psnCode != null" >
+        #{psnCode,jdbcType=INTEGER},
+      </if>
+      <if test="assetMoney != null" >
+        #{assetMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="tagStatus != null" >
+        #{tagStatus,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="assetRemark != null" >
+        #{assetRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.assets.pojo.FixedAssetExample" resultType="java.lang.Integer" >
+    select count(*) from fixed_asset
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fixed_asset
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetName != null" >
+        asset_name = #{record.assetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentMonthDate != null" >
+        current_month_date = #{record.currentMonthDate,jdbcType=DATE},
+      </if>
+      <if test="record.psnCode != null" >
+        psn_code = #{record.psnCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetMoney != null" >
+        asset_money = #{record.assetMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tagStatus != null" >
+        tag_status = #{record.tagStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.assetRemark != null" >
+        asset_remark = #{record.assetRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update fixed_asset
+    set id = #{record.id,jdbcType=INTEGER},
+      asset_name = #{record.assetName,jdbcType=VARCHAR},
+      current_month_date = #{record.currentMonthDate,jdbcType=DATE},
+      psn_code = #{record.psnCode,jdbcType=INTEGER},
+      asset_money = #{record.assetMoney,jdbcType=DECIMAL},
+      tag_status = #{record.tagStatus,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      asset_remark = #{record.assetRemark,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fixed_asset
+    set id = #{record.id,jdbcType=INTEGER},
+      asset_name = #{record.assetName,jdbcType=VARCHAR},
+      current_month_date = #{record.currentMonthDate,jdbcType=DATE},
+      psn_code = #{record.psnCode,jdbcType=INTEGER},
+      asset_money = #{record.assetMoney,jdbcType=DECIMAL},
+      tag_status = #{record.tagStatus,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.FixedAsset" >
+    update fixed_asset
+    <set >
+      <if test="currentMonthDate != null" >
+        current_month_date = #{currentMonthDate,jdbcType=DATE},
+      </if>
+      <if test="psnCode != null" >
+        psn_code = #{psnCode,jdbcType=INTEGER},
+      </if>
+      <if test="assetMoney != null" >
+        asset_money = #{assetMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="tagStatus != null" >
+        tag_status = #{tagStatus,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="assetRemark != null" >
+        asset_remark = #{assetRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and asset_name = #{assetName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.assets.pojo.FixedAsset" >
+    update fixed_asset
+    set current_month_date = #{currentMonthDate,jdbcType=DATE},
+      psn_code = #{psnCode,jdbcType=INTEGER},
+      asset_money = #{assetMoney,jdbcType=DECIMAL},
+      tag_status = #{tagStatus,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      asset_remark = #{assetRemark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+      and asset_name = #{assetName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.FixedAsset" >
+    update fixed_asset
+    set current_month_date = #{currentMonthDate,jdbcType=DATE},
+      psn_code = #{psnCode,jdbcType=INTEGER},
+      asset_money = #{assetMoney,jdbcType=DECIMAL},
+      tag_status = #{tagStatus,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+      and asset_name = #{assetName,jdbcType=VARCHAR}
+  </update>
+</mapper>
