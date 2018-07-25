@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.assets.common.pojo.EasyUIDataGridResult;
 import com.assets.common.pojo.ZtreeJsonResult;
+import com.assets.common.utils.ExceptionUtil;
+import com.assets.common.utils.ResponseResult;
+import com.assets.pojo.SysResource;
 import com.assets.service.MenuService;
 
 @Controller
@@ -46,5 +50,22 @@ public class MenuController {
 			@RequestParam(defaultValue = "30") Integer rows) {
 		EasyUIDataGridResult result = menuService.getAllMenu(page, rows);
 		return result;
+	}
+
+	/**
+	 * 添加菜单，返回ResponseResult
+	 */
+	@RequestMapping(value = "/menu/addMenu", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView addMenu(SysResource menuResuorce) {
+		ModelAndView modelView = new ModelAndView();
+		ResponseResult result = menuService.addMenu(menuResuorce);
+		if(result.getStatus()== 200){
+			modelView.setViewName("menulist");
+		}else{
+			modelView.setViewName("addError");
+		}
+		return modelView;
+
 	}
 }

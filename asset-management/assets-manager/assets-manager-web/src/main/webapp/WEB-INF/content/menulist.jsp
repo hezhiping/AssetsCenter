@@ -198,53 +198,53 @@
 
 		<div region="center" style="overflow: auto; padding: 5px;"
 			border="false">
-			<form id="addMenuForm" action="" method="post">
-				<table class="table-edit" width="90%" align="center">
+			<form id="addMenuForm" action="/assets/menu/addMenu" method="post">
+				<table class="table-edit" align="center">
 					<tr class="title">
 						<td colspan="2">菜单信息</td>
 					</tr>
-					<!-- TODO 这里完善收派员添加 table -->
+					<!-- TODO 这里完善菜单添加 table -->
 
 					<tr>
-						<td width="30%">菜单编号：</td>
-						<td width="60%"><input type="text" name="name"
+						<td >菜单编号：</td>
+						<td ><input type="text" name="resourceId"
 							class="easyui-validatebox" required="true"
-							style="width: 80%; height: 22px" /></td>
+							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
 						<td width="30%">菜单名称：</td>
-						<td width="60%"><input type="text" name="name"
+						<td width="60%"><input type="text" name="zhCnName"
 							class="easyui-validatebox" required="true"
-							style="width: 80%; height: 22px" /></td>
+							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
 						<td width="30%">菜单类别：</td>
-						<td width="60%"><input type="text" name="name"
+						<td width="60%"><input type="text" name="resourceType"
 							class="easyui-validatebox" required="true"
-							style="width: 80%; height: 22px" /></td>
+							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
 						<td width="30%">跳转URL：</td>
-						<td width="60%"><input type="text" name="name"
+						<td width="60%"><input type="text" name="value"
 							class="easyui-validatebox" required="true"
-							style="width: 80%; height: 22px" /></td>
+							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
 						<td width="30%">父级菜单编号：</td>
-						<td width="60%"><input type="text" name="name"
+						<td width="60%"><input type="text" name="parentId"
 							class="easyui-validatebox" required="true"
-							style="width: 80%; height: 22px" /></td>
+							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
 						<td width="30%">菜单状态：</td>
-						<td width="60%"><input type="text" name="name"
+						<td width="60%"><input type="text" name="status"
 							class="easyui-validatebox" required="true"
-							style="width: 80%; height: 22px" /></td>
+							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
 						<td width="16%">备注：</td>
-						<td width="84%"><input type="text" name="name"
-							class="easyui-textbox" style="width: 100%; height: 22px" /></td>
+						<td width="84%"><input type="text" name="remark"
+							class="easyui-textbox"  data-options="multiline:true" style="width: 100%; height: 60px" /></td>
 
 					</tr>
 				</table>
@@ -268,51 +268,51 @@
 		<div region="center" style="overflow: auto; padding: 5px;"
 			border="false">
 			<form id="editMenuForm" action="" method="post">
-				<input type="hidden" name="id">
-				<table class="table-edit" width="90%" align="center">
+				<!-- <input type="hidden" name="id"> -->
+				<table class="table-edit"  align="center">
 					<tr class="title">
 						<td colspan="2">菜单信息</td>
 					</tr>
 					<!-- TODO 这里完善收派员添加 table -->
 					<tr>
 						<td width="30%">菜单编号：</td>
-						<td width="60%"><input type="text" name="name"
+						<td width="60%"><input type="text" name="resourceId"
 							class="easyui-text" required="true" readonly="readonly"
-							style="width: 80%; height: 22px" /></td>
+							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
 						<td width="30%">菜单名称：</td>
-						<td width="60%"><input type="text" name="name"
+						<td width="60%"><input type="text" name="zhCnName"
 							class="easyui-validatebox" required="true"
-							style="width: 80%; height: 22px" /></td>
+							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
 						<td width="30%">菜单类别：</td>
-						<td width="60%"><input type="text" name="name"
+						<td width="60%"><input type="text" name="resourceType"
 							class="easyui-validatebox" required="true"
-							style="width: 80%; height: 22px" /></td>
+							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
 						<td width="30%">跳转URL：</td>
-						<td width="60%"><input type="text" name="name"
+						<td width="60%"><input type="text" name="value"
 							class="easyui-validatebox" required="true"
-							style="width: 80%; height: 22px" /></td>
+							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
 						<td width="30%">父级菜单编号：</td>
-						<td width="60%"><input type="text" name="name"
+						<td width="60%"><input type="text" name="parentId"
 							class="easyui-validatebox" required="true"
-							style="width: 80%; height: 22px" /></td>
+							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
 						<td width="30%">菜单状态：</td>
-						<td width="60%"><input type="text" name="name"
+						<td width="60%"><input type="text" name="status"
 							class="easyui-validatebox" required="true"
-							style="width: 80%; height: 22px" /></td>
+							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
 						<td width="16%">备注：</td>
-						<td width="84%"><input type="text" name="name"
+						<td width="84%"><input type="text" name="remark"
 							class="easyui-textbox" style="width: 100%; height: 22px" /></td>
 
 					</tr>
@@ -322,30 +322,30 @@
 	</div>
 </body>
 <script type="text/javascript">
-					$(function(){
-						//绑定事件
-						$("#save").click(function(){
-							//校验表单输入项
-							var v = $("#addMenuForm").form("validate");
-							if(v){
-								//校验通过，提交表单
-								//$("#addStaffForm").submit();
-								alert("baocun");
-							}
-						});
-					});
-				</script> 
-<!-- <script type="text/javascript">
-					$(function(){
-						//绑定事件
-						$("#edit").click(function(){
-							//校验表单输入项
-							var v = $("#editStaffForm").form("validate");
-							if(v){
-								//校验通过，提交表单
-								$("#editStaffForm").submit();
-							}
-						});
-					});
-				</script> -->
+		$(function(){
+			//绑定事件
+			$("#save").click(function(){
+				//校验表单输入项
+				var v = $("#addMenuForm").form("validate");
+				if(v){
+					//校验通过，提交表单
+					$("#addMenuForm").submit();
+					//alert("baocun");
+				}
+			});
+		});
+	 
+		$(function(){
+			//绑定事件
+			$("#edit").click(function(){
+				//校验表单输入项
+				var v = $("#editMenuForm").form("validate");
+				if(v){
+					//校验通过，提交表单
+					//$("#editMenuForm").submit();
+					alert("qqq");
+				}
+			});
+		});
+	</script>
 </html>

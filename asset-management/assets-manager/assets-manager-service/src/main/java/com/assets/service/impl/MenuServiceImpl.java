@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.assets.common.pojo.EasyUIDataGridResult;
 import com.assets.common.pojo.ZtreeJsonResult;
+import com.assets.common.utils.ExceptionUtil;
+import com.assets.common.utils.ResponseResult;
 import com.assets.mapper.SysResourceMapper;
 import com.assets.pojo.SysResource;
 import com.assets.pojo.SysResourceExample;
@@ -68,6 +70,24 @@ public class MenuServiceImpl implements MenuService {
 		result.setTotal(pageInfo.getTotal());
 		result.setRows(list);
 		return result;
+	}
+
+	/**
+	 * 添加菜单
+	 */
+	@Override
+	public ResponseResult addMenu(SysResource menuResuorce) {
+		try {
+			short navEnabled =0;
+			menuResuorce.setNavEnabled(navEnabled);
+			menueMapper.insert(menuResuorce);	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseResult.build(500, ExceptionUtil.getStackTrace(e));
+		}
+		return ResponseResult.ok();		
+		
 	}
 
 }
