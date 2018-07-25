@@ -13,4 +13,6 @@ public interface MenuService {
 	List<ZtreeJsonResult> getMenu(String resourceType);
 	EasyUIDataGridResult getAllMenu(int page, int rows);
 	ResponseResult addMenu(SysResource menuResuorce);
+	ResponseResult modifyMenu(SysResource menuResuorce);
+	ResponseResult deleteMenu(String ids);
 }

@@ -98,6 +98,7 @@
 			fit : true,
 			border : false,
 			rownumbers : true,
+			singleSelect : true,
 			striped : true,
 			toolbar : toolbar,
 			url : "/assets/menu/list",
@@ -159,25 +160,38 @@
 		$('#addMenuWindow').window("open");
 	}
 
-	function doEdit() {
+	function doEdit() {				
+		var item = $('#grid').datagrid('getSelected');	
 		$('#editMenuWindow').window("open");
-		var item = $('#grid').datagrid('getSelected');
-		console.info(item);
-		//window.location.href = "edit.html";
+		$('#editMenuForm').form('load', item);
 	}
 
 	function doDelete() {
-		alert("删除用户");
 		var ids = [];
 		var items = $('#grid').datagrid('getSelections');
-		for (var i = 0; i < items.length; i++) {
-			ids.push(items[i].id);
-		}
-
-		console.info(ids.join(","));
-
-		$('#grid').datagrid('reload');
-		$('#grid').datagrid('uncheckAll');
+		
+		if(items.length == 0){
+    		$.messager.alert('提示','未选中记录!');
+    		return ;
+    	}
+		$.messager.confirm('确认','您确认想要删除记录吗？',function(r){    
+		    if (r){	    	
+				for (var i = 0; i < items.length; i++) {
+					ids.push(items[i].resourceId);
+				}
+				var params = {"ids":ids};
+				$.post("/assets/menu/deleteMenu/"+ids, function (result) {
+	                  if (result.status == 200) {
+	                	  $.messager.alert('提示','删除成功!',undefined,function(){
+	                		$('#grid').datagrid('reload');
+		      				$('#grid').datagrid('uncheckAll');
+          				});	                		
+	                  } else {
+	                      $.messager.alert("提示", result.data);
+	                  }
+	              });				
+		    }    
+		});  	
 	}
 </script>
 </head>
@@ -267,7 +281,7 @@
 
 		<div region="center" style="overflow: auto; padding: 5px;"
 			border="false">
-			<form id="editMenuForm" action="" method="post">
+			<form id="editMenuForm" action="/assets/menu/modifyMenu" method="post">
 				<!-- <input type="hidden" name="id"> -->
 				<table class="table-edit"  align="center">
 					<tr class="title">
@@ -342,8 +356,7 @@
 				var v = $("#editMenuForm").form("validate");
 				if(v){
 					//校验通过，提交表单
-					//$("#editMenuForm").submit();
-					alert("qqq");
+					$("#editMenuForm").submit();					
 				}
 			});
 		});

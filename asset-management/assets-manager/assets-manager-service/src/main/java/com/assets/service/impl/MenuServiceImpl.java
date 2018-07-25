@@ -18,6 +18,7 @@ import com.assets.pojo.SysResourceExample.Criteria;
 import com.assets.service.MenuService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sun.tools.javac.util.Convert;
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -88,6 +89,48 @@ public class MenuServiceImpl implements MenuService {
 		}
 		return ResponseResult.ok();		
 		
+	}
+
+	/**
+	 * 修改菜单
+	 */
+	@Override
+	public ResponseResult modifyMenu(SysResource menuResuorce) {
+		try {
+			short navEnabled =0;
+			menuResuorce.setNavEnabled(navEnabled);
+			int resultCount = menueMapper.updateByPrimaryKey(menuResuorce);
+			if(resultCount > 0){
+				return ResponseResult.ok();		
+			}else {
+				return ResponseResult.build(500,"修改失败");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseResult.build(500, ExceptionUtil.getStackTrace(e));
+		}			
+	}
+
+	/**
+	 * 删除菜单
+	 */
+	@Override
+	public ResponseResult deleteMenu(String ids) {
+		try {
+			String[] resIds = ids.split(",");
+			for (String resourceId : resIds) {	
+				
+				int resultCount = menueMapper.deleteByPrimaryKey(Long.valueOf(resourceId));
+				if(resultCount <= 0){					
+					return ResponseResult.build(500,"删除失败");
+				}
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseResult.build(500, ExceptionUtil.getStackTrace(e));
+		}			
+		return ResponseResult.ok();
 	}
 
 }

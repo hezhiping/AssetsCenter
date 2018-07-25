@@ -67,5 +67,32 @@ public class MenuController {
 		}
 		return modelView;
 
+	}	
+
+	/**
+	 * 修改菜单，返回ModelAndView
+	 */
+	@RequestMapping(value = "/menu/modifyMenu", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView saveMenu(SysResource menuResuorce) {
+		ModelAndView modelView = new ModelAndView();
+		ResponseResult result = menuService.modifyMenu(menuResuorce);
+		if(result.getStatus()== 200){
+			modelView.setViewName("menulist");
+		}else{
+			modelView.setViewName("modifyError");
+		}
+		return modelView;
+
+	}
+	/**
+	 * 删除菜单，返回ResponseResult
+	 */
+	@RequestMapping(value = "/menu/deleteMenu/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult deleteMenu(@PathVariable String ids) {		
+		ResponseResult result = menuService.deleteMenu(ids);		
+		return result;
+
 	}
 }
