@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>菜单管理</title>
+<title>数据字典参数类别管理</title>
 <!-- 导入jquery核心类库 -->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
@@ -52,42 +52,28 @@
 		field : 'id',
 		checkbox : true,		
 		width : 160,
-	}, {
-		field : 'resourceId',
-		title : '菜单编号',
-		width : 160,
-		align : 'center'
 	} ] ];
 
 	// 定义标题栏
-	var columns = [ [ {
-		field : 'zhCnName',
-		title : '菜单名称',
+	var columns = [ [ 
+	{
+		field : 'category',
+		title : '类别编号',
+		width : 160,
+		align : 'center'
+	},	{
+		field : 'cdescription',
+		title : '类别中文描述',
 		width : 160,
 	}, {
-		field : 'resourceType',
-		title : '菜单类别',
+		field : 'edescription',
+		title : '类别英文描述',
 		width : 160,
 		align : 'center'
 	}, {
-		field : 'value',
-		title : '跳转URL',
+		field : 'query_sql',
+		title : '动态Sql',
 		width : 160,
-		align : 'center'
-	}, {
-		field : 'parentId',
-		title : '父级菜单编号',
-		width : 160,
-		align : 'center'
-	}, {
-		field : 'status',
-		title : '状态',
-		width : 160,
-		align : 'center'
-	}, {
-		field : 'remark',
-		title : '备注',
-		width : 320,
 		align : 'center'
 	} ] ];
 	$(function() {
@@ -101,7 +87,7 @@
 			singleSelect : true,
 			striped : true,
 			toolbar : toolbar,
-			url : "/assets/menu/list",
+			url : "",
 			method : 'get',
 			pageList : [ 3, 5, 10 ],
 			pagination : true,
@@ -117,7 +103,7 @@
 		});
 
 		// 添加取派员窗口
-		$('#addMenuWindow').window({
+		$('#addCategoryWindow').window({
 			title : '添加菜单',
 			width : 480,
 			modal : true,//遮罩效果
@@ -131,7 +117,7 @@
 		});
 
 		// 修改取派员窗口
-		$('#editMenuWindow').window({
+		$('#editCategoryWindow').window({
 			title : '修改菜单',
 			width : 480,
 			modal : true,//遮罩效果
@@ -156,14 +142,14 @@
 	}
 
 	function doAdd() {
-		//location.href = "addMenuWindow";
-		$('#addMenuWindow').window("open");
+		//location.href = "addCategoryWindow";
+		$('#addCategoryWindow').window("open");
 	}
 
 	function doEdit() {				
 		var item = $('#grid').datagrid('getSelected');	
-		$('#editMenuWindow').window("open");
-		$('#editMenuForm').form('load', item);
+		$('#editCategoryWindow').window("open");
+		$('#editCategoryForm').form('load', item);
 	}
 
 	function doDelete() {
@@ -180,7 +166,7 @@
 					ids.push(items[i].resourceId);
 				}
 				var params = {"ids":ids};
-				$.post("/assets/menu/deleteMenu/"+ids, function (result) {
+				$.post("/assets/Category/deleteCategory/"+ids, function (result) {
 	                  if (result.status == 200) {
 	                	  $.messager.alert('提示','删除成功!',undefined,function(){
 	                	 // window.location.reload();// 刷新当前页面
@@ -200,7 +186,7 @@
 	<div region="center" border="false">
 		<table id="grid"></table>
 	</div>
-	<div class="easyui-window" title="添加菜单" id="addMenuWindow"
+	<div class="easyui-window" title="添加参数类别" id="addCategoryWindow"
 		collapsible="false" minimizable="false" maximizable="false"
 		style="top: 40px; left: 200px">
 		<div region="north" split="false" border="false">
@@ -213,71 +199,40 @@
 
 		<div region="center" style="overflow: auto; padding: 5px;"
 			border="false">
-			<form id="addMenuForm" action="/assets/menu/addMenu" method="post">
+			<form id="addCategoryForm" action="/assets/Category/addCategory" method="post">
 				<table class="table-edit" align="center">
 					<tr class="title">
-						<td colspan="2">菜单信息</td>
+						<td colspan="2">参数类别信息</td>
 					</tr>
-					<!-- TODO 这里完善菜单添加 table -->
-
 					<tr>
-						<td >菜单编号：</td>
-						<td ><input type="text" name="resourceId"
+						<td >类别编号：</td>
+						<td ><input type="text" name="category"
 							class="easyui-validatebox" required="true"
 							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
-						<td width="30%">菜单名称：</td>
-						<td width="60%"><input type="text" name="zhCnName"
+						<td width="30%">类别中文描述：</td>
+						<td width="60%"><input type="text" name="cdescription"
 							class="easyui-validatebox" required="true"
 							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
-						<td width="30%">菜单类别：</td>
-						<td width="60%"><input type="text" name="resourceType"
-							class="easyui-validatebox" required="true"
-							style="width: 96%; height: 22px" /></td>
+						<td width="30%">类别英文描述：</td>
+						<td width="60%"><input type="text" name="edescription"
+							class="easyui-validatebox" style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
-						<td width="30%">跳转URL：</td>
-						<td width="60%"><input type="text" name="value"
-							class="easyui-validatebox" required="true"
-							style="width: 96%; height: 22px" /></td>
-					</tr>
-					<tr>
-						<td width="30%">父级菜单编号：</td>
-						<td width="60%"><input type="text" name="parentId"
-							class="easyui-validatebox" required="true"
-							style="width: 96%; height: 22px" /></td>
-					</tr>
-					<tr>
-						<td width="30%">菜单状态：</td>
-						<td width="60%">
-						 <input checked="checked" name="status" style="width: 20px; height: 10px; background-color: white" type="radio" value="0" />正常
-						 <input name="status" style="width: 20px; height: 10px; background-color: white" type="radio" value="1" />冻结
-						
-						<!-- <input type="text" name="status"
-							class="easyui-validatebox" required="true"
-							style="width: 96%; height: 22px" /> -->
-						</td>
-					</tr>
-					
-       
-           
-       
-					<tr>
-						<td width="16%">备注：</td>
-						<td width="84%"><input type="text" name="remark"
-							class="easyui-textbox"  data-options="multiline:true" style="width: 100%; height: 60px" /></td>
-
-					</tr>
+						<td width="30%">动态Sql：</td>
+						<td width="60%"><input type="text" name="query_sql"
+							class="easyui-validatebox" style="width: 96%; height: 22px" /></td>
+					</tr>					
 				</table>
 			</form>
 		</div>
 	</div>
 
 	<!-- 修改窗口 -->
-	<div class="easyui-window" title="修改菜单" id="editMenuWindow"
+	<div class="easyui-window" title="修改菜单" id="editCategoryWindow"
 		collapsible="false" minimizable="false" maximizable="false"
 		style="top: 20px; left: 200px">
 		<div region="north" style="height: 40px; overflow: hidden;"
@@ -291,58 +246,34 @@
 
 		<div region="center" style="overflow: auto; padding: 5px;"
 			border="false">
-			<form id="editMenuForm" action="/assets/menu/modifyMenu" method="post">
+			<form id="editCategoryForm" action="/assets/Category/modifyCategory" method="post">
 				<!-- <input type="hidden" name="id"> -->
 				<table class="table-edit"  align="center">
 					<tr class="title">
-						<td colspan="2">菜单信息</td>
-					</tr>
-					<!-- TODO 这里完善收派员添加 table -->
-					<tr>
-						<td width="30%">菜单编号：</td>
-						<td width="60%"><input type="text" name="resourceId"
-							class="easyui-text" required="true" readonly="readonly"
-							style="width: 96%; height: 22px" /></td>
+						<td colspan="2">参数类别信息</td>
 					</tr>
 					<tr>
-						<td width="30%">菜单名称：</td>
-						<td width="60%"><input type="text" name="zhCnName"
+						<td >类别编号：</td>
+						<td ><input type="text" name="category"
 							class="easyui-validatebox" required="true"
 							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
-						<td width="30%">菜单类别：</td>
-						<td width="60%"><input type="text" name="resourceType"
+						<td width="30%">类别中文描述：</td>
+						<td width="60%"><input type="text" name="cdescription"
 							class="easyui-validatebox" required="true"
 							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
-						<td width="30%">跳转URL：</td>
-						<td width="60%"><input type="text" name="value"
-							class="easyui-validatebox" required="true"
-							style="width: 96%; height: 22px" /></td>
+						<td width="30%">类别英文描述：</td>
+						<td width="60%"><input type="text" name="edescription"
+							class="easyui-validatebox" style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
-						<td width="30%">父级菜单编号：</td>
-						<td width="60%"><input type="text" name="parentId"
-							class="easyui-validatebox" required="true"
-							style="width: 96%; height: 22px" /></td>
-					</tr>
-					<tr>
-						<td width="30%">菜单状态：</td>
-						<td width="60%">
-						 <input checked="checked" name="status" style="width: 20px; height: 10px; background-color: white" type="radio" value="0" />正常
-						 <input name="status" style="width: 20px; height: 10px; background-color: white" type="radio" value="1" />冻结
-						<!-- <input type="text" name="status"
-							class="easyui-validatebox" required="true"
-							style="width: 96%; height: 22px" /></td> -->
-					</tr>
-					<tr>
-						<td width="16%">备注：</td>
-						<td width="84%"><input type="text" name="remark"
-							class="easyui-textbox"  data-options="multiline:true" style="width: 100%; height: 60px"  /></td>
-
-					</tr>
+						<td width="30%">动态Sql：</td>
+						<td width="60%"><input type="text" name="query_sql"
+							class="easyui-validatebox" style="width: 96%; height: 22px" /></td>
+					</tr>					
 				</table>
 			</form>
 		</div>
@@ -353,10 +284,10 @@
 			//绑定事件
 			$("#save").click(function(){
 				//校验表单输入项
-				var v = $("#addMenuForm").form("validate");
+				var v = $("#addCategoryForm").form("validate");
 				if(v){
 					//校验通过，提交表单
-					$("#addMenuForm").submit();
+					$("#addCategoryForm").submit();
 					//alert("baocun");
 				}
 			});
@@ -366,10 +297,10 @@
 			//绑定事件
 			$("#edit").click(function(){
 				//校验表单输入项
-				var v = $("#editMenuForm").form("validate");
+				var v = $("#editCategoryForm").form("validate");
 				if(v){
 					//校验通过，提交表单
-					$("#editMenuForm").submit();					
+					$("#editCategoryForm").submit();					
 				}
 			});
 		});

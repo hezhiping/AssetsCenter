@@ -41,21 +41,34 @@
 			}
 		};
 		
-		// 基本功能菜单加载
-		/*
+		// 基本功能菜单加载		
 		$.ajax({
-			url : '${pageContext.request.contextPath}/json/menu.json',
+			url : '/assets/menu/assetsmenu',
 			type : 'POST',
 			dataType : 'text',
 			success : function(data) {
 				var zNodes = eval("(" + data + ")");
-				$.fn.zTree.init($("#treeMenu"), setting, zNodes);
+				$.fn.zTree.init($("#assetsMenu"), setting, zNodes);
 			},
 			error : function(msg) {
 				alert('菜单加载异常!');
 			}
 		});
-		*/
+		
+		// 基本功能菜单加载		
+		$.ajax({
+			url : '/assets/menu/basemenu',
+			type : 'POST',
+			dataType : 'text',
+			success : function(data) {
+				var zNodes = eval("(" + data + ")");
+				$.fn.zTree.init($("#baseMenu"), setting, zNodes);
+			},
+			error : function(msg) {
+				alert('菜单加载异常!');
+			}
+		});
+		
 		// 系统管理菜单加载
 		$.ajax({
 			url : '/assets/menu/sysmenu',
@@ -145,7 +158,7 @@
 	}
 	// 版权信息
 	function showAbout(){
-		$.messager.alert("宅急送 v1.0","管理员邮箱: zqx@itcast.cn");
+		$.messager.alert("资产管理信息 v1.0","管理员邮箱: 786209939@qq.com");
 	}
 </script>
 </head>
@@ -181,12 +194,14 @@
 		</div>
 	</div>
 	<div data-options="region:'west',split:true,title:'菜单导航'"
-		style="width:200px">
+		style="width:200px" >
 		<div class="easyui-accordion" fit="true" border="false">
-			<!-- 
+			<div title="资产管理" data-options="iconCls:'icon-mini-add'" style="overflow:auto">
+				<ul id="assetsMenu" class="ztree"></ul>
+			</div>
 			<div title="基本功能" data-options="iconCls:'icon-mini-add'" style="overflow:auto">
-				<ul id="treeMenu" class="ztree"></ul>
-			</div> -->
+				<ul id="baseMenu" class="ztree"></ul>
+			</div>
 			<div title="系统管理" data-options="iconCls:'icon-mini-add'" style="overflow:auto">  
 				<ul id="adminMenu" class="ztree"></ul>
 			</div>
@@ -196,9 +211,10 @@
 		<div id="tabs" fit="true" class="easyui-tabs" border="false">
 			<div title="消息中心" id="subWarp"
 				style="width:100%;height:100%;overflow:hidden">
-				<iframe src="${pageContext.request.contextPath }/page_common_home.action"
-					style="width:100%;height:100%;border:0;"></iframe>
-				<%--				这里显示公告栏、预警信息和代办事宜--%>
+				<iframe src=""
+					style="width:100%;height:100%;border:0;"></iframe>	
+									
+				<%--TODO这里显示公告栏、预警信息和代办事宜--%>
 			</div>
 		</div>
 	</div>
@@ -209,7 +225,7 @@
 				<tr>
 					<td style="width: 300px;">
 						<div style="color: #999; font-size: 8pt;">
-							五岁系统 | Powered by <a href="#">hzsys.com</a>
+							五岁资产管理系统 | Powered by <a href="#">hzsys.com</a>
 						</div>
 					</td>
 					<td style="width: *;" class="co1"><span id="online"
