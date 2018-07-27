@@ -2,7 +2,6 @@ package com.assets.mapper;
 
 import com.assets.pojo.ConstDictionary;
 import com.assets.pojo.ConstDictionaryExample;
-import com.assets.pojo.ConstDictionaryKey;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +10,7 @@ public interface ConstDictionaryMapper {
 
     int deleteByExample(ConstDictionaryExample example);
 
-    int deleteByPrimaryKey(ConstDictionaryKey key);
+    int deleteByPrimaryKey(Integer costCode);
 
     int insert(ConstDictionary record);
 
@@ -19,7 +18,7 @@ public interface ConstDictionaryMapper {
 
     List<ConstDictionary> selectByExample(ConstDictionaryExample example);
 
-    ConstDictionary selectByPrimaryKey(ConstDictionaryKey key);
+    ConstDictionary selectByPrimaryKey(Integer costCode);
 
     int updateByExampleSelective(@Param("record") ConstDictionary record, @Param("example") ConstDictionaryExample example);
 

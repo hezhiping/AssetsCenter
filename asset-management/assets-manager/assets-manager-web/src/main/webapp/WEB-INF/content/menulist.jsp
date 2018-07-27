@@ -161,7 +161,11 @@
 	}
 
 	function doEdit() {				
-		var item = $('#grid').datagrid('getSelected');	
+		var item = $('#grid').datagrid('getSelected');
+		if(item == null || item =='undefined'){
+			$.messager.alert('提示','未选中记录!');
+    		return ;
+		}		
 		$('#editMenuWindow').window("open");
 		$('#editMenuForm').form('load', item);
 	}
@@ -169,11 +173,10 @@
 	function doDelete() {
 		var ids = [];
 		var items = $('#grid').datagrid('getSelections');
-		
-		if(items.length == 0){
-    		$.messager.alert('提示','未选中记录!');
+		if(items == null || items =='undefined'){
+			$.messager.alert('提示','未选中记录!');
     		return ;
-    	}
+		}
 		$.messager.confirm('确认','您确认想要删除记录吗？',function(r){    
 		    if (r){	    	
 				for (var i = 0; i < items.length; i++) {

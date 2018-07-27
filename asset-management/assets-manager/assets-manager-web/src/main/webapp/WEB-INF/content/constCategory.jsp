@@ -50,18 +50,17 @@
 	//定义冻结列
 	var frozenColumns = [ [ {
 		field : 'id',
-		checkbox : true,		
+		checkbox : true,
 		width : 160,
 	} ] ];
 
 	// 定义标题栏
-	var columns = [ [ 
-	{
+	var columns = [ [ {
 		field : 'category',
 		title : '类别编号',
 		width : 160,
 		align : 'center'
-	},	{
+	}, {
 		field : 'cdescription',
 		title : '类别中文描述',
 		width : 160,
@@ -75,6 +74,11 @@
 		title : '动态Sql',
 		width : 160,
 		align : 'center'
+	}, {
+		field : 'remark',
+		title : '备注',
+		width : 320,
+		align : 'center'
 	} ] ];
 	$(function() {
 		// 初始化 datagrid
@@ -87,7 +91,7 @@
 			singleSelect : true,
 			striped : true,
 			toolbar : toolbar,
-			url : "",
+			url : "/assets/Category/categoryList",
 			method : 'get',
 			pageList : [ 3, 5, 10 ],
 			pagination : true,
@@ -146,8 +150,12 @@
 		$('#addCategoryWindow').window("open");
 	}
 
-	function doEdit() {				
-		var item = $('#grid').datagrid('getSelected');	
+	function doEdit() {
+		var item = $('#grid').datagrid('getSelected');		
+		if(item == null || item =='undefined'){
+    		$.messager.alert('提示','未选中记录!');
+    		return ;
+    	}
 		$('#editCategoryWindow').window("open");
 		$('#editCategoryForm').form('load', item);
 	}
@@ -155,30 +163,33 @@
 	function doDelete() {
 		var ids = [];
 		var items = $('#grid').datagrid('getSelections');
-		
-		if(items.length == 0){
-    		$.messager.alert('提示','未选中记录!');
-    		return ;
-    	}
-		$.messager.confirm('确认','您确认想要删除记录吗？',function(r){    
-		    if (r){	    	
+
+		if (items == null || items =='undefined') {
+			$.messager.alert('提示', '未选中记录!');
+			return;
+		}
+		$.messager.confirm('确认', '您确认想要删除记录吗？', function(r) {
+			if (r) {
 				for (var i = 0; i < items.length; i++) {
-					ids.push(items[i].resourceId);
+					ids.push(items[i].category);
 				}
-				var params = {"ids":ids};
-				$.post("/assets/Category/deleteCategory/"+ids, function (result) {
-	                  if (result.status == 200) {
-	                	  $.messager.alert('提示','删除成功!',undefined,function(){
-	                	 // window.location.reload();// 刷新当前页面
-	                		$('#grid').datagrid('reload');
-		      				$('#grid').datagrid('uncheckAll');
-          				});	                		
-	                  } else {
-	                      $.messager.alert("提示", result.data);
-	                  }
-	              });				
-		    }    
-		});  	
+				var params = {
+					"ids" : ids
+				};
+				$.post("/assets/Category/deleteCategory/" + ids, function(
+						result) {
+					if (result.status == 200) {
+						$.messager.alert('提示', '删除成功!', undefined, function() {
+							// window.location.reload();// 刷新当前页面
+							$('#grid').datagrid('reload');
+							$('#grid').datagrid('uncheckAll');
+						});
+					} else {
+						$.messager.alert("提示", result.data);
+					}
+				});
+			}
+		});
 	}
 </script>
 </head>
@@ -186,27 +197,25 @@
 	<div region="center" border="false">
 		<table id="grid"></table>
 	</div>
-	<div class="easyui-window" title="添加参数类别" id="addCategoryWindow"
+	<div class="easyui-dialog" title="添加参数类别" id="addCategoryWindow"
 		collapsible="false" minimizable="false" maximizable="false"
-		style="top: 40px; left: 200px">
-		<div region="north" split="false" border="false">
-			<div class="datagrid-toolbar">
-				<a id="save" icon="icon-save" href="#" class="easyui-linkbutton"
-					plain="true">保存</a>
-
-			</div>
+		style="top: 40px; left: 200px" toolbar="#add-toolbar">
+		<div id="add-toolbar" class="datagrid-toolbar" split="false" border="false">
+			<a id="save" icon="icon-save" href="#" class="easyui-linkbutton"
+				plain="true">保存</a>
 		</div>
 
 		<div region="center" style="overflow: auto; padding: 5px;"
 			border="false">
-			<form id="addCategoryForm" action="/assets/Category/addCategory" method="post">
+			<form id="addCategoryForm" action="/assets/Category/addCategory"
+				method="post">
 				<table class="table-edit" align="center">
 					<tr class="title">
-						<td colspan="2">参数类别信息</td>
+						<td colspan="2">添加参数类别信息</td>
 					</tr>
 					<tr>
-						<td >类别编号：</td>
-						<td ><input type="text" name="category"
+						<td>类别编号：</td>
+						<td><input type="text" name="category"
 							class="easyui-validatebox" required="true"
 							style="width: 96%; height: 22px" /></td>
 					</tr>
@@ -225,36 +234,40 @@
 						<td width="30%">动态Sql：</td>
 						<td width="60%"><input type="text" name="query_sql"
 							class="easyui-validatebox" style="width: 96%; height: 22px" /></td>
-					</tr>					
+					</tr>
+					<tr>
+						<td width="16%">备注：</td>
+						<td width="84%"><input type="text" name="remark"
+							class="easyui-textbox" data-options="multiline:true"
+							style="width: 100%; height: 60px" /></td>
+
+					</tr>
 				</table>
 			</form>
 		</div>
 	</div>
 
 	<!-- 修改窗口 -->
-	<div class="easyui-window" title="修改菜单" id="editCategoryWindow"
+	<div class="easyui-dialog" title="修改菜单" id="editCategoryWindow"
 		collapsible="false" minimizable="false" maximizable="false"
-		style="top: 20px; left: 200px">
-		<div region="north" style="height: 40px; overflow: hidden;"
-			split="false" border="false">
-			<div class="datagrid-toolbar">
-				<a id="edit" icon="icon-save" href="#" class="easyui-linkbutton"
-					plain="true">保存</a>
-
-			</div>
+		style="top: 20px; left: 200px" toolbar="#edit-toolbar">
+		<div id="edit-toolbar" class="datagrid-toolbar">
+			<a id="edit" icon="icon-save" href="#" class="easyui-linkbutton"
+				plain="true">保存</a>
 		</div>
 
 		<div region="center" style="overflow: auto; padding: 5px;"
 			border="false">
-			<form id="editCategoryForm" action="/assets/Category/modifyCategory" method="post">
+			<form id="editCategoryForm" action="/assets/Category/modifyCategory"
+				method="post">
 				<!-- <input type="hidden" name="id"> -->
-				<table class="table-edit"  align="center">
+				<table class="table-edit" align="center">
 					<tr class="title">
 						<td colspan="2">参数类别信息</td>
 					</tr>
 					<tr>
-						<td >类别编号：</td>
-						<td ><input type="text" name="category"
+						<td>类别编号：</td>
+						<td><input type="text" name="category"
 							class="easyui-validatebox" required="true"
 							style="width: 96%; height: 22px" /></td>
 					</tr>
@@ -273,36 +286,43 @@
 						<td width="30%">动态Sql：</td>
 						<td width="60%"><input type="text" name="query_sql"
 							class="easyui-validatebox" style="width: 96%; height: 22px" /></td>
-					</tr>					
+					</tr>
+					<tr>
+						<td width="16%">备注：</td>
+						<td width="84%"><input type="text" name="remark"
+							class="easyui-textbox" data-options="multiline:true"
+							style="width: 100%; height: 60px" /></td>
+
+					</tr>
 				</table>
 			</form>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-		$(function(){
-			//绑定事件
-			$("#save").click(function(){
-				//校验表单输入项
-				var v = $("#addCategoryForm").form("validate");
-				if(v){
-					//校验通过，提交表单
-					$("#addCategoryForm").submit();
-					//alert("baocun");
-				}
-			});
+	$(function() {
+		//绑定事件
+		$("#save").click(function() {
+			//校验表单输入项
+			var v = $("#addCategoryForm").form("validate");
+			if (v) {
+				//校验通过，提交表单
+				$("#addCategoryForm").submit();
+				//alert("baocun");
+			}
 		});
-	 
-		$(function(){
-			//绑定事件
-			$("#edit").click(function(){
-				//校验表单输入项
-				var v = $("#editCategoryForm").form("validate");
-				if(v){
-					//校验通过，提交表单
-					$("#editCategoryForm").submit();					
-				}
-			});
+	});
+
+	$(function() {
+		//绑定事件
+		$("#edit").click(function() {
+			//校验表单输入项
+			var v = $("#editCategoryForm").form("validate");
+			if (v) {
+				//校验通过，提交表单
+				$("#editCategoryForm").submit();
+			}
 		});
-	</script>
+	});
+</script>
 </html>

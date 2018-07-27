@@ -72,7 +72,7 @@ public class DictionaryController {
 	 * @param ids
 	 * @return
 	 */
-	@RequestMapping("Dictionary/deleteDictionary/{ids}")
+	@RequestMapping("/Dictionary/deleteDictionary/{ids}")
 	@ResponseBody
 	public ResponseResult deleteDictionary(@PathVariable String ids) {
 		ResponseResult result = dictionaryService.deleteDictionary(ids);

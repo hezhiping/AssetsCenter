@@ -44,6 +44,7 @@
 		<!-- 指定数据库表 -->
 		<table schema="" tableName="asset_incom"></table>
 		<table schema="" tableName="asset_out"></table>
+		<table schema="" tableName="const_category"></table>
 		<table schema="" tableName="const_dictionary"></table>
 		<table schema="" tableName="currency_fund"></table>
 		<table schema="" tableName="fixed_asset"></table>

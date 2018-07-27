@@ -6,6 +6,7 @@
     <result column="cdescription" property="cdescription" jdbcType="VARCHAR" />
     <result column="edescription" property="edescription" jdbcType="VARCHAR" />
     <result column="query_sql" property="querySql" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    category, cdescription, edescription, query_sql
+    category, cdescription, edescription, query_sql, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.ConstCategoryExample" >
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.assets.pojo.ConstCategory" >
     insert into const_category (category, cdescription, edescription, 
-      query_sql)
+      query_sql, remark)
     values (#{category,jdbcType=VARCHAR}, #{cdescription,jdbcType=VARCHAR}, #{edescription,jdbcType=VARCHAR}, 
-      #{querySql,jdbcType=VARCHAR})
+      #{querySql,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.assets.pojo.ConstCategory" >
     insert into const_category
@@ -119,6 +120,9 @@
       <if test="querySql != null" >
         query_sql,
       </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="category != null" >
@@ -132,6 +136,9 @@
       </if>
       <if test="querySql != null" >
         #{querySql,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.querySql != null" >
         query_sql = #{record.querySql,jdbcType=VARCHAR},
       </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set category = #{record.category,jdbcType=VARCHAR},
       cdescription = #{record.cdescription,jdbcType=VARCHAR},
       edescription = #{record.edescription,jdbcType=VARCHAR},
-      query_sql = #{record.querySql,jdbcType=VARCHAR}
+      query_sql = #{record.querySql,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="querySql != null" >
         query_sql = #{querySql,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
     where category = #{category,jdbcType=VARCHAR}
   </update>
@@ -190,7 +204,8 @@
     update const_category
     set cdescription = #{cdescription,jdbcType=VARCHAR},
       edescription = #{edescription,jdbcType=VARCHAR},
-      query_sql = #{querySql,jdbcType=VARCHAR}
+      query_sql = #{querySql,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
     where category = #{category,jdbcType=VARCHAR}
   </update>
 </mapper>

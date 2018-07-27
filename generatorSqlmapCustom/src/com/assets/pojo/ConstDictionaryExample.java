@@ -105,6 +105,66 @@ public class ConstDictionaryExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andCostCodeIsNull() {
+            addCriterion("cost_code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeIsNotNull() {
+            addCriterion("cost_code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeEqualTo(Integer value) {
+            addCriterion("cost_code =", value, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeNotEqualTo(Integer value) {
+            addCriterion("cost_code <>", value, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeGreaterThan(Integer value) {
+            addCriterion("cost_code >", value, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("cost_code >=", value, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeLessThan(Integer value) {
+            addCriterion("cost_code <", value, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeLessThanOrEqualTo(Integer value) {
+            addCriterion("cost_code <=", value, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeIn(List<Integer> values) {
+            addCriterion("cost_code in", values, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeNotIn(List<Integer> values) {
+            addCriterion("cost_code not in", values, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeBetween(Integer value1, Integer value2) {
+            addCriterion("cost_code between", value1, value2, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeNotBetween(Integer value1, Integer value2) {
+            addCriterion("cost_code not between", value1, value2, "costCode");
+            return (Criteria) this;
+        }
+
         public Criteria andCategoryIsNull() {
             addCriterion("category is null");
             return (Criteria) this;
@@ -172,76 +232,6 @@ public class ConstDictionaryExample {
 
         public Criteria andCategoryNotBetween(String value1, String value2) {
             addCriterion("category not between", value1, value2, "category");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeIsNull() {
-            addCriterion("cost_code is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeIsNotNull() {
-            addCriterion("cost_code is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeEqualTo(String value) {
-            addCriterion("cost_code =", value, "costCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeNotEqualTo(String value) {
-            addCriterion("cost_code <>", value, "costCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeGreaterThan(String value) {
-            addCriterion("cost_code >", value, "costCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("cost_code >=", value, "costCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeLessThan(String value) {
-            addCriterion("cost_code <", value, "costCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeLessThanOrEqualTo(String value) {
-            addCriterion("cost_code <=", value, "costCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeLike(String value) {
-            addCriterion("cost_code like", value, "costCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeNotLike(String value) {
-            addCriterion("cost_code not like", value, "costCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeIn(List<String> values) {
-            addCriterion("cost_code in", values, "costCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeNotIn(List<String> values) {
-            addCriterion("cost_code not in", values, "costCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeBetween(String value1, String value2) {
-            addCriterion("cost_code between", value1, value2, "costCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andCostCodeNotBetween(String value1, String value2) {
-            addCriterion("cost_code not between", value1, value2, "costCode");
             return (Criteria) this;
         }
 
@@ -652,6 +642,76 @@ public class ConstDictionaryExample {
 
         public Criteria andConstTypeNotBetween(String value1, String value2) {
             addCriterion("const_type not between", value1, value2, "constType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNull() {
+            addCriterion("remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNotNull() {
+            addCriterion("remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkEqualTo(String value) {
+            addCriterion("remark =", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotEqualTo(String value) {
+            addCriterion("remark <>", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThan(String value) {
+            addCriterion("remark >", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("remark >=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThan(String value) {
+            addCriterion("remark <", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThanOrEqualTo(String value) {
+            addCriterion("remark <=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLike(String value) {
+            addCriterion("remark like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotLike(String value) {
+            addCriterion("remark not like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIn(List<String> values) {
+            addCriterion("remark in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotIn(List<String> values) {
+            addCriterion("remark not in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkBetween(String value1, String value2) {
+            addCriterion("remark between", value1, value2, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotBetween(String value1, String value2) {
+            addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
     }

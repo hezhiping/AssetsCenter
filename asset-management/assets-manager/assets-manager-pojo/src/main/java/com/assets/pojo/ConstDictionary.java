@@ -2,7 +2,11 @@ package com.assets.pojo;
 
 import java.math.BigDecimal;
 
-public class ConstDictionary extends ConstDictionaryKey {
+public class ConstDictionary {
+    private Integer costCode;
+
+    private String category;
+
     private String enUsCaption;
 
     private String zhTwCaption;
@@ -14,6 +18,24 @@ public class ConstDictionary extends ConstDictionaryKey {
     private String levelNo;
 
     private String constType;
+
+    private String remark;
+
+    public Integer getCostCode() {
+        return costCode;
+    }
+
+    public void setCostCode(Integer costCode) {
+        this.costCode = costCode;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category == null ? null : category.trim();
+    }
 
     public String getEnUsCaption() {
         return enUsCaption;
@@ -61,5 +83,13 @@ public class ConstDictionary extends ConstDictionaryKey {
 
     public void setConstType(String constType) {
         this.constType = constType == null ? null : constType.trim();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

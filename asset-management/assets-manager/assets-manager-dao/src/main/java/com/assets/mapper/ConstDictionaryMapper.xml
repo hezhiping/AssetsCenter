@@ -2,14 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.assets.mapper.ConstDictionaryMapper" >
   <resultMap id="BaseResultMap" type="com.assets.pojo.ConstDictionary" >
-    <id column="category" property="category" jdbcType="VARCHAR" />
-    <id column="cost_code" property="costCode" jdbcType="VARCHAR" />
+    <id column="cost_code" property="costCode" jdbcType="INTEGER" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
     <result column="en_us_caption" property="enUsCaption" jdbcType="VARCHAR" />
     <result column="zh_tw_caption" property="zhTwCaption" jdbcType="VARCHAR" />
     <result column="zh_cn_caption" property="zhCnCaption" jdbcType="VARCHAR" />
     <result column="seq_no" property="seqNo" jdbcType="DECIMAL" />
     <result column="level_no" property="levelNo" jdbcType="VARCHAR" />
     <result column="const_type" property="constType" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,8 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    category, cost_code, en_us_caption, zh_tw_caption, zh_cn_caption, seq_no, level_no, 
-    const_type
+    cost_code, category, en_us_caption, zh_tw_caption, zh_cn_caption, seq_no, level_no, 
+    const_type, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.ConstDictionaryExample" >
     select
@@ -87,17 +88,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.assets.pojo.ConstDictionaryKey" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from const_dictionary
-    where category = #{category,jdbcType=VARCHAR}
-      and cost_code = #{costCode,jdbcType=VARCHAR}
+    where cost_code = #{costCode,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.assets.pojo.ConstDictionaryKey" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from const_dictionary
-    where category = #{category,jdbcType=VARCHAR}
-      and cost_code = #{costCode,jdbcType=VARCHAR}
+    where cost_code = #{costCode,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.assets.pojo.ConstDictionaryExample" >
     delete from const_dictionary
@@ -106,21 +105,23 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.assets.pojo.ConstDictionary" >
-    insert into const_dictionary (category, cost_code, en_us_caption, 
+    insert into const_dictionary (cost_code, category, en_us_caption, 
       zh_tw_caption, zh_cn_caption, seq_no, 
-      level_no, const_type)
-    values (#{category,jdbcType=VARCHAR}, #{costCode,jdbcType=VARCHAR}, #{enUsCaption,jdbcType=VARCHAR}, 
+      level_no, const_type, remark
+      )
+    values (#{costCode,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{enUsCaption,jdbcType=VARCHAR}, 
       #{zhTwCaption,jdbcType=VARCHAR}, #{zhCnCaption,jdbcType=VARCHAR}, #{seqNo,jdbcType=DECIMAL}, 
-      #{levelNo,jdbcType=VARCHAR}, #{constType,jdbcType=VARCHAR})
+      #{levelNo,jdbcType=VARCHAR}, #{constType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.assets.pojo.ConstDictionary" >
     insert into const_dictionary
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="category != null" >
-        category,
-      </if>
       <if test="costCode != null" >
         cost_code,
+      </if>
+      <if test="category != null" >
+        category,
       </if>
       <if test="enUsCaption != null" >
         en_us_caption,
@@ -140,13 +141,16 @@
       <if test="constType != null" >
         const_type,
       </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="costCode != null" >
+        #{costCode,jdbcType=INTEGER},
+      </if>
       <if test="category != null" >
         #{category,jdbcType=VARCHAR},
-      </if>
-      <if test="costCode != null" >
-        #{costCode,jdbcType=VARCHAR},
       </if>
       <if test="enUsCaption != null" >
         #{enUsCaption,jdbcType=VARCHAR},
@@ -166,6 +170,9 @@
       <if test="constType != null" >
         #{constType,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.assets.pojo.ConstDictionaryExample" resultType="java.lang.Integer" >
@@ -177,11 +184,11 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update const_dictionary
     <set >
+      <if test="record.costCode != null" >
+        cost_code = #{record.costCode,jdbcType=INTEGER},
+      </if>
       <if test="record.category != null" >
         category = #{record.category,jdbcType=VARCHAR},
-      </if>
-      <if test="record.costCode != null" >
-        cost_code = #{record.costCode,jdbcType=VARCHAR},
       </if>
       <if test="record.enUsCaption != null" >
         en_us_caption = #{record.enUsCaption,jdbcType=VARCHAR},
@@ -201,6 +208,9 @@
       <if test="record.constType != null" >
         const_type = #{record.constType,jdbcType=VARCHAR},
       </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -208,14 +218,15 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update const_dictionary
-    set category = #{record.category,jdbcType=VARCHAR},
-      cost_code = #{record.costCode,jdbcType=VARCHAR},
+    set cost_code = #{record.costCode,jdbcType=INTEGER},
+      category = #{record.category,jdbcType=VARCHAR},
       en_us_caption = #{record.enUsCaption,jdbcType=VARCHAR},
       zh_tw_caption = #{record.zhTwCaption,jdbcType=VARCHAR},
       zh_cn_caption = #{record.zhCnCaption,jdbcType=VARCHAR},
       seq_no = #{record.seqNo,jdbcType=DECIMAL},
       level_no = #{record.levelNo,jdbcType=VARCHAR},
-      const_type = #{record.constType,jdbcType=VARCHAR}
+      const_type = #{record.constType,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -223,6 +234,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.ConstDictionary" >
     update const_dictionary
     <set >
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
       <if test="enUsCaption != null" >
         en_us_caption = #{enUsCaption,jdbcType=VARCHAR},
       </if>
@@ -241,19 +255,22 @@
       <if test="constType != null" >
         const_type = #{constType,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
-    where category = #{category,jdbcType=VARCHAR}
-      and cost_code = #{costCode,jdbcType=VARCHAR}
+    where cost_code = #{costCode,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.assets.pojo.ConstDictionary" >
     update const_dictionary
-    set en_us_caption = #{enUsCaption,jdbcType=VARCHAR},
+    set category = #{category,jdbcType=VARCHAR},
+      en_us_caption = #{enUsCaption,jdbcType=VARCHAR},
       zh_tw_caption = #{zhTwCaption,jdbcType=VARCHAR},
       zh_cn_caption = #{zhCnCaption,jdbcType=VARCHAR},
       seq_no = #{seqNo,jdbcType=DECIMAL},
       level_no = #{levelNo,jdbcType=VARCHAR},
-      const_type = #{constType,jdbcType=VARCHAR}
-    where category = #{category,jdbcType=VARCHAR}
-      and cost_code = #{costCode,jdbcType=VARCHAR}
+      const_type = #{constType,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where cost_code = #{costCode,jdbcType=INTEGER}
   </update>
 </mapper>

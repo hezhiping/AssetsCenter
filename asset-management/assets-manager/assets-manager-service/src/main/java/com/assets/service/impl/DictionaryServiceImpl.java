@@ -2,7 +2,6 @@ package com.assets.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +11,6 @@ import com.assets.common.utils.ResponseResult;
 import com.assets.mapper.ConstDictionaryMapper;
 import com.assets.pojo.ConstDictionary;
 import com.assets.pojo.ConstDictionaryExample;
-import com.assets.pojo.SysResource;
-import com.assets.pojo.SysResourceExample;
 import com.assets.service.DictionaryService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
