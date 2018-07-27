@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.assets.mapper.ConstCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.assets.pojo.ConstCategory" >
+    <id column="category" property="category" jdbcType="VARCHAR" />
+    <result column="cdescription" property="cdescription" jdbcType="VARCHAR" />
+    <result column="edescription" property="edescription" jdbcType="VARCHAR" />
+    <result column="query_sql" property="querySql" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    category, cdescription, edescription, query_sql
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.ConstCategoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from const_category
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from const_category
+    where category = #{category,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from const_category
+    where category = #{category,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.assets.pojo.ConstCategoryExample" >
+    delete from const_category
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.assets.pojo.ConstCategory" >
+    insert into const_category (category, cdescription, edescription, 
+      query_sql)
+    values (#{category,jdbcType=VARCHAR}, #{cdescription,jdbcType=VARCHAR}, #{edescription,jdbcType=VARCHAR}, 
+      #{querySql,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.assets.pojo.ConstCategory" >
+    insert into const_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="cdescription != null" >
+        cdescription,
+      </if>
+      <if test="edescription != null" >
+        edescription,
+      </if>
+      <if test="querySql != null" >
+        query_sql,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="cdescription != null" >
+        #{cdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="edescription != null" >
+        #{edescription,jdbcType=VARCHAR},
+      </if>
+      <if test="querySql != null" >
+        #{querySql,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.assets.pojo.ConstCategoryExample" resultType="java.lang.Integer" >
+    select count(*) from const_category
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update const_category
+    <set >
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cdescription != null" >
+        cdescription = #{record.cdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.edescription != null" >
+        edescription = #{record.edescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.querySql != null" >
+        query_sql = #{record.querySql,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update const_category
+    set category = #{record.category,jdbcType=VARCHAR},
+      cdescription = #{record.cdescription,jdbcType=VARCHAR},
+      edescription = #{record.edescription,jdbcType=VARCHAR},
+      query_sql = #{record.querySql,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.ConstCategory" >
+    update const_category
+    <set >
+      <if test="cdescription != null" >
+        cdescription = #{cdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="edescription != null" >
+        edescription = #{edescription,jdbcType=VARCHAR},
+      </if>
+      <if test="querySql != null" >
+        query_sql = #{querySql,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where category = #{category,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.ConstCategory" >
+    update const_category
+    set cdescription = #{cdescription,jdbcType=VARCHAR},
+      edescription = #{edescription,jdbcType=VARCHAR},
+      query_sql = #{querySql,jdbcType=VARCHAR}
+    where category = #{category,jdbcType=VARCHAR}
+  </update>
+</mapper>
