@@ -68,6 +68,12 @@
 		field : 'resourceType',
 		title : '菜单类别',
 		width : 160,
+		align : 'center',
+		hidden:'true'
+	}, {
+		field : 'resourceTypeName',
+		title : '菜单类别',
+		width : 160,
 		align : 'center'
 	}, {
 		field : 'value',
@@ -237,9 +243,16 @@
 					</tr>
 					<tr>
 						<td width="30%">菜单类别：</td>
-						<td width="60%"><input type="text" name="resourceType"
-							class="easyui-validatebox" required="true"
-							style="width: 96%; height: 22px" /></td>
+						<td width="60%">						
+						<input class="easyui-combobox" name="resourceType"
+							data-options="
+								url:'/assets/Dictionary/getDicMenuType/1_CDLB', 
+								valueField:'costCode',
+								textField:'zhCnCaption',
+			                    required:true,
+			                    editable:false"
+							style="width: 100%; height: 24px"> 						
+						</td>
 					</tr>
 					<tr>
 						<td width="30%">跳转URL：</td>
@@ -315,9 +328,14 @@
 					</tr>
 					<tr>
 						<td width="30%">菜单类别：</td>
-						<td width="60%"><input type="text" name="resourceType"
-							class="easyui-validatebox" required="true"
-							style="width: 96%; height: 22px" /></td>
+						<td width="60%"><input class="easyui-combobox" name="resourceType"
+							data-options="
+								url:'/assets/Dictionary/getDicMenuType/1_CDLB', 
+								valueField:'costCode',
+								textField:'zhCnCaption',
+			                    required:true,
+			                    editable:false"
+							style="width: 100%; height: 24px"> 	</td>
 					</tr>
 					<tr>
 						<td width="30%">跳转URL：</td>

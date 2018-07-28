@@ -43,6 +43,10 @@ public class SysResource {
 
     private String className;
     
+    //用来显示菜单类别的名称
+    private String resourceTypeName = "";
+    
+    
     private Long id;
     
     public  SysResource() {
@@ -214,4 +218,11 @@ public class SysResource {
     public void setClassName(String className) {
         this.className = className == null ? null : className.trim();
     }
+    
+	public String getResourceTypeName() {
+		return resourceTypeName;
+	}
+	public void setResourceTypeName(String resourceTypeName) {
+		this.resourceTypeName = resourceTypeName;
+	}
 }

@@ -11,6 +11,7 @@ import com.assets.common.utils.ResponseResult;
 import com.assets.mapper.ConstDictionaryMapper;
 import com.assets.pojo.ConstDictionary;
 import com.assets.pojo.ConstDictionaryExample;
+import com.assets.pojo.ConstDictionaryExample.Criteria;
 import com.assets.service.DictionaryService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -75,10 +76,34 @@ public class DictionaryServiceImpl implements DictionaryService {
 	 * 删除数据字典
 	 */
 	@Override
-	public ResponseResult deleteDictionary(String ids) {
-		String[] id = ids.split(",");
-		// TODO 删除数据字典，category 和 costCode两个为主键
-		return null;
+	public ResponseResult deleteDictionary(String ids) {		
+		try {
+			String[] dicIds = ids.split(",");
+			for (String dicId : dicIds) {
+				int count = dictionaryMapper.deleteByPrimaryKey(Integer.valueOf(dicId));
+				if (count <= 0 ) {
+					return ResponseResult.build(500, "删除失败");
+				}
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseResult.build(500, ExceptionUtil.getStackTrace(e));
+		}
+		return ResponseResult.ok();
+	}
+
+	/**
+	 * 获取菜单类别下拉数据源
+	 */
+	@Override
+	public List<ConstDictionary> getDicMenuType(String dicMenuType) {
+		//创建查询条件
+		ConstDictionaryExample example = new ConstDictionaryExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andCategoryEqualTo(dicMenuType);
+		//执行查询
+		List<ConstDictionary> list = dictionaryMapper.selectByExample(example );		
+		return list;
 	}
 
 }

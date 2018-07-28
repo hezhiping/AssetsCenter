@@ -1,5 +1,7 @@
 package com.assets.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -79,4 +81,13 @@ public class DictionaryController {
 		return result;		
 	}
 	
+	/**
+	 * 获取菜单类别下拉按钮的值
+	 */
+	@RequestMapping("/Dictionary/getDicMenuType/{dicMenuType}")
+	@ResponseBody
+	public List<ConstDictionary> getDicMenuType(@PathVariable String dicMenuType){
+		List<ConstDictionary> list = dictionaryService.getDicMenuType(dicMenuType);
+		return list;
+	}
 }

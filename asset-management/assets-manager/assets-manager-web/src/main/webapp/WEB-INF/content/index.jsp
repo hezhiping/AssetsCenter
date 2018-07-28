@@ -43,7 +43,7 @@
 		
 		// 基本功能菜单加载		
 		$.ajax({
-			url : '/assets/menu/assetsmenu',
+			url : '/assets/menu/3',
 			type : 'POST',
 			dataType : 'text',
 			success : function(data) {
@@ -57,7 +57,7 @@
 		
 		// 基本功能菜单加载		
 		$.ajax({
-			url : '/assets/menu/basemenu',
+			url : '/assets/menu/2',
 			type : 'POST',
 			dataType : 'text',
 			success : function(data) {
@@ -71,7 +71,7 @@
 		
 		// 系统管理菜单加载
 		$.ajax({
-			url : '/assets/menu/sysmenu',
+			url : '/assets/menu/1',
 			type : 'POST',
 			dataType : 'json',
 			success : function(data) {

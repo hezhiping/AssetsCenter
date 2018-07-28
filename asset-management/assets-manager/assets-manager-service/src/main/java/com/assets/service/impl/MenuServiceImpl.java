@@ -11,7 +11,9 @@ import com.assets.common.pojo.EasyUIDataGridResult;
 import com.assets.common.pojo.ZtreeJsonResult;
 import com.assets.common.utils.ExceptionUtil;
 import com.assets.common.utils.ResponseResult;
+import com.assets.mapper.ConstDictionaryMapper;
 import com.assets.mapper.SysResourceMapper;
+import com.assets.pojo.ConstDictionary;
 import com.assets.pojo.SysResource;
 import com.assets.pojo.SysResourceExample;
 import com.assets.pojo.SysResourceExample.Criteria;
@@ -24,6 +26,8 @@ public class MenuServiceImpl implements MenuService {
 
 	@Autowired
 	private SysResourceMapper menueMapper;
+	@Autowired
+	private  ConstDictionaryMapper consDicMapper;
 
 	/**
 	 * @功能 获取菜单
@@ -62,9 +66,10 @@ public class MenuServiceImpl implements MenuService {
 		// 分页处理
 		PageHelper.startPage(page, rows);
 
-		SysResourceExample example = new SysResourceExample();		
-		 List<SysResource> list = menueMapper.selectByExample(example);
-
+		//SysResourceExample example = new SysResourceExample();
+		////获取数据库中的菜单表数据
+		//List<SysResource> list = menueMapper.selectByExample(example);		
+		List<SysResource> list = menueMapper.selectListAndDic();
 		PageInfo<SysResource> pageInfo = new PageInfo<SysResource>(list);
 		EasyUIDataGridResult result = new EasyUIDataGridResult();
 		result.setTotal(pageInfo.getTotal());

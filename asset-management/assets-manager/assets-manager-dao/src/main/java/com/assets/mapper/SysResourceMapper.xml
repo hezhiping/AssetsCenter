@@ -22,6 +22,7 @@
     <result column="FLAG_LAN" property="flagLan" jdbcType="CHAR" />
     <result column="STMS_MENU_ID" property="stmsMenuId" jdbcType="DECIMAL" />
     <result column="CLASS_NAME" property="className" jdbcType="VARCHAR" />
+    <result column="resourceTypeName" property="resourceTypeName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -445,4 +446,10 @@
       CLASS_NAME = #{className,jdbcType=VARCHAR}
     where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
   </update>
+ 
+  <!-- 关联查找菜单类别中的名称 -->
+  <select id="selectListAndDic" resultMap="BaseResultMap"  >
+    SELECT  sr.*,cd.zh_cn_caption as resourceTypeName from sys_resource sr inner JOIN const_dictionary cd on sr.RESOURCE_TYPE = cd.cost_code
+  </select>
+  
 </mapper>

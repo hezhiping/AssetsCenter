@@ -178,7 +178,7 @@
 								textField:'cdescription',
 			                    required:true,
 			                    editable:false"
-							style="width: 100%; height: 24px"> <!-- <input type="text" name="category" class="easyui-validatebox" required="true" style="width: 96%; height: 22px" /> -->
+							style="width: 100%; height: 24px"> 
 						</td>
 					</tr>
 					<!-- <tr>
