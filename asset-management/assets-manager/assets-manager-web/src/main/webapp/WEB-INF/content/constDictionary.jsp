@@ -124,7 +124,7 @@
 	<div region="center" border="false">
 		<table class="easyui-datagrid" id="grid"
 			data-options="singleSelect:true,pagination:true,fit:true,border:false,rownumbers:true,striped:true,url:'/assets/Dictionary/dictionaryList',
-			method:'get',pageList:[3,5,10],toolbar:'#toolbar',onClickRow:onClickRow,onDblClickRow:doDblClickRow">
+			method:'get',pageList:[10,20,30],toolbar:'#toolbar',onClickRow:onClickRow,onDblClickRow:doDblClickRow">
 			<thead>
 				<tr>
 					<th data-options="field:'ck',checkbox:true"></th>

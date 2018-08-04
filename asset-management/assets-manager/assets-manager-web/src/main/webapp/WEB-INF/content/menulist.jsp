@@ -109,7 +109,7 @@
 			toolbar : toolbar,
 			url : "/assets/menu/list",
 			method : 'get',
-			pageList : [ 3, 5, 10 ],
+			pageList : [ 10, 20, 30 ],
 			pagination : true,
 			idField : 'id',
 			frozenColumns : frozenColumns,
@@ -257,7 +257,7 @@
 					<tr>
 						<td width="30%">跳转URL：</td>
 						<td width="60%"><input type="text" name="value"
-							class="easyui-validatebox" required="true"
+							class="easyui-validatebox" 
 							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
@@ -340,7 +340,7 @@
 					<tr>
 						<td width="30%">跳转URL：</td>
 						<td width="60%"><input type="text" name="value"
-							class="easyui-validatebox" required="true"
+							class="easyui-validatebox" 
 							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
