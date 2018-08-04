@@ -143,52 +143,52 @@ public class SysUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andUseridEqualTo(Long value) {
+        public Criteria andUseridEqualTo(Integer value) {
             addCriterion("USERID =", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotEqualTo(Long value) {
+        public Criteria andUseridNotEqualTo(Integer value) {
             addCriterion("USERID <>", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridGreaterThan(Long value) {
+        public Criteria andUseridGreaterThan(Integer value) {
             addCriterion("USERID >", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridGreaterThanOrEqualTo(Long value) {
+        public Criteria andUseridGreaterThanOrEqualTo(Integer value) {
             addCriterion("USERID >=", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridLessThan(Long value) {
+        public Criteria andUseridLessThan(Integer value) {
             addCriterion("USERID <", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridLessThanOrEqualTo(Long value) {
+        public Criteria andUseridLessThanOrEqualTo(Integer value) {
             addCriterion("USERID <=", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridIn(List<Long> values) {
+        public Criteria andUseridIn(List<Integer> values) {
             addCriterion("USERID in", values, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotIn(List<Long> values) {
+        public Criteria andUseridNotIn(List<Integer> values) {
             addCriterion("USERID not in", values, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridBetween(Long value1, Long value2) {
+        public Criteria andUseridBetween(Integer value1, Integer value2) {
             addCriterion("USERID between", value1, value2, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotBetween(Long value1, Long value2) {
+        public Criteria andUseridNotBetween(Integer value1, Integer value2) {
             addCriterion("USERID not between", value1, value2, "userid");
             return (Criteria) this;
         }
@@ -343,52 +343,52 @@ public class SysUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andEnabledEqualTo(Short value) {
+        public Criteria andEnabledEqualTo(Integer value) {
             addCriterion("ENABLED =", value, "enabled");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledNotEqualTo(Short value) {
+        public Criteria andEnabledNotEqualTo(Integer value) {
             addCriterion("ENABLED <>", value, "enabled");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledGreaterThan(Short value) {
+        public Criteria andEnabledGreaterThan(Integer value) {
             addCriterion("ENABLED >", value, "enabled");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledGreaterThanOrEqualTo(Short value) {
+        public Criteria andEnabledGreaterThanOrEqualTo(Integer value) {
             addCriterion("ENABLED >=", value, "enabled");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledLessThan(Short value) {
+        public Criteria andEnabledLessThan(Integer value) {
             addCriterion("ENABLED <", value, "enabled");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledLessThanOrEqualTo(Short value) {
+        public Criteria andEnabledLessThanOrEqualTo(Integer value) {
             addCriterion("ENABLED <=", value, "enabled");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledIn(List<Short> values) {
+        public Criteria andEnabledIn(List<Integer> values) {
             addCriterion("ENABLED in", values, "enabled");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledNotIn(List<Short> values) {
+        public Criteria andEnabledNotIn(List<Integer> values) {
             addCriterion("ENABLED not in", values, "enabled");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledBetween(Short value1, Short value2) {
+        public Criteria andEnabledBetween(Integer value1, Integer value2) {
             addCriterion("ENABLED between", value1, value2, "enabled");
             return (Criteria) this;
         }
 
-        public Criteria andEnabledNotBetween(Short value1, Short value2) {
+        public Criteria andEnabledNotBetween(Integer value1, Integer value2) {
             addCriterion("ENABLED not between", value1, value2, "enabled");
             return (Criteria) this;
         }
@@ -403,52 +403,52 @@ public class SysUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andTokenChangedEqualTo(Short value) {
+        public Criteria andTokenChangedEqualTo(Integer value) {
             addCriterion("TOKEN_CHANGED =", value, "tokenChanged");
             return (Criteria) this;
         }
 
-        public Criteria andTokenChangedNotEqualTo(Short value) {
+        public Criteria andTokenChangedNotEqualTo(Integer value) {
             addCriterion("TOKEN_CHANGED <>", value, "tokenChanged");
             return (Criteria) this;
         }
 
-        public Criteria andTokenChangedGreaterThan(Short value) {
+        public Criteria andTokenChangedGreaterThan(Integer value) {
             addCriterion("TOKEN_CHANGED >", value, "tokenChanged");
             return (Criteria) this;
         }
 
-        public Criteria andTokenChangedGreaterThanOrEqualTo(Short value) {
+        public Criteria andTokenChangedGreaterThanOrEqualTo(Integer value) {
             addCriterion("TOKEN_CHANGED >=", value, "tokenChanged");
             return (Criteria) this;
         }
 
-        public Criteria andTokenChangedLessThan(Short value) {
+        public Criteria andTokenChangedLessThan(Integer value) {
             addCriterion("TOKEN_CHANGED <", value, "tokenChanged");
             return (Criteria) this;
         }
 
-        public Criteria andTokenChangedLessThanOrEqualTo(Short value) {
+        public Criteria andTokenChangedLessThanOrEqualTo(Integer value) {
             addCriterion("TOKEN_CHANGED <=", value, "tokenChanged");
             return (Criteria) this;
         }
 
-        public Criteria andTokenChangedIn(List<Short> values) {
+        public Criteria andTokenChangedIn(List<Integer> values) {
             addCriterion("TOKEN_CHANGED in", values, "tokenChanged");
             return (Criteria) this;
         }
 
-        public Criteria andTokenChangedNotIn(List<Short> values) {
+        public Criteria andTokenChangedNotIn(List<Integer> values) {
             addCriterion("TOKEN_CHANGED not in", values, "tokenChanged");
             return (Criteria) this;
         }
 
-        public Criteria andTokenChangedBetween(Short value1, Short value2) {
+        public Criteria andTokenChangedBetween(Integer value1, Integer value2) {
             addCriterion("TOKEN_CHANGED between", value1, value2, "tokenChanged");
             return (Criteria) this;
         }
 
-        public Criteria andTokenChangedNotBetween(Short value1, Short value2) {
+        public Criteria andTokenChangedNotBetween(Integer value1, Integer value2) {
             addCriterion("TOKEN_CHANGED not between", value1, value2, "tokenChanged");
             return (Criteria) this;
         }
@@ -463,52 +463,52 @@ public class SysUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andNodeIdEqualTo(Short value) {
+        public Criteria andNodeIdEqualTo(Integer value) {
             addCriterion("NODE_ID =", value, "nodeId");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIdNotEqualTo(Short value) {
+        public Criteria andNodeIdNotEqualTo(Integer value) {
             addCriterion("NODE_ID <>", value, "nodeId");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIdGreaterThan(Short value) {
+        public Criteria andNodeIdGreaterThan(Integer value) {
             addCriterion("NODE_ID >", value, "nodeId");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIdGreaterThanOrEqualTo(Short value) {
+        public Criteria andNodeIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("NODE_ID >=", value, "nodeId");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIdLessThan(Short value) {
+        public Criteria andNodeIdLessThan(Integer value) {
             addCriterion("NODE_ID <", value, "nodeId");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIdLessThanOrEqualTo(Short value) {
+        public Criteria andNodeIdLessThanOrEqualTo(Integer value) {
             addCriterion("NODE_ID <=", value, "nodeId");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIdIn(List<Short> values) {
+        public Criteria andNodeIdIn(List<Integer> values) {
             addCriterion("NODE_ID in", values, "nodeId");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIdNotIn(List<Short> values) {
+        public Criteria andNodeIdNotIn(List<Integer> values) {
             addCriterion("NODE_ID not in", values, "nodeId");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIdBetween(Short value1, Short value2) {
+        public Criteria andNodeIdBetween(Integer value1, Integer value2) {
             addCriterion("NODE_ID between", value1, value2, "nodeId");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIdNotBetween(Short value1, Short value2) {
+        public Criteria andNodeIdNotBetween(Integer value1, Integer value2) {
             addCriterion("NODE_ID not between", value1, value2, "nodeId");
             return (Criteria) this;
         }
@@ -1003,52 +1003,52 @@ public class SysUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddUserIdEqualTo(Long value) {
+        public Criteria andAddUserIdEqualTo(Integer value) {
             addCriterion("ADD_USER_ID =", value, "addUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAddUserIdNotEqualTo(Long value) {
+        public Criteria andAddUserIdNotEqualTo(Integer value) {
             addCriterion("ADD_USER_ID <>", value, "addUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAddUserIdGreaterThan(Long value) {
+        public Criteria andAddUserIdGreaterThan(Integer value) {
             addCriterion("ADD_USER_ID >", value, "addUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAddUserIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andAddUserIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("ADD_USER_ID >=", value, "addUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAddUserIdLessThan(Long value) {
+        public Criteria andAddUserIdLessThan(Integer value) {
             addCriterion("ADD_USER_ID <", value, "addUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAddUserIdLessThanOrEqualTo(Long value) {
+        public Criteria andAddUserIdLessThanOrEqualTo(Integer value) {
             addCriterion("ADD_USER_ID <=", value, "addUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAddUserIdIn(List<Long> values) {
+        public Criteria andAddUserIdIn(List<Integer> values) {
             addCriterion("ADD_USER_ID in", values, "addUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAddUserIdNotIn(List<Long> values) {
+        public Criteria andAddUserIdNotIn(List<Integer> values) {
             addCriterion("ADD_USER_ID not in", values, "addUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAddUserIdBetween(Long value1, Long value2) {
+        public Criteria andAddUserIdBetween(Integer value1, Integer value2) {
             addCriterion("ADD_USER_ID between", value1, value2, "addUserId");
             return (Criteria) this;
         }
 
-        public Criteria andAddUserIdNotBetween(Long value1, Long value2) {
+        public Criteria andAddUserIdNotBetween(Integer value1, Integer value2) {
             addCriterion("ADD_USER_ID not between", value1, value2, "addUserId");
             return (Criteria) this;
         }

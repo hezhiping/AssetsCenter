@@ -1,35 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.assets.mapper.SysRoleMapper">
-  <resultMap id="BaseResultMap" type="com.assets.pojo.SysRole">
-    <id column="ROLE_ID" jdbcType="DECIMAL" property="roleId" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="PARENT_ID" jdbcType="DECIMAL" property="parentId" />
-    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
-    <result column="STATE" jdbcType="DECIMAL" property="state" />
-    <result column="TYPE" jdbcType="DECIMAL" property="type" />
-    <result column="MANAGE_ROLES" jdbcType="VARCHAR" property="manageRoles" />
-    <result column="CLASS_NAME" jdbcType="VARCHAR" property="className" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.assets.mapper.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.assets.pojo.SysRole" >
+    <id column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="DECIMAL" />
+    <result column="TYPE" property="type" jdbcType="DECIMAL" />
+    <result column="MANAGE_ROLES" property="manageRoles" jdbcType="VARCHAR" />
+    <result column="CLASS_NAME" property="className" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -40,25 +40,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -69,40 +69,40 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     ROLE_ID, NAME, PARENT_ID, DESCRIPTION, STATE, TYPE, MANAGE_ROLES, CLASS_NAME
   </sql>
-  <select id="selectByExample" parameterType="com.assets.pojo.SysRoleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.SysRoleExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
     from sys_role
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
     select 
     <include refid="Base_Column_List" />
     from sys_role
     where ROLE_ID = #{roleId,jdbcType=DECIMAL}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
     delete from sys_role
     where ROLE_ID = #{roleId,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.assets.pojo.SysRoleExample">
+  <delete id="deleteByExample" parameterType="com.assets.pojo.SysRoleExample" >
     delete from sys_role
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.assets.pojo.SysRole">
+  <insert id="insert" parameterType="com.assets.pojo.SysRole" >
     insert into sys_role (ROLE_ID, NAME, PARENT_ID, 
       DESCRIPTION, STATE, TYPE, 
       MANAGE_ROLES, CLASS_NAME)
@@ -110,100 +110,100 @@
       #{description,jdbcType=VARCHAR}, #{state,jdbcType=DECIMAL}, #{type,jdbcType=DECIMAL}, 
       #{manageRoles,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.assets.pojo.SysRole">
+  <insert id="insertSelective" parameterType="com.assets.pojo.SysRole" >
     insert into sys_role
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="roleId != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
         ROLE_ID,
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         NAME,
       </if>
-      <if test="parentId != null">
+      <if test="parentId != null" >
         PARENT_ID,
       </if>
-      <if test="description != null">
+      <if test="description != null" >
         DESCRIPTION,
       </if>
-      <if test="state != null">
+      <if test="state != null" >
         STATE,
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         TYPE,
       </if>
-      <if test="manageRoles != null">
+      <if test="manageRoles != null" >
         MANAGE_ROLES,
       </if>
-      <if test="className != null">
+      <if test="className != null" >
         CLASS_NAME,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="roleId != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
         #{roleId,jdbcType=DECIMAL},
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="parentId != null">
+      <if test="parentId != null" >
         #{parentId,jdbcType=DECIMAL},
       </if>
-      <if test="description != null">
+      <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="state != null">
+      <if test="state != null" >
         #{state,jdbcType=DECIMAL},
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         #{type,jdbcType=DECIMAL},
       </if>
-      <if test="manageRoles != null">
+      <if test="manageRoles != null" >
         #{manageRoles,jdbcType=VARCHAR},
       </if>
-      <if test="className != null">
+      <if test="className != null" >
         #{className,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.assets.pojo.SysRoleExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.assets.pojo.SysRoleExample" resultType="java.lang.Integer" >
     select count(*) from sys_role
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update sys_role
-    <set>
-      <if test="record.roleId != null">
+    <set >
+      <if test="record.roleId != null" >
         ROLE_ID = #{record.roleId,jdbcType=DECIMAL},
       </if>
-      <if test="record.name != null">
+      <if test="record.name != null" >
         NAME = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.parentId != null">
+      <if test="record.parentId != null" >
         PARENT_ID = #{record.parentId,jdbcType=DECIMAL},
       </if>
-      <if test="record.description != null">
+      <if test="record.description != null" >
         DESCRIPTION = #{record.description,jdbcType=VARCHAR},
       </if>
-      <if test="record.state != null">
+      <if test="record.state != null" >
         STATE = #{record.state,jdbcType=DECIMAL},
       </if>
-      <if test="record.type != null">
+      <if test="record.type != null" >
         TYPE = #{record.type,jdbcType=DECIMAL},
       </if>
-      <if test="record.manageRoles != null">
+      <if test="record.manageRoles != null" >
         MANAGE_ROLES = #{record.manageRoles,jdbcType=VARCHAR},
       </if>
-      <if test="record.className != null">
+      <if test="record.className != null" >
         CLASS_NAME = #{record.className,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update sys_role
     set ROLE_ID = #{record.roleId,jdbcType=DECIMAL},
       NAME = #{record.name,jdbcType=VARCHAR},
@@ -213,292 +213,38 @@
       TYPE = #{record.type,jdbcType=DECIMAL},
       MANAGE_ROLES = #{record.manageRoles,jdbcType=VARCHAR},
       CLASS_NAME = #{record.className,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.SysRole">
+  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.SysRole" >
     update sys_role
-    <set>
-      <if test="name != null">
+    <set >
+      <if test="name != null" >
         NAME = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="parentId != null">
+      <if test="parentId != null" >
         PARENT_ID = #{parentId,jdbcType=DECIMAL},
       </if>
-      <if test="description != null">
+      <if test="description != null" >
         DESCRIPTION = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="state != null">
+      <if test="state != null" >
         STATE = #{state,jdbcType=DECIMAL},
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         TYPE = #{type,jdbcType=DECIMAL},
       </if>
-      <if test="manageRoles != null">
+      <if test="manageRoles != null" >
         MANAGE_ROLES = #{manageRoles,jdbcType=VARCHAR},
       </if>
-      <if test="className != null">
+      <if test="className != null" >
         CLASS_NAME = #{className,jdbcType=VARCHAR},
       </if>
     </set>
     where ROLE_ID = #{roleId,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.SysRole">
-    update sys_role
-    set NAME = #{name,jdbcType=VARCHAR},
-      PARENT_ID = #{parentId,jdbcType=DECIMAL},
-      DESCRIPTION = #{description,jdbcType=VARCHAR},
-      STATE = #{state,jdbcType=DECIMAL},
-      TYPE = #{type,jdbcType=DECIMAL},
-      MANAGE_ROLES = #{manageRoles,jdbcType=VARCHAR},
-      CLASS_NAME = #{className,jdbcType=VARCHAR}
-    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
-  </update>
-  <resultMap id="BaseResultMap" type="com.assets.pojo.SysRole">
-    <id column="ROLE_ID" jdbcType="DECIMAL" property="roleId" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="PARENT_ID" jdbcType="DECIMAL" property="parentId" />
-    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
-    <result column="STATE" jdbcType="DECIMAL" property="state" />
-    <result column="TYPE" jdbcType="DECIMAL" property="type" />
-    <result column="MANAGE_ROLES" jdbcType="VARCHAR" property="manageRoles" />
-    <result column="CLASS_NAME" jdbcType="VARCHAR" property="className" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    ROLE_ID, NAME, PARENT_ID, DESCRIPTION, STATE, TYPE, MANAGE_ROLES, CLASS_NAME
-  </sql>
-  <select id="selectByExample" parameterType="com.assets.pojo.SysRoleExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from sys_role
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sys_role
-    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
-    delete from sys_role
-    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.assets.pojo.SysRoleExample">
-    delete from sys_role
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.assets.pojo.SysRole">
-    insert into sys_role (ROLE_ID, NAME, PARENT_ID, 
-      DESCRIPTION, STATE, TYPE, 
-      MANAGE_ROLES, CLASS_NAME)
-    values (#{roleId,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=DECIMAL}, 
-      #{description,jdbcType=VARCHAR}, #{state,jdbcType=DECIMAL}, #{type,jdbcType=DECIMAL}, 
-      #{manageRoles,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.assets.pojo.SysRole">
-    insert into sys_role
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="roleId != null">
-        ROLE_ID,
-      </if>
-      <if test="name != null">
-        NAME,
-      </if>
-      <if test="parentId != null">
-        PARENT_ID,
-      </if>
-      <if test="description != null">
-        DESCRIPTION,
-      </if>
-      <if test="state != null">
-        STATE,
-      </if>
-      <if test="type != null">
-        TYPE,
-      </if>
-      <if test="manageRoles != null">
-        MANAGE_ROLES,
-      </if>
-      <if test="className != null">
-        CLASS_NAME,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="roleId != null">
-        #{roleId,jdbcType=DECIMAL},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=DECIMAL},
-      </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=DECIMAL},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=DECIMAL},
-      </if>
-      <if test="manageRoles != null">
-        #{manageRoles,jdbcType=VARCHAR},
-      </if>
-      <if test="className != null">
-        #{className,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.assets.pojo.SysRoleExample" resultType="java.lang.Integer">
-    select count(*) from sys_role
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update sys_role
-    <set>
-      <if test="record.roleId != null">
-        ROLE_ID = #{record.roleId,jdbcType=DECIMAL},
-      </if>
-      <if test="record.name != null">
-        NAME = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.parentId != null">
-        PARENT_ID = #{record.parentId,jdbcType=DECIMAL},
-      </if>
-      <if test="record.description != null">
-        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
-      </if>
-      <if test="record.state != null">
-        STATE = #{record.state,jdbcType=DECIMAL},
-      </if>
-      <if test="record.type != null">
-        TYPE = #{record.type,jdbcType=DECIMAL},
-      </if>
-      <if test="record.manageRoles != null">
-        MANAGE_ROLES = #{record.manageRoles,jdbcType=VARCHAR},
-      </if>
-      <if test="record.className != null">
-        CLASS_NAME = #{record.className,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update sys_role
-    set ROLE_ID = #{record.roleId,jdbcType=DECIMAL},
-      NAME = #{record.name,jdbcType=VARCHAR},
-      PARENT_ID = #{record.parentId,jdbcType=DECIMAL},
-      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
-      STATE = #{record.state,jdbcType=DECIMAL},
-      TYPE = #{record.type,jdbcType=DECIMAL},
-      MANAGE_ROLES = #{record.manageRoles,jdbcType=VARCHAR},
-      CLASS_NAME = #{record.className,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.SysRole">
-    update sys_role
-    <set>
-      <if test="name != null">
-        NAME = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        PARENT_ID = #{parentId,jdbcType=DECIMAL},
-      </if>
-      <if test="description != null">
-        DESCRIPTION = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        STATE = #{state,jdbcType=DECIMAL},
-      </if>
-      <if test="type != null">
-        TYPE = #{type,jdbcType=DECIMAL},
-      </if>
-      <if test="manageRoles != null">
-        MANAGE_ROLES = #{manageRoles,jdbcType=VARCHAR},
-      </if>
-      <if test="className != null">
-        CLASS_NAME = #{className,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.SysRole">
+  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.SysRole" >
     update sys_role
     set NAME = #{name,jdbcType=VARCHAR},
       PARENT_ID = #{parentId,jdbcType=DECIMAL},

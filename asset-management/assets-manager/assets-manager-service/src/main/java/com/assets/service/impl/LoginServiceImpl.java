@@ -25,7 +25,7 @@ import com.assets.pojo.SysUserExample.Criteria;
 import com.assets.service.LoginService;
 
 @Service
-public class LoginServiceImpl implements LoginService {
+public class LoginServiceImpl extends BaseServiceImpl implements LoginService {
 
 	@Autowired
 	private SysUserMapper userMapper;
@@ -87,22 +87,22 @@ public class LoginServiceImpl implements LoginService {
 		}
 	}
 
-	@Override
-	public ResponseResult getUserByToken(String token)  {
-		// 根据token获取用户信息，ehcache中取		
-		try {
-			Cache loginCache = cacheManager.getCache("loginCache");
-			ValueWrapper valueWrapper = loginCache.get(EHCACHE_SESSION_KEY + ":" + token);					
-			// 判断结果是否为空，为空说明过期，因为设置了30分钟
-			if (valueWrapper == null) {
-				return ResponseResult.build(400, "用户session已过期");
-			}			
-			// 把json转换成java对象
-			SysUser user = JsonUtils.jsonToPojo(valueWrapper.get().toString(), SysUser.class);
-			// 更新session的过期时间		
-			return ResponseResult.ok(user);
-		} catch (Exception e) {
-			return ResponseResult.build(400, "用户session已过期");
-		}
-	}
+//	@Override
+//	public ResponseResult getUserByToken(String token)  {
+//		// 根据token获取用户信息，ehcache中取		
+//		try {
+//			Cache loginCache = cacheManager.getCache("loginCache");
+//			ValueWrapper valueWrapper = loginCache.get(EHCACHE_SESSION_KEY + ":" + token);					
+//			// 判断结果是否为空，为空说明过期，因为设置了30分钟
+//			if (valueWrapper == null) {
+//				return ResponseResult.build(400, "用户session已过期");
+//			}			
+//			// 把json转换成java对象
+//			SysUser user = JsonUtils.jsonToPojo(valueWrapper.get().toString(), SysUser.class);
+//			// 更新session的过期时间		
+//			return ResponseResult.ok(user);
+//		} catch (Exception e) {
+//			return ResponseResult.build(400, "用户session已过期");
+//		}
+	//}
 }

@@ -1,47 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.assets.mapper.SysResourceMapper">
-  <resultMap id="BaseResultMap" type="com.assets.pojo.SysResource">
-    <id column="RESOURCE_ID" jdbcType="DECIMAL" property="resourceId" />
-    <result column="RESOURCE_TYPE" jdbcType="VARCHAR" property="resourceType" />
-    <result column="VALUE" jdbcType="VARCHAR" property="value" />
-    <result column="ORDER_NUM" jdbcType="DECIMAL" property="orderNum" />
-    <result column="PARENT_ID" jdbcType="DECIMAL" property="parentId" />
-    <result column="TARGET" jdbcType="VARCHAR" property="target" />
-    <result column="ZH_CN_NAME" jdbcType="VARCHAR" property="zhCnName" />
-    <result column="STATUS" jdbcType="DECIMAL" property="status" />
-    <result column="LAVELS" jdbcType="DECIMAL" property="lavels" />
-    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
-    <result column="IMG_URL" jdbcType="VARCHAR" property="imgUrl" />
-    <result column="TOTAL_SQL" jdbcType="VARCHAR" property="totalSql" />
-    <result column="NAV_IMG_URL" jdbcType="VARCHAR" property="navImgUrl" />
-    <result column="NAV_ENABLED" jdbcType="DECIMAL" property="navEnabled" />
-    <result column="OLD_TOTAL_SQL" jdbcType="VARCHAR" property="oldTotalSql" />
-    <result column="ZH_TW_NAME" jdbcType="VARCHAR" property="zhTwName" />
-    <result column="EN_US_NAME" jdbcType="VARCHAR" property="enUsName" />
-    <result column="FLAG_LAN" jdbcType="CHAR" property="flagLan" />
-    <result column="STMS_MENU_ID" jdbcType="DECIMAL" property="stmsMenuId" />
-    <result column="CLASS_NAME" jdbcType="VARCHAR" property="className" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.assets.mapper.SysResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.assets.pojo.SysResource" >
+    <id column="RESOURCE_ID" property="resourceId" jdbcType="DECIMAL" />
+    <result column="RESOURCE_TYPE" property="resourceType" jdbcType="VARCHAR" />
+    <result column="VALUE" property="value" jdbcType="VARCHAR" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="DECIMAL" />
+    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+    <result column="TARGET" property="target" jdbcType="VARCHAR" />
+    <result column="ZH_CN_NAME" property="zhCnName" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="LAVELS" property="lavels" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="IMG_URL" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="TOTAL_SQL" property="totalSql" jdbcType="VARCHAR" />
+    <result column="NAV_IMG_URL" property="navImgUrl" jdbcType="VARCHAR" />
+    <result column="NAV_ENABLED" property="navEnabled" jdbcType="DECIMAL" />
+    <result column="OLD_TOTAL_SQL" property="oldTotalSql" jdbcType="VARCHAR" />
+    <result column="ZH_TW_NAME" property="zhTwName" jdbcType="VARCHAR" />
+    <result column="EN_US_NAME" property="enUsName" jdbcType="VARCHAR" />
+    <result column="FLAG_LAN" property="flagLan" jdbcType="CHAR" />
+    <result column="STMS_MENU_ID" property="stmsMenuId" jdbcType="DECIMAL" />
+    <result column="CLASS_NAME" property="className" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -52,25 +52,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -81,42 +81,42 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     RESOURCE_ID, RESOURCE_TYPE, VALUE, ORDER_NUM, PARENT_ID, TARGET, ZH_CN_NAME, STATUS, 
     LAVELS, REMARK, IMG_URL, TOTAL_SQL, NAV_IMG_URL, NAV_ENABLED, OLD_TOTAL_SQL, ZH_TW_NAME, 
     EN_US_NAME, FLAG_LAN, STMS_MENU_ID, CLASS_NAME
   </sql>
-  <select id="selectByExample" parameterType="com.assets.pojo.SysResourceExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.SysResourceExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
     from sys_resource
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from sys_resource
     where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from sys_resource
     where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.assets.pojo.SysResourceExample">
+  <delete id="deleteByExample" parameterType="com.assets.pojo.SysResourceExample" >
     delete from sys_resource
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.assets.pojo.SysResource">
+  <insert id="insert" parameterType="com.assets.pojo.SysResource" >
     insert into sys_resource (RESOURCE_ID, RESOURCE_TYPE, VALUE, 
       ORDER_NUM, PARENT_ID, TARGET, 
       ZH_CN_NAME, STATUS, LAVELS, 
@@ -132,208 +132,208 @@
       #{zhTwName,jdbcType=VARCHAR}, #{enUsName,jdbcType=VARCHAR}, #{flagLan,jdbcType=CHAR}, 
       #{stmsMenuId,jdbcType=DECIMAL}, #{className,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.assets.pojo.SysResource">
+  <insert id="insertSelective" parameterType="com.assets.pojo.SysResource" >
     insert into sys_resource
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="resourceId != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
         RESOURCE_ID,
       </if>
-      <if test="resourceType != null">
+      <if test="resourceType != null" >
         RESOURCE_TYPE,
       </if>
-      <if test="value != null">
+      <if test="value != null" >
         VALUE,
       </if>
-      <if test="orderNum != null">
+      <if test="orderNum != null" >
         ORDER_NUM,
       </if>
-      <if test="parentId != null">
+      <if test="parentId != null" >
         PARENT_ID,
       </if>
-      <if test="target != null">
+      <if test="target != null" >
         TARGET,
       </if>
-      <if test="zhCnName != null">
+      <if test="zhCnName != null" >
         ZH_CN_NAME,
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         STATUS,
       </if>
-      <if test="lavels != null">
+      <if test="lavels != null" >
         LAVELS,
       </if>
-      <if test="remark != null">
+      <if test="remark != null" >
         REMARK,
       </if>
-      <if test="imgUrl != null">
+      <if test="imgUrl != null" >
         IMG_URL,
       </if>
-      <if test="totalSql != null">
+      <if test="totalSql != null" >
         TOTAL_SQL,
       </if>
-      <if test="navImgUrl != null">
+      <if test="navImgUrl != null" >
         NAV_IMG_URL,
       </if>
-      <if test="navEnabled != null">
+      <if test="navEnabled != null" >
         NAV_ENABLED,
       </if>
-      <if test="oldTotalSql != null">
+      <if test="oldTotalSql != null" >
         OLD_TOTAL_SQL,
       </if>
-      <if test="zhTwName != null">
+      <if test="zhTwName != null" >
         ZH_TW_NAME,
       </if>
-      <if test="enUsName != null">
+      <if test="enUsName != null" >
         EN_US_NAME,
       </if>
-      <if test="flagLan != null">
+      <if test="flagLan != null" >
         FLAG_LAN,
       </if>
-      <if test="stmsMenuId != null">
+      <if test="stmsMenuId != null" >
         STMS_MENU_ID,
       </if>
-      <if test="className != null">
+      <if test="className != null" >
         CLASS_NAME,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="resourceId != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
         #{resourceId,jdbcType=DECIMAL},
       </if>
-      <if test="resourceType != null">
+      <if test="resourceType != null" >
         #{resourceType,jdbcType=VARCHAR},
       </if>
-      <if test="value != null">
+      <if test="value != null" >
         #{value,jdbcType=VARCHAR},
       </if>
-      <if test="orderNum != null">
+      <if test="orderNum != null" >
         #{orderNum,jdbcType=DECIMAL},
       </if>
-      <if test="parentId != null">
+      <if test="parentId != null" >
         #{parentId,jdbcType=DECIMAL},
       </if>
-      <if test="target != null">
+      <if test="target != null" >
         #{target,jdbcType=VARCHAR},
       </if>
-      <if test="zhCnName != null">
+      <if test="zhCnName != null" >
         #{zhCnName,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         #{status,jdbcType=DECIMAL},
       </if>
-      <if test="lavels != null">
+      <if test="lavels != null" >
         #{lavels,jdbcType=DECIMAL},
       </if>
-      <if test="remark != null">
+      <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="imgUrl != null">
+      <if test="imgUrl != null" >
         #{imgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="totalSql != null">
+      <if test="totalSql != null" >
         #{totalSql,jdbcType=VARCHAR},
       </if>
-      <if test="navImgUrl != null">
+      <if test="navImgUrl != null" >
         #{navImgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="navEnabled != null">
+      <if test="navEnabled != null" >
         #{navEnabled,jdbcType=DECIMAL},
       </if>
-      <if test="oldTotalSql != null">
+      <if test="oldTotalSql != null" >
         #{oldTotalSql,jdbcType=VARCHAR},
       </if>
-      <if test="zhTwName != null">
+      <if test="zhTwName != null" >
         #{zhTwName,jdbcType=VARCHAR},
       </if>
-      <if test="enUsName != null">
+      <if test="enUsName != null" >
         #{enUsName,jdbcType=VARCHAR},
       </if>
-      <if test="flagLan != null">
+      <if test="flagLan != null" >
         #{flagLan,jdbcType=CHAR},
       </if>
-      <if test="stmsMenuId != null">
+      <if test="stmsMenuId != null" >
         #{stmsMenuId,jdbcType=DECIMAL},
       </if>
-      <if test="className != null">
+      <if test="className != null" >
         #{className,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.assets.pojo.SysResourceExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.assets.pojo.SysResourceExample" resultType="java.lang.Integer" >
     select count(*) from sys_resource
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update sys_resource
-    <set>
-      <if test="record.resourceId != null">
+    <set >
+      <if test="record.resourceId != null" >
         RESOURCE_ID = #{record.resourceId,jdbcType=DECIMAL},
       </if>
-      <if test="record.resourceType != null">
+      <if test="record.resourceType != null" >
         RESOURCE_TYPE = #{record.resourceType,jdbcType=VARCHAR},
       </if>
-      <if test="record.value != null">
+      <if test="record.value != null" >
         VALUE = #{record.value,jdbcType=VARCHAR},
       </if>
-      <if test="record.orderNum != null">
+      <if test="record.orderNum != null" >
         ORDER_NUM = #{record.orderNum,jdbcType=DECIMAL},
       </if>
-      <if test="record.parentId != null">
+      <if test="record.parentId != null" >
         PARENT_ID = #{record.parentId,jdbcType=DECIMAL},
       </if>
-      <if test="record.target != null">
+      <if test="record.target != null" >
         TARGET = #{record.target,jdbcType=VARCHAR},
       </if>
-      <if test="record.zhCnName != null">
+      <if test="record.zhCnName != null" >
         ZH_CN_NAME = #{record.zhCnName,jdbcType=VARCHAR},
       </if>
-      <if test="record.status != null">
+      <if test="record.status != null" >
         STATUS = #{record.status,jdbcType=DECIMAL},
       </if>
-      <if test="record.lavels != null">
+      <if test="record.lavels != null" >
         LAVELS = #{record.lavels,jdbcType=DECIMAL},
       </if>
-      <if test="record.remark != null">
+      <if test="record.remark != null" >
         REMARK = #{record.remark,jdbcType=VARCHAR},
       </if>
-      <if test="record.imgUrl != null">
+      <if test="record.imgUrl != null" >
         IMG_URL = #{record.imgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.totalSql != null">
+      <if test="record.totalSql != null" >
         TOTAL_SQL = #{record.totalSql,jdbcType=VARCHAR},
       </if>
-      <if test="record.navImgUrl != null">
+      <if test="record.navImgUrl != null" >
         NAV_IMG_URL = #{record.navImgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.navEnabled != null">
+      <if test="record.navEnabled != null" >
         NAV_ENABLED = #{record.navEnabled,jdbcType=DECIMAL},
       </if>
-      <if test="record.oldTotalSql != null">
+      <if test="record.oldTotalSql != null" >
         OLD_TOTAL_SQL = #{record.oldTotalSql,jdbcType=VARCHAR},
       </if>
-      <if test="record.zhTwName != null">
+      <if test="record.zhTwName != null" >
         ZH_TW_NAME = #{record.zhTwName,jdbcType=VARCHAR},
       </if>
-      <if test="record.enUsName != null">
+      <if test="record.enUsName != null" >
         EN_US_NAME = #{record.enUsName,jdbcType=VARCHAR},
       </if>
-      <if test="record.flagLan != null">
+      <if test="record.flagLan != null" >
         FLAG_LAN = #{record.flagLan,jdbcType=CHAR},
       </if>
-      <if test="record.stmsMenuId != null">
+      <if test="record.stmsMenuId != null" >
         STMS_MENU_ID = #{record.stmsMenuId,jdbcType=DECIMAL},
       </if>
-      <if test="record.className != null">
+      <if test="record.className != null" >
         CLASS_NAME = #{record.className,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update sys_resource
     set RESOURCE_ID = #{record.resourceId,jdbcType=DECIMAL},
       RESOURCE_TYPE = #{record.resourceType,jdbcType=VARCHAR},
@@ -355,518 +355,74 @@
       FLAG_LAN = #{record.flagLan,jdbcType=CHAR},
       STMS_MENU_ID = #{record.stmsMenuId,jdbcType=DECIMAL},
       CLASS_NAME = #{record.className,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.SysResource">
+  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.SysResource" >
     update sys_resource
-    <set>
-      <if test="resourceType != null">
+    <set >
+      <if test="resourceType != null" >
         RESOURCE_TYPE = #{resourceType,jdbcType=VARCHAR},
       </if>
-      <if test="value != null">
+      <if test="value != null" >
         VALUE = #{value,jdbcType=VARCHAR},
       </if>
-      <if test="orderNum != null">
+      <if test="orderNum != null" >
         ORDER_NUM = #{orderNum,jdbcType=DECIMAL},
       </if>
-      <if test="parentId != null">
+      <if test="parentId != null" >
         PARENT_ID = #{parentId,jdbcType=DECIMAL},
       </if>
-      <if test="target != null">
+      <if test="target != null" >
         TARGET = #{target,jdbcType=VARCHAR},
       </if>
-      <if test="zhCnName != null">
+      <if test="zhCnName != null" >
         ZH_CN_NAME = #{zhCnName,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         STATUS = #{status,jdbcType=DECIMAL},
       </if>
-      <if test="lavels != null">
+      <if test="lavels != null" >
         LAVELS = #{lavels,jdbcType=DECIMAL},
       </if>
-      <if test="remark != null">
+      <if test="remark != null" >
         REMARK = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="imgUrl != null">
+      <if test="imgUrl != null" >
         IMG_URL = #{imgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="totalSql != null">
+      <if test="totalSql != null" >
         TOTAL_SQL = #{totalSql,jdbcType=VARCHAR},
       </if>
-      <if test="navImgUrl != null">
+      <if test="navImgUrl != null" >
         NAV_IMG_URL = #{navImgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="navEnabled != null">
+      <if test="navEnabled != null" >
         NAV_ENABLED = #{navEnabled,jdbcType=DECIMAL},
       </if>
-      <if test="oldTotalSql != null">
+      <if test="oldTotalSql != null" >
         OLD_TOTAL_SQL = #{oldTotalSql,jdbcType=VARCHAR},
       </if>
-      <if test="zhTwName != null">
+      <if test="zhTwName != null" >
         ZH_TW_NAME = #{zhTwName,jdbcType=VARCHAR},
       </if>
-      <if test="enUsName != null">
+      <if test="enUsName != null" >
         EN_US_NAME = #{enUsName,jdbcType=VARCHAR},
       </if>
-      <if test="flagLan != null">
+      <if test="flagLan != null" >
         FLAG_LAN = #{flagLan,jdbcType=CHAR},
       </if>
-      <if test="stmsMenuId != null">
+      <if test="stmsMenuId != null" >
         STMS_MENU_ID = #{stmsMenuId,jdbcType=DECIMAL},
       </if>
-      <if test="className != null">
+      <if test="className != null" >
         CLASS_NAME = #{className,jdbcType=VARCHAR},
       </if>
     </set>
     where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.SysResource">
-    update sys_resource
-    set RESOURCE_TYPE = #{resourceType,jdbcType=VARCHAR},
-      VALUE = #{value,jdbcType=VARCHAR},
-      ORDER_NUM = #{orderNum,jdbcType=DECIMAL},
-      PARENT_ID = #{parentId,jdbcType=DECIMAL},
-      TARGET = #{target,jdbcType=VARCHAR},
-      ZH_CN_NAME = #{zhCnName,jdbcType=VARCHAR},
-      STATUS = #{status,jdbcType=DECIMAL},
-      LAVELS = #{lavels,jdbcType=DECIMAL},
-      REMARK = #{remark,jdbcType=VARCHAR},
-      IMG_URL = #{imgUrl,jdbcType=VARCHAR},
-      TOTAL_SQL = #{totalSql,jdbcType=VARCHAR},
-      NAV_IMG_URL = #{navImgUrl,jdbcType=VARCHAR},
-      NAV_ENABLED = #{navEnabled,jdbcType=DECIMAL},
-      OLD_TOTAL_SQL = #{oldTotalSql,jdbcType=VARCHAR},
-      ZH_TW_NAME = #{zhTwName,jdbcType=VARCHAR},
-      EN_US_NAME = #{enUsName,jdbcType=VARCHAR},
-      FLAG_LAN = #{flagLan,jdbcType=CHAR},
-      STMS_MENU_ID = #{stmsMenuId,jdbcType=DECIMAL},
-      CLASS_NAME = #{className,jdbcType=VARCHAR}
-    where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
-  </update>
-  <resultMap id="BaseResultMap" type="com.assets.pojo.SysResource">
-    <id column="RESOURCE_ID" jdbcType="DECIMAL" property="resourceId" />
-    <result column="RESOURCE_TYPE" jdbcType="VARCHAR" property="resourceType" />
-    <result column="VALUE" jdbcType="VARCHAR" property="value" />
-    <result column="ORDER_NUM" jdbcType="DECIMAL" property="orderNum" />
-    <result column="PARENT_ID" jdbcType="DECIMAL" property="parentId" />
-    <result column="TARGET" jdbcType="VARCHAR" property="target" />
-    <result column="ZH_CN_NAME" jdbcType="VARCHAR" property="zhCnName" />
-    <result column="STATUS" jdbcType="DECIMAL" property="status" />
-    <result column="LAVELS" jdbcType="DECIMAL" property="lavels" />
-    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
-    <result column="IMG_URL" jdbcType="VARCHAR" property="imgUrl" />
-    <result column="TOTAL_SQL" jdbcType="VARCHAR" property="totalSql" />
-    <result column="NAV_IMG_URL" jdbcType="VARCHAR" property="navImgUrl" />
-    <result column="NAV_ENABLED" jdbcType="DECIMAL" property="navEnabled" />
-    <result column="OLD_TOTAL_SQL" jdbcType="VARCHAR" property="oldTotalSql" />
-    <result column="ZH_TW_NAME" jdbcType="VARCHAR" property="zhTwName" />
-    <result column="EN_US_NAME" jdbcType="VARCHAR" property="enUsName" />
-    <result column="FLAG_LAN" jdbcType="CHAR" property="flagLan" />
-    <result column="STMS_MENU_ID" jdbcType="DECIMAL" property="stmsMenuId" />
-    <result column="CLASS_NAME" jdbcType="VARCHAR" property="className" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    RESOURCE_ID, RESOURCE_TYPE, VALUE, ORDER_NUM, PARENT_ID, TARGET, ZH_CN_NAME, STATUS, 
-    LAVELS, REMARK, IMG_URL, TOTAL_SQL, NAV_IMG_URL, NAV_ENABLED, OLD_TOTAL_SQL, ZH_TW_NAME, 
-    EN_US_NAME, FLAG_LAN, STMS_MENU_ID, CLASS_NAME
-  </sql>
-  <select id="selectByExample" parameterType="com.assets.pojo.SysResourceExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from sys_resource
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sys_resource
-    where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from sys_resource
-    where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.assets.pojo.SysResourceExample">
-    delete from sys_resource
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.assets.pojo.SysResource">
-    insert into sys_resource (RESOURCE_ID, RESOURCE_TYPE, VALUE, 
-      ORDER_NUM, PARENT_ID, TARGET, 
-      ZH_CN_NAME, STATUS, LAVELS, 
-      REMARK, IMG_URL, TOTAL_SQL, 
-      NAV_IMG_URL, NAV_ENABLED, OLD_TOTAL_SQL, 
-      ZH_TW_NAME, EN_US_NAME, FLAG_LAN, 
-      STMS_MENU_ID, CLASS_NAME)
-    values (#{resourceId,jdbcType=DECIMAL}, #{resourceType,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
-      #{orderNum,jdbcType=DECIMAL}, #{parentId,jdbcType=DECIMAL}, #{target,jdbcType=VARCHAR}, 
-      #{zhCnName,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, #{lavels,jdbcType=DECIMAL}, 
-      #{remark,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{totalSql,jdbcType=VARCHAR}, 
-      #{navImgUrl,jdbcType=VARCHAR}, #{navEnabled,jdbcType=DECIMAL}, #{oldTotalSql,jdbcType=VARCHAR}, 
-      #{zhTwName,jdbcType=VARCHAR}, #{enUsName,jdbcType=VARCHAR}, #{flagLan,jdbcType=CHAR}, 
-      #{stmsMenuId,jdbcType=DECIMAL}, #{className,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.assets.pojo.SysResource">
-    insert into sys_resource
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="resourceId != null">
-        RESOURCE_ID,
-      </if>
-      <if test="resourceType != null">
-        RESOURCE_TYPE,
-      </if>
-      <if test="value != null">
-        VALUE,
-      </if>
-      <if test="orderNum != null">
-        ORDER_NUM,
-      </if>
-      <if test="parentId != null">
-        PARENT_ID,
-      </if>
-      <if test="target != null">
-        TARGET,
-      </if>
-      <if test="zhCnName != null">
-        ZH_CN_NAME,
-      </if>
-      <if test="status != null">
-        STATUS,
-      </if>
-      <if test="lavels != null">
-        LAVELS,
-      </if>
-      <if test="remark != null">
-        REMARK,
-      </if>
-      <if test="imgUrl != null">
-        IMG_URL,
-      </if>
-      <if test="totalSql != null">
-        TOTAL_SQL,
-      </if>
-      <if test="navImgUrl != null">
-        NAV_IMG_URL,
-      </if>
-      <if test="navEnabled != null">
-        NAV_ENABLED,
-      </if>
-      <if test="oldTotalSql != null">
-        OLD_TOTAL_SQL,
-      </if>
-      <if test="zhTwName != null">
-        ZH_TW_NAME,
-      </if>
-      <if test="enUsName != null">
-        EN_US_NAME,
-      </if>
-      <if test="flagLan != null">
-        FLAG_LAN,
-      </if>
-      <if test="stmsMenuId != null">
-        STMS_MENU_ID,
-      </if>
-      <if test="className != null">
-        CLASS_NAME,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="resourceId != null">
-        #{resourceId,jdbcType=DECIMAL},
-      </if>
-      <if test="resourceType != null">
-        #{resourceType,jdbcType=VARCHAR},
-      </if>
-      <if test="value != null">
-        #{value,jdbcType=VARCHAR},
-      </if>
-      <if test="orderNum != null">
-        #{orderNum,jdbcType=DECIMAL},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=DECIMAL},
-      </if>
-      <if test="target != null">
-        #{target,jdbcType=VARCHAR},
-      </if>
-      <if test="zhCnName != null">
-        #{zhCnName,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=DECIMAL},
-      </if>
-      <if test="lavels != null">
-        #{lavels,jdbcType=DECIMAL},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="imgUrl != null">
-        #{imgUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="totalSql != null">
-        #{totalSql,jdbcType=VARCHAR},
-      </if>
-      <if test="navImgUrl != null">
-        #{navImgUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="navEnabled != null">
-        #{navEnabled,jdbcType=DECIMAL},
-      </if>
-      <if test="oldTotalSql != null">
-        #{oldTotalSql,jdbcType=VARCHAR},
-      </if>
-      <if test="zhTwName != null">
-        #{zhTwName,jdbcType=VARCHAR},
-      </if>
-      <if test="enUsName != null">
-        #{enUsName,jdbcType=VARCHAR},
-      </if>
-      <if test="flagLan != null">
-        #{flagLan,jdbcType=CHAR},
-      </if>
-      <if test="stmsMenuId != null">
-        #{stmsMenuId,jdbcType=DECIMAL},
-      </if>
-      <if test="className != null">
-        #{className,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.assets.pojo.SysResourceExample" resultType="java.lang.Integer">
-    select count(*) from sys_resource
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update sys_resource
-    <set>
-      <if test="record.resourceId != null">
-        RESOURCE_ID = #{record.resourceId,jdbcType=DECIMAL},
-      </if>
-      <if test="record.resourceType != null">
-        RESOURCE_TYPE = #{record.resourceType,jdbcType=VARCHAR},
-      </if>
-      <if test="record.value != null">
-        VALUE = #{record.value,jdbcType=VARCHAR},
-      </if>
-      <if test="record.orderNum != null">
-        ORDER_NUM = #{record.orderNum,jdbcType=DECIMAL},
-      </if>
-      <if test="record.parentId != null">
-        PARENT_ID = #{record.parentId,jdbcType=DECIMAL},
-      </if>
-      <if test="record.target != null">
-        TARGET = #{record.target,jdbcType=VARCHAR},
-      </if>
-      <if test="record.zhCnName != null">
-        ZH_CN_NAME = #{record.zhCnName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null">
-        STATUS = #{record.status,jdbcType=DECIMAL},
-      </if>
-      <if test="record.lavels != null">
-        LAVELS = #{record.lavels,jdbcType=DECIMAL},
-      </if>
-      <if test="record.remark != null">
-        REMARK = #{record.remark,jdbcType=VARCHAR},
-      </if>
-      <if test="record.imgUrl != null">
-        IMG_URL = #{record.imgUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="record.totalSql != null">
-        TOTAL_SQL = #{record.totalSql,jdbcType=VARCHAR},
-      </if>
-      <if test="record.navImgUrl != null">
-        NAV_IMG_URL = #{record.navImgUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="record.navEnabled != null">
-        NAV_ENABLED = #{record.navEnabled,jdbcType=DECIMAL},
-      </if>
-      <if test="record.oldTotalSql != null">
-        OLD_TOTAL_SQL = #{record.oldTotalSql,jdbcType=VARCHAR},
-      </if>
-      <if test="record.zhTwName != null">
-        ZH_TW_NAME = #{record.zhTwName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.enUsName != null">
-        EN_US_NAME = #{record.enUsName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.flagLan != null">
-        FLAG_LAN = #{record.flagLan,jdbcType=CHAR},
-      </if>
-      <if test="record.stmsMenuId != null">
-        STMS_MENU_ID = #{record.stmsMenuId,jdbcType=DECIMAL},
-      </if>
-      <if test="record.className != null">
-        CLASS_NAME = #{record.className,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update sys_resource
-    set RESOURCE_ID = #{record.resourceId,jdbcType=DECIMAL},
-      RESOURCE_TYPE = #{record.resourceType,jdbcType=VARCHAR},
-      VALUE = #{record.value,jdbcType=VARCHAR},
-      ORDER_NUM = #{record.orderNum,jdbcType=DECIMAL},
-      PARENT_ID = #{record.parentId,jdbcType=DECIMAL},
-      TARGET = #{record.target,jdbcType=VARCHAR},
-      ZH_CN_NAME = #{record.zhCnName,jdbcType=VARCHAR},
-      STATUS = #{record.status,jdbcType=DECIMAL},
-      LAVELS = #{record.lavels,jdbcType=DECIMAL},
-      REMARK = #{record.remark,jdbcType=VARCHAR},
-      IMG_URL = #{record.imgUrl,jdbcType=VARCHAR},
-      TOTAL_SQL = #{record.totalSql,jdbcType=VARCHAR},
-      NAV_IMG_URL = #{record.navImgUrl,jdbcType=VARCHAR},
-      NAV_ENABLED = #{record.navEnabled,jdbcType=DECIMAL},
-      OLD_TOTAL_SQL = #{record.oldTotalSql,jdbcType=VARCHAR},
-      ZH_TW_NAME = #{record.zhTwName,jdbcType=VARCHAR},
-      EN_US_NAME = #{record.enUsName,jdbcType=VARCHAR},
-      FLAG_LAN = #{record.flagLan,jdbcType=CHAR},
-      STMS_MENU_ID = #{record.stmsMenuId,jdbcType=DECIMAL},
-      CLASS_NAME = #{record.className,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.SysResource">
-    update sys_resource
-    <set>
-      <if test="resourceType != null">
-        RESOURCE_TYPE = #{resourceType,jdbcType=VARCHAR},
-      </if>
-      <if test="value != null">
-        VALUE = #{value,jdbcType=VARCHAR},
-      </if>
-      <if test="orderNum != null">
-        ORDER_NUM = #{orderNum,jdbcType=DECIMAL},
-      </if>
-      <if test="parentId != null">
-        PARENT_ID = #{parentId,jdbcType=DECIMAL},
-      </if>
-      <if test="target != null">
-        TARGET = #{target,jdbcType=VARCHAR},
-      </if>
-      <if test="zhCnName != null">
-        ZH_CN_NAME = #{zhCnName,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        STATUS = #{status,jdbcType=DECIMAL},
-      </if>
-      <if test="lavels != null">
-        LAVELS = #{lavels,jdbcType=DECIMAL},
-      </if>
-      <if test="remark != null">
-        REMARK = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="imgUrl != null">
-        IMG_URL = #{imgUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="totalSql != null">
-        TOTAL_SQL = #{totalSql,jdbcType=VARCHAR},
-      </if>
-      <if test="navImgUrl != null">
-        NAV_IMG_URL = #{navImgUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="navEnabled != null">
-        NAV_ENABLED = #{navEnabled,jdbcType=DECIMAL},
-      </if>
-      <if test="oldTotalSql != null">
-        OLD_TOTAL_SQL = #{oldTotalSql,jdbcType=VARCHAR},
-      </if>
-      <if test="zhTwName != null">
-        ZH_TW_NAME = #{zhTwName,jdbcType=VARCHAR},
-      </if>
-      <if test="enUsName != null">
-        EN_US_NAME = #{enUsName,jdbcType=VARCHAR},
-      </if>
-      <if test="flagLan != null">
-        FLAG_LAN = #{flagLan,jdbcType=CHAR},
-      </if>
-      <if test="stmsMenuId != null">
-        STMS_MENU_ID = #{stmsMenuId,jdbcType=DECIMAL},
-      </if>
-      <if test="className != null">
-        CLASS_NAME = #{className,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.SysResource">
+  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.SysResource" >
     update sys_resource
     set RESOURCE_TYPE = #{resourceType,jdbcType=VARCHAR},
       VALUE = #{value,jdbcType=VARCHAR},

@@ -4,17 +4,17 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class SysUser {
-    private Long userid;
+    private Integer userid;
 
     private String loginName;
 
     private String password;
 
-    private Short enabled;
+    private Integer enabled;
 
-    private Short tokenChanged;
+    private Integer tokenChanged;
 
-    private Short nodeId;
+    private Integer nodeId;
 
     private String email;
 
@@ -30,7 +30,7 @@ public class SysUser {
 
     private String plainPwd;
 
-    private Long addUserId;
+    private Integer addUserId;
 
     private String authLoginIp;
 
@@ -42,11 +42,11 @@ public class SysUser {
 
     private Date lastLoginTime;
 
-    public Long getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 
@@ -66,27 +66,27 @@ public class SysUser {
         this.password = password == null ? null : password.trim();
     }
 
-    public Short getEnabled() {
+    public Integer getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Short enabled) {
+    public void setEnabled(Integer enabled) {
         this.enabled = enabled;
     }
 
-    public Short getTokenChanged() {
+    public Integer getTokenChanged() {
         return tokenChanged;
     }
 
-    public void setTokenChanged(Short tokenChanged) {
+    public void setTokenChanged(Integer tokenChanged) {
         this.tokenChanged = tokenChanged;
     }
 
-    public Short getNodeId() {
+    public Integer getNodeId() {
         return nodeId;
     }
 
-    public void setNodeId(Short nodeId) {
+    public void setNodeId(Integer nodeId) {
         this.nodeId = nodeId;
     }
 
@@ -146,11 +146,11 @@ public class SysUser {
         this.plainPwd = plainPwd == null ? null : plainPwd.trim();
     }
 
-    public Long getAddUserId() {
+    public Integer getAddUserId() {
         return addUserId;
     }
 
-    public void setAddUserId(Long addUserId) {
+    public void setAddUserId(Integer addUserId) {
         this.addUserId = addUserId;
     }
 

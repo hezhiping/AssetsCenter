@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.assets.common.pojo.EasyUIDataGridResult;
-import com.assets.common.pojo.ZtreeJsonResult;
 import com.assets.common.utils.ResponseResult;
 import com.assets.pojo.ConstCategory;
 import com.assets.service.CategoryService;

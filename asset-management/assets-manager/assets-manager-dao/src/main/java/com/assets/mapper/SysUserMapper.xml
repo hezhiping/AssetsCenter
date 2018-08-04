@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.assets.mapper.SysUserMapper" >
   <resultMap id="BaseResultMap" type="com.assets.pojo.SysUser" >
-    <id column="USERID" property="userid" jdbcType="DECIMAL" />
+    <id column="USERID" property="userid" jdbcType="INTEGER" />
     <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
     <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
-    <result column="ENABLED" property="enabled" jdbcType="DECIMAL" />
-    <result column="TOKEN_CHANGED" property="tokenChanged" jdbcType="DECIMAL" />
-    <result column="NODE_ID" property="nodeId" jdbcType="DECIMAL" />
+    <result column="ENABLED" property="enabled" jdbcType="INTEGER" />
+    <result column="TOKEN_CHANGED" property="tokenChanged" jdbcType="INTEGER" />
+    <result column="NODE_ID" property="nodeId" jdbcType="INTEGER" />
     <result column="EMAIL" property="email" jdbcType="VARCHAR" />
     <result column="MOBILE" property="mobile" jdbcType="DECIMAL" />
     <result column="UKEYSN" property="ukeysn" jdbcType="VARCHAR" />
@@ -15,7 +15,7 @@
     <result column="ISUKEY" property="isukey" jdbcType="CHAR" />
     <result column="ISINTERNAL" property="isinternal" jdbcType="CHAR" />
     <result column="PLAIN_PWD" property="plainPwd" jdbcType="VARCHAR" />
-    <result column="ADD_USER_ID" property="addUserId" jdbcType="DECIMAL" />
+    <result column="ADD_USER_ID" property="addUserId" jdbcType="INTEGER" />
     <result column="AUTH_LOGIN_IP" property="authLoginIp" jdbcType="VARCHAR" />
     <result column="LAST_ACCESS_IP" property="lastAccessIp" jdbcType="VARCHAR" />
     <result column="LOCALE" property="locale" jdbcType="VARCHAR" />
@@ -99,15 +99,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from sys_user
-    where USERID = #{userid,jdbcType=DECIMAL}
+    where USERID = #{userid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sys_user
-    where USERID = #{userid,jdbcType=DECIMAL}
+    where USERID = #{userid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.assets.pojo.SysUserExample" >
     delete from sys_user
@@ -123,11 +123,11 @@
       PLAIN_PWD, ADD_USER_ID, AUTH_LOGIN_IP, 
       LAST_ACCESS_IP, LOCALE, PASSWORD_UPDATE_TIME, 
       LAST_LOGIN_TIME)
-    values (#{userid,jdbcType=DECIMAL}, #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{enabled,jdbcType=DECIMAL}, #{tokenChanged,jdbcType=DECIMAL}, #{nodeId,jdbcType=DECIMAL}, 
+    values (#{userid,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=INTEGER}, #{tokenChanged,jdbcType=INTEGER}, #{nodeId,jdbcType=INTEGER}, 
       #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=DECIMAL}, #{ukeysn,jdbcType=VARCHAR}, 
       #{ukeypwd,jdbcType=VARCHAR}, #{isukey,jdbcType=CHAR}, #{isinternal,jdbcType=CHAR}, 
-      #{plainPwd,jdbcType=VARCHAR}, #{addUserId,jdbcType=DECIMAL}, #{authLoginIp,jdbcType=VARCHAR}, 
+      #{plainPwd,jdbcType=VARCHAR}, #{addUserId,jdbcType=INTEGER}, #{authLoginIp,jdbcType=VARCHAR}, 
       #{lastAccessIp,jdbcType=VARCHAR}, #{locale,jdbcType=VARCHAR}, #{passwordUpdateTime,jdbcType=DATE}, 
       #{lastLoginTime,jdbcType=TIMESTAMP})
   </insert>
@@ -194,7 +194,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
-        #{userid,jdbcType=DECIMAL},
+        #{userid,jdbcType=INTEGER},
       </if>
       <if test="loginName != null" >
         #{loginName,jdbcType=VARCHAR},
@@ -203,13 +203,13 @@
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="enabled != null" >
-        #{enabled,jdbcType=DECIMAL},
+        #{enabled,jdbcType=INTEGER},
       </if>
       <if test="tokenChanged != null" >
-        #{tokenChanged,jdbcType=DECIMAL},
+        #{tokenChanged,jdbcType=INTEGER},
       </if>
       <if test="nodeId != null" >
-        #{nodeId,jdbcType=DECIMAL},
+        #{nodeId,jdbcType=INTEGER},
       </if>
       <if test="email != null" >
         #{email,jdbcType=VARCHAR},
@@ -233,7 +233,7 @@
         #{plainPwd,jdbcType=VARCHAR},
       </if>
       <if test="addUserId != null" >
-        #{addUserId,jdbcType=DECIMAL},
+        #{addUserId,jdbcType=INTEGER},
       </if>
       <if test="authLoginIp != null" >
         #{authLoginIp,jdbcType=VARCHAR},
@@ -262,7 +262,7 @@
     update sys_user
     <set >
       <if test="record.userid != null" >
-        USERID = #{record.userid,jdbcType=DECIMAL},
+        USERID = #{record.userid,jdbcType=INTEGER},
       </if>
       <if test="record.loginName != null" >
         LOGIN_NAME = #{record.loginName,jdbcType=VARCHAR},
@@ -271,13 +271,13 @@
         PASSWORD = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.enabled != null" >
-        ENABLED = #{record.enabled,jdbcType=DECIMAL},
+        ENABLED = #{record.enabled,jdbcType=INTEGER},
       </if>
       <if test="record.tokenChanged != null" >
-        TOKEN_CHANGED = #{record.tokenChanged,jdbcType=DECIMAL},
+        TOKEN_CHANGED = #{record.tokenChanged,jdbcType=INTEGER},
       </if>
       <if test="record.nodeId != null" >
-        NODE_ID = #{record.nodeId,jdbcType=DECIMAL},
+        NODE_ID = #{record.nodeId,jdbcType=INTEGER},
       </if>
       <if test="record.email != null" >
         EMAIL = #{record.email,jdbcType=VARCHAR},
@@ -301,7 +301,7 @@
         PLAIN_PWD = #{record.plainPwd,jdbcType=VARCHAR},
       </if>
       <if test="record.addUserId != null" >
-        ADD_USER_ID = #{record.addUserId,jdbcType=DECIMAL},
+        ADD_USER_ID = #{record.addUserId,jdbcType=INTEGER},
       </if>
       <if test="record.authLoginIp != null" >
         AUTH_LOGIN_IP = #{record.authLoginIp,jdbcType=VARCHAR},
@@ -325,12 +325,12 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update sys_user
-    set USERID = #{record.userid,jdbcType=DECIMAL},
+    set USERID = #{record.userid,jdbcType=INTEGER},
       LOGIN_NAME = #{record.loginName,jdbcType=VARCHAR},
       PASSWORD = #{record.password,jdbcType=VARCHAR},
-      ENABLED = #{record.enabled,jdbcType=DECIMAL},
-      TOKEN_CHANGED = #{record.tokenChanged,jdbcType=DECIMAL},
-      NODE_ID = #{record.nodeId,jdbcType=DECIMAL},
+      ENABLED = #{record.enabled,jdbcType=INTEGER},
+      TOKEN_CHANGED = #{record.tokenChanged,jdbcType=INTEGER},
+      NODE_ID = #{record.nodeId,jdbcType=INTEGER},
       EMAIL = #{record.email,jdbcType=VARCHAR},
       MOBILE = #{record.mobile,jdbcType=DECIMAL},
       UKEYSN = #{record.ukeysn,jdbcType=VARCHAR},
@@ -338,7 +338,7 @@
       ISUKEY = #{record.isukey,jdbcType=CHAR},
       ISINTERNAL = #{record.isinternal,jdbcType=CHAR},
       PLAIN_PWD = #{record.plainPwd,jdbcType=VARCHAR},
-      ADD_USER_ID = #{record.addUserId,jdbcType=DECIMAL},
+      ADD_USER_ID = #{record.addUserId,jdbcType=INTEGER},
       AUTH_LOGIN_IP = #{record.authLoginIp,jdbcType=VARCHAR},
       LAST_ACCESS_IP = #{record.lastAccessIp,jdbcType=VARCHAR},
       LOCALE = #{record.locale,jdbcType=VARCHAR},
@@ -358,13 +358,13 @@
         PASSWORD = #{password,jdbcType=VARCHAR},
       </if>
       <if test="enabled != null" >
-        ENABLED = #{enabled,jdbcType=DECIMAL},
+        ENABLED = #{enabled,jdbcType=INTEGER},
       </if>
       <if test="tokenChanged != null" >
-        TOKEN_CHANGED = #{tokenChanged,jdbcType=DECIMAL},
+        TOKEN_CHANGED = #{tokenChanged,jdbcType=INTEGER},
       </if>
       <if test="nodeId != null" >
-        NODE_ID = #{nodeId,jdbcType=DECIMAL},
+        NODE_ID = #{nodeId,jdbcType=INTEGER},
       </if>
       <if test="email != null" >
         EMAIL = #{email,jdbcType=VARCHAR},
@@ -388,7 +388,7 @@
         PLAIN_PWD = #{plainPwd,jdbcType=VARCHAR},
       </if>
       <if test="addUserId != null" >
-        ADD_USER_ID = #{addUserId,jdbcType=DECIMAL},
+        ADD_USER_ID = #{addUserId,jdbcType=INTEGER},
       </if>
       <if test="authLoginIp != null" >
         AUTH_LOGIN_IP = #{authLoginIp,jdbcType=VARCHAR},
@@ -406,15 +406,15 @@
         LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where USERID = #{userid,jdbcType=DECIMAL}
+    where USERID = #{userid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.assets.pojo.SysUser" >
     update sys_user
     set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
       PASSWORD = #{password,jdbcType=VARCHAR},
-      ENABLED = #{enabled,jdbcType=DECIMAL},
-      TOKEN_CHANGED = #{tokenChanged,jdbcType=DECIMAL},
-      NODE_ID = #{nodeId,jdbcType=DECIMAL},
+      ENABLED = #{enabled,jdbcType=INTEGER},
+      TOKEN_CHANGED = #{tokenChanged,jdbcType=INTEGER},
+      NODE_ID = #{nodeId,jdbcType=INTEGER},
       EMAIL = #{email,jdbcType=VARCHAR},
       MOBILE = #{mobile,jdbcType=DECIMAL},
       UKEYSN = #{ukeysn,jdbcType=VARCHAR},
@@ -422,12 +422,12 @@
       ISUKEY = #{isukey,jdbcType=CHAR},
       ISINTERNAL = #{isinternal,jdbcType=CHAR},
       PLAIN_PWD = #{plainPwd,jdbcType=VARCHAR},
-      ADD_USER_ID = #{addUserId,jdbcType=DECIMAL},
+      ADD_USER_ID = #{addUserId,jdbcType=INTEGER},
       AUTH_LOGIN_IP = #{authLoginIp,jdbcType=VARCHAR},
       LAST_ACCESS_IP = #{lastAccessIp,jdbcType=VARCHAR},
       LOCALE = #{locale,jdbcType=VARCHAR},
       PASSWORD_UPDATE_TIME = #{passwordUpdateTime,jdbcType=DATE},
       LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP}
-    where USERID = #{userid,jdbcType=DECIMAL}
+    where USERID = #{userid,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -8,7 +8,7 @@ public class AssetOut {
 
     private Integer psnCode;
 
-    private Date currentMonthDate;
+    private String currentMonth;
 
     private BigDecimal originalCapital;
 
@@ -19,6 +19,8 @@ public class AssetOut {
     private String tagStatus;
 
     private Date createDate;
+
+    private String currentYear;
 
     private String jsonData;
 
@@ -38,12 +40,12 @@ public class AssetOut {
         this.psnCode = psnCode;
     }
 
-    public Date getCurrentMonthDate() {
-        return currentMonthDate;
+    public String getCurrentMonth() {
+        return currentMonth;
     }
 
-    public void setCurrentMonthDate(Date currentMonthDate) {
-        this.currentMonthDate = currentMonthDate;
+    public void setCurrentMonth(String currentMonth) {
+        this.currentMonth = currentMonth == null ? null : currentMonth.trim();
     }
 
     public BigDecimal getOriginalCapital() {
@@ -84,6 +86,14 @@ public class AssetOut {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getCurrentYear() {
+        return currentYear;
+    }
+
+    public void setCurrentYear(String currentYear) {
+        this.currentYear = currentYear == null ? null : currentYear.trim();
     }
 
     public String getJsonData() {

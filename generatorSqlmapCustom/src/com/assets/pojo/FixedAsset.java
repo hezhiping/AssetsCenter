@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class FixedAsset extends FixedAssetKey {
-    private Date currentMonthDate;
+    private String currentMonth;
 
     private Integer psnCode;
 
@@ -14,14 +14,16 @@ public class FixedAsset extends FixedAssetKey {
 
     private Date createDate;
 
+    private String currentYear;
+
     private String assetRemark;
 
-    public Date getCurrentMonthDate() {
-        return currentMonthDate;
+    public String getCurrentMonth() {
+        return currentMonth;
     }
 
-    public void setCurrentMonthDate(Date currentMonthDate) {
-        this.currentMonthDate = currentMonthDate;
+    public void setCurrentMonth(String currentMonth) {
+        this.currentMonth = currentMonth == null ? null : currentMonth.trim();
     }
 
     public Integer getPsnCode() {
@@ -54,6 +56,14 @@ public class FixedAsset extends FixedAssetKey {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getCurrentYear() {
+        return currentYear;
+    }
+
+    public void setCurrentYear(String currentYear) {
+        this.currentYear = currentYear == null ? null : currentYear.trim();
     }
 
     public String getAssetRemark() {

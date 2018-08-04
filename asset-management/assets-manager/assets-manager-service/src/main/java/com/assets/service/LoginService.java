@@ -7,10 +7,10 @@ import com.assets.common.utils.ResponseResult;
 import com.assets.pojo.SysUser;
 
 
-public interface LoginService {
+public interface LoginService extends BaseService {
 
 	ResponseResult login(String userName,String password,String checkcode,HttpServletRequest request,HttpServletResponse response);
 	
-	ResponseResult getUserByToken(String token);
+	//ResponseResult getUserByToken(String token);
 	// TODO 接收token，删除token对应的数据。返回ok。
 }

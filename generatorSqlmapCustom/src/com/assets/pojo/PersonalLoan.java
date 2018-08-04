@@ -8,7 +8,7 @@ public class PersonalLoan {
 
     private Integer psnCode;
 
-    private Date currentMonthDate;
+    private String currentMonth;
 
     private String lendPerson;
 
@@ -23,6 +23,8 @@ public class PersonalLoan {
     private Date createDate;
 
     private String tagStatus;
+
+    private String currentYear;
 
     private String remark;
 
@@ -42,12 +44,12 @@ public class PersonalLoan {
         this.psnCode = psnCode;
     }
 
-    public Date getCurrentMonthDate() {
-        return currentMonthDate;
+    public String getCurrentMonth() {
+        return currentMonth;
     }
 
-    public void setCurrentMonthDate(Date currentMonthDate) {
-        this.currentMonthDate = currentMonthDate;
+    public void setCurrentMonth(String currentMonth) {
+        this.currentMonth = currentMonth == null ? null : currentMonth.trim();
     }
 
     public String getLendPerson() {
@@ -104,6 +106,14 @@ public class PersonalLoan {
 
     public void setTagStatus(String tagStatus) {
         this.tagStatus = tagStatus == null ? null : tagStatus.trim();
+    }
+
+    public String getCurrentYear() {
+        return currentYear;
+    }
+
+    public void setCurrentYear(String currentYear) {
+        this.currentYear = currentYear == null ? null : currentYear.trim();
     }
 
     public String getRemark() {

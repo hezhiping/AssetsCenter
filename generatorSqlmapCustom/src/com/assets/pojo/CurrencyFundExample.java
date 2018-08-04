@@ -3,7 +3,6 @@ package com.assets.pojo;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class CurrencyFundExample {
@@ -105,32 +104,6 @@ public class CurrencyFundExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andIdIsNull() {
@@ -253,63 +226,73 @@ public class CurrencyFundExample {
             return (Criteria) this;
         }
 
-        public Criteria andCurrentMonthDateIsNull() {
-            addCriterion("current_month_date is null");
+        public Criteria andCurrentMonthIsNull() {
+            addCriterion("current_month is null");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentMonthDateIsNotNull() {
-            addCriterion("current_month_date is not null");
+        public Criteria andCurrentMonthIsNotNull() {
+            addCriterion("current_month is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentMonthDateEqualTo(Date value) {
-            addCriterionForJDBCDate("current_month_date =", value, "currentMonthDate");
+        public Criteria andCurrentMonthEqualTo(String value) {
+            addCriterion("current_month =", value, "currentMonth");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentMonthDateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("current_month_date <>", value, "currentMonthDate");
+        public Criteria andCurrentMonthNotEqualTo(String value) {
+            addCriterion("current_month <>", value, "currentMonth");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentMonthDateGreaterThan(Date value) {
-            addCriterionForJDBCDate("current_month_date >", value, "currentMonthDate");
+        public Criteria andCurrentMonthGreaterThan(String value) {
+            addCriterion("current_month >", value, "currentMonth");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentMonthDateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("current_month_date >=", value, "currentMonthDate");
+        public Criteria andCurrentMonthGreaterThanOrEqualTo(String value) {
+            addCriterion("current_month >=", value, "currentMonth");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentMonthDateLessThan(Date value) {
-            addCriterionForJDBCDate("current_month_date <", value, "currentMonthDate");
+        public Criteria andCurrentMonthLessThan(String value) {
+            addCriterion("current_month <", value, "currentMonth");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentMonthDateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("current_month_date <=", value, "currentMonthDate");
+        public Criteria andCurrentMonthLessThanOrEqualTo(String value) {
+            addCriterion("current_month <=", value, "currentMonth");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentMonthDateIn(List<Date> values) {
-            addCriterionForJDBCDate("current_month_date in", values, "currentMonthDate");
+        public Criteria andCurrentMonthLike(String value) {
+            addCriterion("current_month like", value, "currentMonth");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentMonthDateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("current_month_date not in", values, "currentMonthDate");
+        public Criteria andCurrentMonthNotLike(String value) {
+            addCriterion("current_month not like", value, "currentMonth");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentMonthDateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("current_month_date between", value1, value2, "currentMonthDate");
+        public Criteria andCurrentMonthIn(List<String> values) {
+            addCriterion("current_month in", values, "currentMonth");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentMonthDateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("current_month_date not between", value1, value2, "currentMonthDate");
+        public Criteria andCurrentMonthNotIn(List<String> values) {
+            addCriterion("current_month not in", values, "currentMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMonthBetween(String value1, String value2) {
+            addCriterion("current_month between", value1, value2, "currentMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentMonthNotBetween(String value1, String value2) {
+            addCriterion("current_month not between", value1, value2, "currentMonth");
             return (Criteria) this;
         }
 
@@ -680,6 +663,76 @@ public class CurrencyFundExample {
 
         public Criteria andCreateDateNotBetween(Date value1, Date value2) {
             addCriterion("create_date not between", value1, value2, "createDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearIsNull() {
+            addCriterion("current_year is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearIsNotNull() {
+            addCriterion("current_year is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearEqualTo(String value) {
+            addCriterion("current_year =", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearNotEqualTo(String value) {
+            addCriterion("current_year <>", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearGreaterThan(String value) {
+            addCriterion("current_year >", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearGreaterThanOrEqualTo(String value) {
+            addCriterion("current_year >=", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearLessThan(String value) {
+            addCriterion("current_year <", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearLessThanOrEqualTo(String value) {
+            addCriterion("current_year <=", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearLike(String value) {
+            addCriterion("current_year like", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearNotLike(String value) {
+            addCriterion("current_year not like", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearIn(List<String> values) {
+            addCriterion("current_year in", values, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearNotIn(List<String> values) {
+            addCriterion("current_year not in", values, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearBetween(String value1, String value2) {
+            addCriterion("current_year between", value1, value2, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearNotBetween(String value1, String value2) {
+            addCriterion("current_year not between", value1, value2, "currentYear");
             return (Criteria) this;
         }
     }

@@ -1,36 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.assets.mapper.ConstDictionaryMapper">
-  <resultMap id="BaseResultMap" type="com.assets.pojo.ConstDictionary">
-    <id column="cost_code" jdbcType="INTEGER" property="costCode" />
-    <result column="category" jdbcType="VARCHAR" property="category" />
-    <result column="en_us_caption" jdbcType="VARCHAR" property="enUsCaption" />
-    <result column="zh_tw_caption" jdbcType="VARCHAR" property="zhTwCaption" />
-    <result column="zh_cn_caption" jdbcType="VARCHAR" property="zhCnCaption" />
-    <result column="seq_no" jdbcType="DECIMAL" property="seqNo" />
-    <result column="level_no" jdbcType="VARCHAR" property="levelNo" />
-    <result column="const_type" jdbcType="VARCHAR" property="constType" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.assets.mapper.ConstDictionaryMapper" >
+  <resultMap id="BaseResultMap" type="com.assets.pojo.ConstDictionary" >
+    <id column="cost_code" property="costCode" jdbcType="INTEGER" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="en_us_caption" property="enUsCaption" jdbcType="VARCHAR" />
+    <result column="zh_tw_caption" property="zhTwCaption" jdbcType="VARCHAR" />
+    <result column="zh_cn_caption" property="zhCnCaption" jdbcType="VARCHAR" />
+    <result column="seq_no" property="seqNo" jdbcType="DECIMAL" />
+    <result column="level_no" property="levelNo" jdbcType="VARCHAR" />
+    <result column="const_type" property="constType" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -41,25 +41,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -70,41 +70,41 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     cost_code, category, en_us_caption, zh_tw_caption, zh_cn_caption, seq_no, level_no, 
     const_type, remark
   </sql>
-  <select id="selectByExample" parameterType="com.assets.pojo.ConstDictionaryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.ConstDictionaryExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
     from const_dictionary
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from const_dictionary
     where cost_code = #{costCode,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from const_dictionary
     where cost_code = #{costCode,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.assets.pojo.ConstDictionaryExample">
+  <delete id="deleteByExample" parameterType="com.assets.pojo.ConstDictionaryExample" >
     delete from const_dictionary
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.assets.pojo.ConstDictionary">
+  <insert id="insert" parameterType="com.assets.pojo.ConstDictionary" >
     insert into const_dictionary (cost_code, category, en_us_caption, 
       zh_tw_caption, zh_cn_caption, seq_no, 
       level_no, const_type, remark
@@ -114,109 +114,109 @@
       #{levelNo,jdbcType=VARCHAR}, #{constType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.assets.pojo.ConstDictionary">
+  <insert id="insertSelective" parameterType="com.assets.pojo.ConstDictionary" >
     insert into const_dictionary
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="costCode != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="costCode != null" >
         cost_code,
       </if>
-      <if test="category != null">
+      <if test="category != null" >
         category,
       </if>
-      <if test="enUsCaption != null">
+      <if test="enUsCaption != null" >
         en_us_caption,
       </if>
-      <if test="zhTwCaption != null">
+      <if test="zhTwCaption != null" >
         zh_tw_caption,
       </if>
-      <if test="zhCnCaption != null">
+      <if test="zhCnCaption != null" >
         zh_cn_caption,
       </if>
-      <if test="seqNo != null">
+      <if test="seqNo != null" >
         seq_no,
       </if>
-      <if test="levelNo != null">
+      <if test="levelNo != null" >
         level_no,
       </if>
-      <if test="constType != null">
+      <if test="constType != null" >
         const_type,
       </if>
-      <if test="remark != null">
+      <if test="remark != null" >
         remark,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="costCode != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="costCode != null" >
         #{costCode,jdbcType=INTEGER},
       </if>
-      <if test="category != null">
+      <if test="category != null" >
         #{category,jdbcType=VARCHAR},
       </if>
-      <if test="enUsCaption != null">
+      <if test="enUsCaption != null" >
         #{enUsCaption,jdbcType=VARCHAR},
       </if>
-      <if test="zhTwCaption != null">
+      <if test="zhTwCaption != null" >
         #{zhTwCaption,jdbcType=VARCHAR},
       </if>
-      <if test="zhCnCaption != null">
+      <if test="zhCnCaption != null" >
         #{zhCnCaption,jdbcType=VARCHAR},
       </if>
-      <if test="seqNo != null">
+      <if test="seqNo != null" >
         #{seqNo,jdbcType=DECIMAL},
       </if>
-      <if test="levelNo != null">
+      <if test="levelNo != null" >
         #{levelNo,jdbcType=VARCHAR},
       </if>
-      <if test="constType != null">
+      <if test="constType != null" >
         #{constType,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null">
+      <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.assets.pojo.ConstDictionaryExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.assets.pojo.ConstDictionaryExample" resultType="java.lang.Integer" >
     select count(*) from const_dictionary
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update const_dictionary
-    <set>
-      <if test="record.costCode != null">
+    <set >
+      <if test="record.costCode != null" >
         cost_code = #{record.costCode,jdbcType=INTEGER},
       </if>
-      <if test="record.category != null">
+      <if test="record.category != null" >
         category = #{record.category,jdbcType=VARCHAR},
       </if>
-      <if test="record.enUsCaption != null">
+      <if test="record.enUsCaption != null" >
         en_us_caption = #{record.enUsCaption,jdbcType=VARCHAR},
       </if>
-      <if test="record.zhTwCaption != null">
+      <if test="record.zhTwCaption != null" >
         zh_tw_caption = #{record.zhTwCaption,jdbcType=VARCHAR},
       </if>
-      <if test="record.zhCnCaption != null">
+      <if test="record.zhCnCaption != null" >
         zh_cn_caption = #{record.zhCnCaption,jdbcType=VARCHAR},
       </if>
-      <if test="record.seqNo != null">
+      <if test="record.seqNo != null" >
         seq_no = #{record.seqNo,jdbcType=DECIMAL},
       </if>
-      <if test="record.levelNo != null">
+      <if test="record.levelNo != null" >
         level_no = #{record.levelNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.constType != null">
+      <if test="record.constType != null" >
         const_type = #{record.constType,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark != null">
+      <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update const_dictionary
     set cost_code = #{record.costCode,jdbcType=INTEGER},
       category = #{record.category,jdbcType=VARCHAR},
@@ -227,313 +227,41 @@
       level_no = #{record.levelNo,jdbcType=VARCHAR},
       const_type = #{record.constType,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.ConstDictionary">
+  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.ConstDictionary" >
     update const_dictionary
-    <set>
-      <if test="category != null">
+    <set >
+      <if test="category != null" >
         category = #{category,jdbcType=VARCHAR},
       </if>
-      <if test="enUsCaption != null">
+      <if test="enUsCaption != null" >
         en_us_caption = #{enUsCaption,jdbcType=VARCHAR},
       </if>
-      <if test="zhTwCaption != null">
+      <if test="zhTwCaption != null" >
         zh_tw_caption = #{zhTwCaption,jdbcType=VARCHAR},
       </if>
-      <if test="zhCnCaption != null">
+      <if test="zhCnCaption != null" >
         zh_cn_caption = #{zhCnCaption,jdbcType=VARCHAR},
       </if>
-      <if test="seqNo != null">
+      <if test="seqNo != null" >
         seq_no = #{seqNo,jdbcType=DECIMAL},
       </if>
-      <if test="levelNo != null">
+      <if test="levelNo != null" >
         level_no = #{levelNo,jdbcType=VARCHAR},
       </if>
-      <if test="constType != null">
+      <if test="constType != null" >
         const_type = #{constType,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null">
+      <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where cost_code = #{costCode,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.ConstDictionary">
-    update const_dictionary
-    set category = #{category,jdbcType=VARCHAR},
-      en_us_caption = #{enUsCaption,jdbcType=VARCHAR},
-      zh_tw_caption = #{zhTwCaption,jdbcType=VARCHAR},
-      zh_cn_caption = #{zhCnCaption,jdbcType=VARCHAR},
-      seq_no = #{seqNo,jdbcType=DECIMAL},
-      level_no = #{levelNo,jdbcType=VARCHAR},
-      const_type = #{constType,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
-    where cost_code = #{costCode,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.assets.pojo.ConstDictionary">
-    <id column="cost_code" jdbcType="INTEGER" property="costCode" />
-    <result column="category" jdbcType="VARCHAR" property="category" />
-    <result column="en_us_caption" jdbcType="VARCHAR" property="enUsCaption" />
-    <result column="zh_tw_caption" jdbcType="VARCHAR" property="zhTwCaption" />
-    <result column="zh_cn_caption" jdbcType="VARCHAR" property="zhCnCaption" />
-    <result column="seq_no" jdbcType="DECIMAL" property="seqNo" />
-    <result column="level_no" jdbcType="VARCHAR" property="levelNo" />
-    <result column="const_type" jdbcType="VARCHAR" property="constType" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    cost_code, category, en_us_caption, zh_tw_caption, zh_cn_caption, seq_no, level_no, 
-    const_type, remark
-  </sql>
-  <select id="selectByExample" parameterType="com.assets.pojo.ConstDictionaryExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from const_dictionary
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from const_dictionary
-    where cost_code = #{costCode,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from const_dictionary
-    where cost_code = #{costCode,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.assets.pojo.ConstDictionaryExample">
-    delete from const_dictionary
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.assets.pojo.ConstDictionary">
-    insert into const_dictionary (cost_code, category, en_us_caption, 
-      zh_tw_caption, zh_cn_caption, seq_no, 
-      level_no, const_type, remark
-      )
-    values (#{costCode,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{enUsCaption,jdbcType=VARCHAR}, 
-      #{zhTwCaption,jdbcType=VARCHAR}, #{zhCnCaption,jdbcType=VARCHAR}, #{seqNo,jdbcType=DECIMAL}, 
-      #{levelNo,jdbcType=VARCHAR}, #{constType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.assets.pojo.ConstDictionary">
-    insert into const_dictionary
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="costCode != null">
-        cost_code,
-      </if>
-      <if test="category != null">
-        category,
-      </if>
-      <if test="enUsCaption != null">
-        en_us_caption,
-      </if>
-      <if test="zhTwCaption != null">
-        zh_tw_caption,
-      </if>
-      <if test="zhCnCaption != null">
-        zh_cn_caption,
-      </if>
-      <if test="seqNo != null">
-        seq_no,
-      </if>
-      <if test="levelNo != null">
-        level_no,
-      </if>
-      <if test="constType != null">
-        const_type,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="costCode != null">
-        #{costCode,jdbcType=INTEGER},
-      </if>
-      <if test="category != null">
-        #{category,jdbcType=VARCHAR},
-      </if>
-      <if test="enUsCaption != null">
-        #{enUsCaption,jdbcType=VARCHAR},
-      </if>
-      <if test="zhTwCaption != null">
-        #{zhTwCaption,jdbcType=VARCHAR},
-      </if>
-      <if test="zhCnCaption != null">
-        #{zhCnCaption,jdbcType=VARCHAR},
-      </if>
-      <if test="seqNo != null">
-        #{seqNo,jdbcType=DECIMAL},
-      </if>
-      <if test="levelNo != null">
-        #{levelNo,jdbcType=VARCHAR},
-      </if>
-      <if test="constType != null">
-        #{constType,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.assets.pojo.ConstDictionaryExample" resultType="java.lang.Integer">
-    select count(*) from const_dictionary
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update const_dictionary
-    <set>
-      <if test="record.costCode != null">
-        cost_code = #{record.costCode,jdbcType=INTEGER},
-      </if>
-      <if test="record.category != null">
-        category = #{record.category,jdbcType=VARCHAR},
-      </if>
-      <if test="record.enUsCaption != null">
-        en_us_caption = #{record.enUsCaption,jdbcType=VARCHAR},
-      </if>
-      <if test="record.zhTwCaption != null">
-        zh_tw_caption = #{record.zhTwCaption,jdbcType=VARCHAR},
-      </if>
-      <if test="record.zhCnCaption != null">
-        zh_cn_caption = #{record.zhCnCaption,jdbcType=VARCHAR},
-      </if>
-      <if test="record.seqNo != null">
-        seq_no = #{record.seqNo,jdbcType=DECIMAL},
-      </if>
-      <if test="record.levelNo != null">
-        level_no = #{record.levelNo,jdbcType=VARCHAR},
-      </if>
-      <if test="record.constType != null">
-        const_type = #{record.constType,jdbcType=VARCHAR},
-      </if>
-      <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update const_dictionary
-    set cost_code = #{record.costCode,jdbcType=INTEGER},
-      category = #{record.category,jdbcType=VARCHAR},
-      en_us_caption = #{record.enUsCaption,jdbcType=VARCHAR},
-      zh_tw_caption = #{record.zhTwCaption,jdbcType=VARCHAR},
-      zh_cn_caption = #{record.zhCnCaption,jdbcType=VARCHAR},
-      seq_no = #{record.seqNo,jdbcType=DECIMAL},
-      level_no = #{record.levelNo,jdbcType=VARCHAR},
-      const_type = #{record.constType,jdbcType=VARCHAR},
-      remark = #{record.remark,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.ConstDictionary">
-    update const_dictionary
-    <set>
-      <if test="category != null">
-        category = #{category,jdbcType=VARCHAR},
-      </if>
-      <if test="enUsCaption != null">
-        en_us_caption = #{enUsCaption,jdbcType=VARCHAR},
-      </if>
-      <if test="zhTwCaption != null">
-        zh_tw_caption = #{zhTwCaption,jdbcType=VARCHAR},
-      </if>
-      <if test="zhCnCaption != null">
-        zh_cn_caption = #{zhCnCaption,jdbcType=VARCHAR},
-      </if>
-      <if test="seqNo != null">
-        seq_no = #{seqNo,jdbcType=DECIMAL},
-      </if>
-      <if test="levelNo != null">
-        level_no = #{levelNo,jdbcType=VARCHAR},
-      </if>
-      <if test="constType != null">
-        const_type = #{constType,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where cost_code = #{costCode,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.ConstDictionary">
+  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.ConstDictionary" >
     update const_dictionary
     set category = #{category,jdbcType=VARCHAR},
       en_us_caption = #{enUsCaption,jdbcType=VARCHAR},

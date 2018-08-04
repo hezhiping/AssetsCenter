@@ -8,7 +8,7 @@ public class AssetIncom {
 
     private Integer psnCode;
 
-    private Date currentMonthDate;
+    private String currentMonth;
 
     private BigDecimal dailyIncom;
 
@@ -23,6 +23,8 @@ public class AssetIncom {
     private String tagStatus;
 
     private Date createDate;
+
+    private String currentYear;
 
     private String jsonData;
 
@@ -42,12 +44,12 @@ public class AssetIncom {
         this.psnCode = psnCode;
     }
 
-    public Date getCurrentMonthDate() {
-        return currentMonthDate;
+    public String getCurrentMonth() {
+        return currentMonth;
     }
 
-    public void setCurrentMonthDate(Date currentMonthDate) {
-        this.currentMonthDate = currentMonthDate;
+    public void setCurrentMonth(String currentMonth) {
+        this.currentMonth = currentMonth == null ? null : currentMonth.trim();
     }
 
     public BigDecimal getDailyIncom() {
@@ -104,6 +106,14 @@ public class AssetIncom {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getCurrentYear() {
+        return currentYear;
+    }
+
+    public void setCurrentYear(String currentYear) {
+        this.currentYear = currentYear == null ? null : currentYear.trim();
     }
 
     public String getJsonData() {

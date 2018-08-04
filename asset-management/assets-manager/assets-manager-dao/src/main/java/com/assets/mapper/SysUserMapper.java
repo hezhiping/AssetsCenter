@@ -10,7 +10,7 @@ public interface SysUserMapper {
 
     int deleteByExample(SysUserExample example);
 
-    int deleteByPrimaryKey(Long userid);
+    int deleteByPrimaryKey(Integer userid);
 
     int insert(SysUser record);
 
@@ -18,7 +18,7 @@ public interface SysUserMapper {
 
     List<SysUser> selectByExample(SysUserExample example);
 
-    SysUser selectByPrimaryKey(Long userid);
+    SysUser selectByPrimaryKey(Integer userid);
 
     int updateByExampleSelective(@Param("record") SysUser record, @Param("example") SysUserExample example);
 
