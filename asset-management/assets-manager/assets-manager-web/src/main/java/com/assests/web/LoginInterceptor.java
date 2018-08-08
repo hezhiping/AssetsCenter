@@ -21,13 +21,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 	@Value("${SSO_LOGIN_URL}")
 	private String SSO_LOGIN_URL;
+	
+	@Value("${COOKIE_TOKEN_KEY}")
+	private String COOKIE_TOKEN_KEY;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		// 1、拦截请求url
 		// 2、从cookie中取token
-		String token = CookieUtils.getCookieValue(request, "TT_TOKEN");
+		String token = CookieUtils.getCookieValue(request, COOKIE_TOKEN_KEY);
 		// 判断token是否有只
 		if (StringUtils.isBlank(token)) {
 			//response.sendRedirect(SSO_LOGIN_URL + "?redirectURL="+ request.getRequestURI());

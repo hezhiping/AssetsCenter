@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.assets.common.pojo.EasyUIDataGridResult;
@@ -26,6 +27,9 @@ public class FixedAssetsServiceImpl extends BaseServiceImpl implements FixedAsse
 
 	@Autowired
 	private FixedAssetMapper fixAssetsMapper;
+	
+	@Value("${COOKIE_TOKEN_KEY}")
+	private String COOKIE_TOKEN_KEY;
 
 	/**
 	 * 固定资产分页数据获取方法
@@ -56,7 +60,7 @@ public class FixedAssetsServiceImpl extends BaseServiceImpl implements FixedAsse
 			// 补充日期
 			fixedAsets.setCreateDate(new Date());
 			// 获取cookie中的token值
-			String token = CookieUtils.getCookieValue(request, "TT_TOKEN");
+			String token = CookieUtils.getCookieValue(request, COOKIE_TOKEN_KEY);
 			// 通过token值调用公用service 中的获取缓存中的人员信息
 			ResponseResult result = getUserByToken(token);
 			// 判断是否取到了登录人员
@@ -86,6 +90,26 @@ public class FixedAssetsServiceImpl extends BaseServiceImpl implements FixedAsse
 			if (count <= 0) {
 				return ResponseResult.build(500, "修改失败");
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseResult.build(500, ExceptionUtil.getStackTrace(e));
+		}
+		return ResponseResult.ok();
+	}
+
+	/**
+	 * 删除固定资产项
+	 */
+	@Override
+	public ResponseResult deleteFixedAssets(String ids) {
+		try {
+			String[] fixedIds = ids.split(",");
+			for (String fixedId : fixedIds) {
+				int count = fixAssetsMapper.deleteById(Integer.valueOf(fixedId));
+				if (count <= 0 ) {
+					return ResponseResult.build(500, "删除失败");
+				}
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseResult.build(500, ExceptionUtil.getStackTrace(e));

@@ -320,4 +320,9 @@
     where id = #{id,jdbcType=INTEGER}
       and asset_name = #{assetName,jdbcType=VARCHAR}
   </update>
+    <!-- 根据id删除 -->
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from fixed_asset
+    where id = #{id,jdbcType=INTEGER}      
+  </delete>
 </mapper>

@@ -1,0 +1,211 @@
+package com.assets.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.assets.common.utils.ResponseResult;
+import com.assets.pojo.UserConstDic;
+import com.assets.service.UserConstDicService;
+
+@Controller
+@RequestMapping("assets")
+public class UserConstDicController {
+	@Autowired
+	private UserConstDicService userConstDicService;
+
+	// 用户配置的支付项类别名称
+	@Value("${PAY_ITEM_KEY}")
+	private String PAY_ITEM_KEY;
+
+	// 用户配置的收入项类别名称
+	@Value("${INCOM_ITEM_KEY}")
+	private String INCOM_ITEM_KEY;
+
+	// 用户配置的银行卡名称
+	@Value("${BANK_CARD_KEY}")
+	private String BANK_CARD_KEY;
+
+	// 个人配置的线上银行方式
+	@Value("${ONLINE_BANK_KEY}")
+	private String ONLINE_BANK_KEY;
+	// 个人配置的不计损益项
+	@Value("${NOLOSS_ITEM_KEY}")
+	private String NOLOSS_ITEM_KEY;
+
+	// 个人配置的信用借款项
+	@Value("${CREDIT_LOAN_KEY}")
+	private String CREDIT_LOAN_KEY;
+
+	/**
+	 * 获取用户配置的支出项 /assets/UserConstDic/getUserPayDic
+	 */
+	@RequestMapping("UserConstDic/getUserPayDic")
+	@ResponseBody
+	public List<UserConstDic> getUserPayDic(HttpServletRequest request) {
+		// 创建map 存取mapper中查询条件的值
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("category", PAY_ITEM_KEY);
+		List<UserConstDic> list = userConstDicService.getUserSetDic(request,
+				map);
+		return list;
+	}
+
+	/**
+	 * 获取用户配置的收入项 /assets/UserConstDic/getUserPayDic
+	 */
+	@RequestMapping("UserConstDic/getUserIncomDic")
+	@ResponseBody
+	public List<UserConstDic> getUserIncomDic(HttpServletRequest request) {
+		// 创建map 存取mapper中查询条件的值
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("category", INCOM_ITEM_KEY);
+		List<UserConstDic> list = userConstDicService.getUserSetDic(request,
+				map);
+		return list;
+	}
+
+	/**
+	 * 获取用户配置的银行卡 /assets/UserConstDic/getUserBankCardDic
+	 */
+	@RequestMapping("UserConstDic/getUserBankCardDic")
+	@ResponseBody
+	public List<UserConstDic> getUserBankCardDic(HttpServletRequest request) {
+		// 创建map 存取mapper中查询条件的值
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("category", BANK_CARD_KEY);
+		List<UserConstDic> list = userConstDicService.getUserSetDic(request,
+				map);
+		return list;
+	}
+
+	/**
+	 * 获取用户配置的线上银行 /assets/UserConstDic/getUserOlineBankDic
+	 */
+	@RequestMapping("UserConstDic/getUserOlineBankDic")
+	@ResponseBody
+	public List<UserConstDic> getUserOlineBankDic(HttpServletRequest request) {
+		// 创建map 存取mapper中查询条件的值
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("category", ONLINE_BANK_KEY);
+		List<UserConstDic> list = userConstDicService.getUserSetDic(request,
+				map);
+		return list;
+	}
+
+	/**
+	 * 获取用户配置的不计损益项 /assets/UserConstDic/getUserNoLossDic
+	 */
+	@RequestMapping("UserConstDic/getUserNoLossDic")
+	@ResponseBody
+	public List<UserConstDic> getUserNoLossDic(HttpServletRequest request) {
+		// 创建map 存取mapper中查询条件的值
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("category", NOLOSS_ITEM_KEY);
+		List<UserConstDic> list = userConstDicService.getUserSetDic(request,
+				map);
+		return list;
+	}
+
+	/**
+	 * 获取用户配置的信用借款项 /assets/UserConstDic/getUserCreditLoanDic
+	 */
+	@RequestMapping("UserConstDic/getUserCreditLoanDic")
+	@ResponseBody
+	public List<UserConstDic> getUserCreditLoanDic(HttpServletRequest request) {
+		// 创建map 存取mapper中查询条件的值
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("category", CREDIT_LOAN_KEY);
+		List<UserConstDic> list = userConstDicService.getUserSetDic(request,
+				map);
+		return list;
+	}
+
+	/**
+	 * 添加用户配置的信用借款项 /assets/UserConstDic/AddUserCreditLoanDic/" + ids
+	 */
+	@RequestMapping(value = "/UserConstDic/AddUserCreditLoanDic/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult AddUserCreditLoanDic(@PathVariable String ids,
+			HttpServletRequest request) {
+		// 传入为支出项的类型 PAY_ITEM_KEY
+		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
+				CREDIT_LOAN_KEY);
+		return result;
+	}
+
+	/**
+	 * 添加用户配置的不计损益项 /assets/UserConstDic/AddUserNoLossDic/" + ids
+	 */
+	@RequestMapping(value = "/UserConstDic/AddUserNoLossDic/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult AddUserNoLossDic(@PathVariable String ids,
+			HttpServletRequest request) {
+		// 传入为支出项的类型 PAY_ITEM_KEY
+		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
+				NOLOSS_ITEM_KEY);
+		return result;
+	}
+
+	/**
+	 * 添加用户配置的线上银行 /assets/UserConstDic/AddUserOlineBankDic/" + ids
+	 */
+	@RequestMapping(value = "/UserConstDic/AddUserOlineBankDic/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult AddUserOlineBankDic(@PathVariable String ids,
+			HttpServletRequest request) {
+		// 传入为支出项的类型 PAY_ITEM_KEY
+		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
+				ONLINE_BANK_KEY);
+		return result;
+	}
+
+	/**
+	 * 添加用户配置的银行卡 /assets/UserConstDic/AddUserBankCardDic/" + ids
+	 */
+	@RequestMapping(value = "/UserConstDic/AddUserBankCardDic/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult AddUserBankCardDic(@PathVariable String ids,
+			HttpServletRequest request) {
+		// 传入为支出项的类型 PAY_ITEM_KEY
+		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
+				BANK_CARD_KEY);
+		return result;
+	}
+
+	/**
+	 * 添加用户配置的支出项 /assets/UserConstDic/AddUserPayDic/" + ids
+	 */
+	@RequestMapping(value = "/UserConstDic/AddUserPayDic/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult AddUserPayDic(@PathVariable String ids,
+			HttpServletRequest request) {
+		// 传入为支出项的类型 PAY_ITEM_KEY
+		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
+				PAY_ITEM_KEY);
+		return result;
+	}
+
+	/**
+	 * 添加用户配置的支出项 /assets/UserConstDic/AddUserIncomDic/" + ids
+	 */
+	@RequestMapping(value = "/UserConstDic/AddUserIncomDic/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult AddUserIncomDic(@PathVariable String ids,
+			HttpServletRequest request) {
+		// 传入为收入项的类型 INCOM_ITEM_KEY
+		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
+				INCOM_ITEM_KEY);
+		return result;
+	}
+}

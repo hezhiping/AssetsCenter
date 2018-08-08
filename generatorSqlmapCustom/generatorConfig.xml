@@ -46,6 +46,7 @@
 		<table schema="" tableName="asset_out"></table>
 		<table schema="" tableName="const_category"></table>
 		<table schema="" tableName="const_dictionary"></table>
+		<table schema="" tableName="credit_loan"></table>
 		<table schema="" tableName="currency_fund"></table>
 		<table schema="" tableName="fixed_asset"></table>
 		<table schema="" tableName="fund_change"></table>
@@ -62,6 +63,7 @@
 		<table schema="" tableName="sys_user"></table>
 		<table schema="" tableName="sys_usersys_user_role"></table>
 		<table schema="" tableName="user_const_dic"></table>
+	
 
 	</context>
 </generatorConfiguration>

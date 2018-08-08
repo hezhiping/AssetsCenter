@@ -2,7 +2,10 @@ package com.assets.mapper;
 
 import com.assets.pojo.ConstDictionary;
 import com.assets.pojo.ConstDictionaryExample;
+
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ConstDictionaryMapper {
@@ -27,4 +30,7 @@ public interface ConstDictionaryMapper {
     int updateByPrimaryKeySelective(ConstDictionary record);
 
     int updateByPrimaryKey(ConstDictionary record);
+    
+    // 添加语句，获取常数配置项
+    List<ConstDictionary> selectUserSetAllDic(Map<String, Object> map);
 }

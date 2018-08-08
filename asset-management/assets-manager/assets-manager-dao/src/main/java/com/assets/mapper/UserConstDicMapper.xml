@@ -5,6 +5,7 @@
     <result column="category" property="category" jdbcType="VARCHAR" />
     <result column="psn_code" property="psnCode" jdbcType="DECIMAL" />
     <result column="cost_code" property="costCode" jdbcType="VARCHAR" />
+    <result column="zh_cn_caption" property="costName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -150,4 +151,13 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  
+  <select id="selectUserSetDic" resultMap="BaseResultMap" parameterType="map" >   
+    SELECT usd.category,usd.psn_code,usd.cost_code
+ 	FROM user_const_dic usd 
+	WHERE usd.category =#{category}  AND usd.psn_code = #{psnCode}
+  </select>
+  
+  
+  
 </mapper>

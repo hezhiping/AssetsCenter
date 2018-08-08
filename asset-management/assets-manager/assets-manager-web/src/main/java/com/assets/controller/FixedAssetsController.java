@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,6 +63,17 @@ public class FixedAssetsController {
 	public ResponseResult modifyFixedAssets(FixedAsset fixedAssets){		
 		ResponseResult result = fixedAssetsService.modifyFixedAssets(fixedAssets);		
 		return result;
+	}
+	
+	/**
+	 * 删除固定资产
+	 * assets/FixedAssets/deleteFixedAssets/" + ids 
+	 */
+	@RequestMapping("/FixedAssets/deleteFixedAssets/{ids}")
+	@ResponseBody
+	public ResponseResult deleteFixedAssets(@PathVariable String ids) {
+		ResponseResult result = fixedAssetsService.deleteFixedAssets(ids);
+		return result;		
 	}
 	
 	/**

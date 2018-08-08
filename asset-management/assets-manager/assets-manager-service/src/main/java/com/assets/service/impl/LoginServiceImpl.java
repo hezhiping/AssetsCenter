@@ -35,6 +35,12 @@ public class LoginServiceImpl extends BaseServiceImpl implements LoginService {
 
 	@Value("${EHCACHE_SESSION_KEY}")
 	private String EHCACHE_SESSION_KEY;
+	
+	@Value("${COOKIE_TOKEN_KEY}")
+	private String COOKIE_TOKEN_KEY;
+	
+	@Value("${EHCACHE_NAME_LOGIN_KEY}")
+	private String EHCACHE_NAME_LOGIN_KEY;
 
 	@Override
 	public ResponseResult login(String userName, String password,
@@ -66,7 +72,7 @@ public class LoginServiceImpl extends BaseServiceImpl implements LoginService {
 			}
 			// 登录成功
 			// 获取缓存对象
-			Cache loginCache = cacheManager.getCache("loginCache");
+			Cache loginCache = cacheManager.getCache(EHCACHE_NAME_LOGIN_KEY);
 			// 生成token
 			String token = UUID.randomUUID().toString();
 
@@ -79,7 +85,7 @@ public class LoginServiceImpl extends BaseServiceImpl implements LoginService {
 			loginCache.put(key, JsonUtils.objectToJson(user));
 
 			// 写入cookie
-			CookieUtils.setCookie(request, response, "TT_TOKEN", token);
+			CookieUtils.setCookie(request, response, COOKIE_TOKEN_KEY, token);
 			return ResponseResult.ok(token);
 		} else {
 			//验证码错误,设置错误提示信息，跳转到登录页面

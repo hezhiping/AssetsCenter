@@ -273,4 +273,12 @@
       remark = #{remark,jdbcType=VARCHAR}
     where cost_code = #{costCode,jdbcType=INTEGER}
   </update>
+  
+  <!-- 获取支付项的数据 -->
+   <select id="selectUserSetAllDic" resultMap="BaseResultMap" parameterType="map"  >
+    SELECT
+    <include refid="Base_Column_List" /> 
+	FROM const_dictionary WHERE category = #{category} ORDER BY seq_no   	
+  </select>  
+  
 </mapper>

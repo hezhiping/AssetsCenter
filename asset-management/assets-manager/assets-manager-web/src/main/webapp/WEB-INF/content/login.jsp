@@ -46,20 +46,20 @@ input[type=password] {
 	}
 </script>
 </head>
-<body>
+<body style="background:#eaedf1;">
 	<div
 		style="width: 900px; height: 50px; position: absolute; text-align: left; left: 50%; top: 50%; margin-left: -450px;; margin-top: -280px;">
 		<%-- <img src="${pageContext.request.contextPath }/images/logo.png" style="border-width: 0; margin-left: 0;" /> --%>
 		<span style="float: right; margin-top: 35px; color: #488ED5;">资产管理中心系统，更好的管理自己的资产!</span>
 	</div>
 	<div class="main-inner" id="mainCnt"
-		style="width: 900px; height: 440px; overflow: hidden; position: absolute; left: 50%; top: 50%; margin-left: -450px; margin-top: -220px; background-image: url('${pageContext.request.contextPath }/images/bg_login.jpg')">
+		style="border-bottom-left-radius: 20px;border-bottom-right-radius:  20px;border-top-left-radius:  20px;border-top-right-radius:  20px;width: 900px; height: 440px; overflow: hidden; position: absolute; left: 50%; top: 50%; margin-left: -450px; margin-top: -220px; background-image: url('${pageContext.request.contextPath }/images/bg_login.jpg')">
 		<div id="loginBlock" class="login"
-			style="margin-top: 80px; height: 255px;">
+			style="margin-top: 80px; height: 255px;border-bottom-left-radius: 20px;border-bottom-right-radius:  20px;border-top-left-radius:  20px;border-top-right-radius:  20px;">
 			<div class="loginFunc">
 				<div id="lbNormal" class="loginFuncMobile">登录</div>
 			</div>
-			<div class="loginForm">
+			<div class="loginForm" >
 				<form id="loginform" name="loginform" method="post" class="niceform">
 					<!-- action="/assets/login" -->
 					<div id="idInputLine" class="loginFormIpt showPlaceholder"

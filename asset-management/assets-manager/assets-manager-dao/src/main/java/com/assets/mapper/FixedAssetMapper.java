@@ -3,7 +3,9 @@ package com.assets.mapper;
 import com.assets.pojo.FixedAsset;
 import com.assets.pojo.FixedAssetExample;
 import com.assets.pojo.FixedAssetKey;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface FixedAssetMapper {
@@ -34,4 +36,7 @@ public interface FixedAssetMapper {
     int updateByPrimaryKeyWithBLOBs(FixedAsset record);
 
     int updateByPrimaryKey(FixedAsset record);
+
+    // 根据id 删除
+	int deleteById(Integer integer);
 }

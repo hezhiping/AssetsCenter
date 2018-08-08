@@ -173,19 +173,17 @@
 	function doDelete() {
 		var ids = [];
 		var items = $('#grid').datagrid('getSelections');
-
-		if (items == null || items == 'undefined') {
+		
+		if (items == null || items == 'undefined'||items.length<=0) {
 			$.messager.alert('提示', '未选中记录!');
 			return;
 		}
 		$.messager.confirm('确认', '您确认想要删除记录吗？', function(r) {
 			if (r) {
 				for (var i = 0; i < items.length; i++) {
-					ids.push(items[i].category);
+					ids.push(items[i].id);
 				}
-				var params = {
-					"ids" : ids
-				};
+				alert(ids);
 				$.post("/assets/FixedAssets/deleteFixedAssets/" + ids,
 						function(result) {
 							if (result.status == 200) {

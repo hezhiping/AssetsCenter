@@ -1,6 +1,7 @@
 package com.assets.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.assets.common.pojo.EasyUIDataGridResult;
 import com.assets.common.utils.ResponseResult;
@@ -42,5 +43,12 @@ public interface DictionaryService {
 	 * @return
 	 */
 	List<ConstDictionary> getDicMenuType(String dicMenuType);
+
+	/**
+	 * 获取用户需要配置的所有选项
+	 * @return
+	 */
+	List<ConstDictionary> getUserSetAllDic(Map<String, Object> map);
+	
 
 }

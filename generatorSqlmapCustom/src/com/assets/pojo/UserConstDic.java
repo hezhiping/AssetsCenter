@@ -7,6 +7,8 @@ public class UserConstDic {
 
     private String costCode;
 
+    private Integer id;
+
     public String getCategory() {
         return category;
     }
@@ -29,5 +31,13 @@ public class UserConstDic {
 
     public void setCostCode(String costCode) {
         this.costCode = costCode == null ? null : costCode.trim();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

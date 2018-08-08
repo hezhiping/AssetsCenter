@@ -6,8 +6,19 @@ public class UserConstDic {
     private Long psnCode;
 
     private String costCode;
+    
+    // 补充添加常数名称，用来页面显示
+    private String costName;
 
-    public String getCategory() {
+    public String getCostName() {
+		return costName;
+	}
+
+	public void setCostName(String costName) {
+		this.costName = costName;
+	}
+
+	public String getCategory() {
         return category;
     }
 

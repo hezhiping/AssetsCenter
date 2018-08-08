@@ -1,6 +1,7 @@
 package com.assets.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -105,5 +106,14 @@ public class DictionaryServiceImpl implements DictionaryService {
 		List<ConstDictionary> list = dictionaryMapper.selectByExample(example );		
 		return list;
 	}
-
+	
+	/**
+	 * 获取用户需配置的所有选项	 
+	 */
+	@Override
+	public List<ConstDictionary> getUserSetAllDic(Map<String, Object> map) {
+		List<ConstDictionary> list = dictionaryMapper.selectUserSetAllDic(map);
+		return list;
+	}
+	
 }

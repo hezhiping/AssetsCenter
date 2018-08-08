@@ -51,11 +51,11 @@
 	var frozenColumns = [ [ {
 		field : 'id',
 		checkbox : true,		
-		width : 160,
+		width : 80,
 	}, {
 		field : 'resourceId',
 		title : '菜单编号',
-		width : 160,
+		width : 80,
 		align : 'center'
 	} ] ];
 
@@ -110,6 +110,7 @@
 			url : "/assets/menu/list",
 			method : 'get',
 			pageList : [ 10, 20, 30 ],
+			pageSize:20,
 			pagination : true,
 			idField : 'id',
 			frozenColumns : frozenColumns,

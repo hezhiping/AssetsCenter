@@ -5,6 +5,7 @@
     <result column="category" property="category" jdbcType="VARCHAR" />
     <result column="psn_code" property="psnCode" jdbcType="DECIMAL" />
     <result column="cost_code" property="costCode" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    category, psn_code, cost_code
+    category, psn_code, cost_code, id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.UserConstDicExample" >
     select
@@ -88,10 +89,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.assets.pojo.UserConstDic" >
-    insert into user_const_dic (category, psn_code, cost_code
-      )
-    values (#{category,jdbcType=VARCHAR}, #{psnCode,jdbcType=DECIMAL}, #{costCode,jdbcType=VARCHAR}
-      )
+    insert into user_const_dic (category, psn_code, cost_code, 
+      id)
+    values (#{category,jdbcType=VARCHAR}, #{psnCode,jdbcType=DECIMAL}, #{costCode,jdbcType=VARCHAR}, 
+      #{id,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.assets.pojo.UserConstDic" >
     insert into user_const_dic
@@ -105,6 +106,9 @@
       <if test="costCode != null" >
         cost_code,
       </if>
+      <if test="id != null" >
+        id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="category != null" >
@@ -115,6 +119,9 @@
       </if>
       <if test="costCode != null" >
         #{costCode,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -136,6 +143,9 @@
       <if test="record.costCode != null" >
         cost_code = #{record.costCode,jdbcType=VARCHAR},
       </if>
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -145,7 +155,8 @@
     update user_const_dic
     set category = #{record.category,jdbcType=VARCHAR},
       psn_code = #{record.psnCode,jdbcType=DECIMAL},
-      cost_code = #{record.costCode,jdbcType=VARCHAR}
+      cost_code = #{record.costCode,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>

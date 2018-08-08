@@ -162,7 +162,7 @@
 	}
 </script>
 </head>
-<body class="easyui-layout">
+<body class="easyui-layout"  >
 	<div data-options="region:'north',border:false"
 		style="height:80px;padding:10px;background:url('../images/header_bg.png') no-repeat right;">
 		<div style="margin-left:50px">
