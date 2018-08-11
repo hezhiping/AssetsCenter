@@ -8,7 +8,7 @@ public class FundChange {
 
     private Integer psnCode;
 
-    private Date currentMonthDate;
+    private String currentMonth;
 
     private Date consumeDate;
 
@@ -30,7 +30,19 @@ public class FundChange {
 
     private String tagStatus;
 
-    public Integer getId() {
+    private String currentYear;
+
+    private String  profitLossSortName;
+    
+    public String getProfitLossSortName() {
+		return profitLossSortName;
+	}
+
+	public void setProfitLossSortName(String profitLossSortName) {
+		this.profitLossSortName = profitLossSortName;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -46,12 +58,12 @@ public class FundChange {
         this.psnCode = psnCode;
     }
 
-    public Date getCurrentMonthDate() {
-        return currentMonthDate;
+    public String getCurrentMonth() {
+        return currentMonth;
     }
 
-    public void setCurrentMonthDate(Date currentMonthDate) {
-        this.currentMonthDate = currentMonthDate;
+    public void setCurrentMonth(String currentMonth) {
+        this.currentMonth = currentMonth == null ? null : currentMonth.trim();
     }
 
     public Date getConsumeDate() {
@@ -132,5 +144,13 @@ public class FundChange {
 
     public void setTagStatus(String tagStatus) {
         this.tagStatus = tagStatus == null ? null : tagStatus.trim();
+    }
+
+    public String getCurrentYear() {
+        return currentYear;
+    }
+
+    public void setCurrentYear(String currentYear) {
+        this.currentYear = currentYear == null ? null : currentYear.trim();
     }
 }

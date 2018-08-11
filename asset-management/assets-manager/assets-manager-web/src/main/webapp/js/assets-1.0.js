@@ -1,4 +1,5 @@
-﻿var data_none_html = '<div style="text-align:center;color:red">无记录</div>';//无数据显示
+﻿
+var data_none_html = '<div style="text-align:center;color:red">无记录</div>';//无数据显示
 var power_modify = false;//编辑权限
 var where1 = '';//已执行的查询条件
 /*日期格式化*/
@@ -400,64 +401,63 @@ String.prototype.PadHelper = function (totalWidth, paddingChar, isRightPadded) {
 
 //---------------------其他辅助JS脚本------------------------------------------//
 
+//datagrid 时间控件编辑器扩展
+$.extend($.fn.datagrid.defaults.editors, {
+    datetimebox: {// datetimebox就是你要自定义editor的名称
+        init: function (container, options) {
+            var input = $('<input class="easyuidatetimebox">').appendTo(container);
+            return input.datetimebox({
+                formatter: function (date) {
+                    return new Date(date).format("yyyy-MM-dd hh:mm:ss");
+                }
+            });
+        },
+        getValue: function (target) {
+            return $(target).parent().find('input.combo-value').val();
+        },
+        setValue: function (target, value) {
+            $(target).datetimebox("setValue", value);
+        },
+        resize: function (target, width) {
+            var input = $(target);
+            if ($.boxModel == true) {
+                input.width(width - (input.outerWidth() - input.width()));
+            } else {
+                input.width(width);
+            }
+        }
+    }
+});
+/*
+//datagrid 时间控件编辑器扩展
+$.extend($.fn.datagrid.defaults.editors, {
+    datebox: {// datebox就是你要自定义editor的名称
+        init: function (container, options) {
+            var input = $('<input class="easyuidatebox">').appendTo(container);
+            return input.datebox({
+                formatter: function (date) {
+                    return new Date(date).format("yyyy-MM-dd");
+                }
+            });
+        },
+        getValue: function (target) {
+            return $(target).parent().find('input.combo-value').val();
+        },
+        setValue: function (target, value) {
+            $(target).datebox("setValue", value);
+        },
+        resize: function (target, width) {
+            var input = $(target);
+            if ($.boxModel == true) {
+                input.width(width - (input.outerWidth() - input.width()));
+            } else {
+                input.width(width);
+            }
+        }
+    }
+});
+*/
 
-
-function ReadOnlyTrue(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22, A23, A24, A25) {
-    $(A1).textbox({ readonly: true });
-    $(A2).textbox({ readonly: true });
-    $(A3).textbox({ readonly: true });
-    $(A4).textbox({ readonly: true });
-    $(A5).textbox({ readonly: true });
-    $(A6).textbox({ readonly: true });
-    $(A7).textbox({ readonly: true });
-    $(A8).textbox({ readonly: true });
-    $(A9).textbox({ readonly: true });
-    $(A10).textbox({ readonly: true });
-    $(A11).textbox({ readonly: true });
-    $(A12).textbox({ readonly: true });
-    $(A13).textbox({ readonly: true });
-    $(A14).textbox({ readonly: true });
-    $(A15).textbox({ readonly: true });
-    $(A16).textbox({ readonly: true });
-    $(A17).textbox({ readonly: true });
-    $(A18).textbox({ readonly: true });
-    $(A19).textbox({ readonly: true });
-    $(A20).textbox({ readonly: true });
-    $(A21).textbox({ readonly: true });
-    $(A22).textbox({ readonly: true });
-    $(A23).textbox({ readonly: true });
-    $(A24).textbox({ readonly: true });
-    $(A25).textbox({ readonly: true });
-
-};
-function ReadOnlyFalse(A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22, A23, A24, A25) {
-    $(A1).textbox({ readonly: false });
-    $(A2).textbox({ readonly: false });
-    $(A3).textbox({ readonly: false });
-    $(A4).textbox({ readonly: false });
-    $(A5).textbox({ readonly: false });
-    $(A6).textbox({ readonly: false });
-    $(A7).textbox({ readonly: false });
-    $(A8).textbox({ readonly: false });
-    $(A9).textbox({ readonly: false });
-    $(A10).textbox({ readonly: false });
-    $(A11).textbox({ readonly: false });
-    $(A12).textbox({ readonly: false });
-    $(A13).textbox({ readonly: false });
-    $(A14).textbox({ readonly: false });
-    $(A15).textbox({ readonly: false });
-    $(A16).textbox({ readonly: false });
-    $(A17).textbox({ readonly: false });
-    $(A18).textbox({ readonly: false });
-    $(A19).textbox({ readonly: false });
-    $(A20).textbox({ readonly: false });
-    $(A21).textbox({ readonly: false });
-    $(A22).textbox({ readonly: false });
-    $(A23).textbox({ readonly: false });
-    $(A24).textbox({ readonly: false });
-    $(A25).textbox({ readonly: false });
-
-};
 
 //重写datagrid
 var myview = $.extend({}, $.fn.datagrid.defaults.view, {
@@ -478,7 +478,6 @@ var myview = $.extend({}, $.fn.datagrid.defaults.view, {
         $(container).html(table.join(''));
     }
 });
-
 
 
 //格式化单元格提示信息  

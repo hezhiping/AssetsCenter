@@ -11,7 +11,7 @@ import com.assets.pojo.UserConstDic;
 public interface UserConstDicService extends BaseService {
 
 	/**
-	 * 获取用户配置的支出项
+	 * 获取用户配置的项
 	 * @param request
 	 * @param response
 	 * @return
@@ -19,12 +19,21 @@ public interface UserConstDicService extends BaseService {
 	List<UserConstDic> getUserSetDic(HttpServletRequest request,Map<String, Object> map);
 
 	/**
-	 * 添加用户配置的支出项
+	 * 添加用户配置的项
 	 * @param request
 	 * @param response
 	 * @return
 	 */
 	ResponseResult AddUserSetDic(String ids, HttpServletRequest request,String itemKey);
+
+	/**
+	 * 获取用户配置损益分类
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	List<UserConstDic> getProfitLossPayIncomType(HttpServletRequest request,Map<String, Object> map);
+	
 	
 
 }

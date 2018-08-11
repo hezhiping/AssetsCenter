@@ -27,4 +27,6 @@ public interface FundChangeMapper {
     int updateByPrimaryKeySelective(FundChange record);
 
     int updateByPrimaryKey(FundChange record);
+    
+    List<FundChange> selectInfo();
 }

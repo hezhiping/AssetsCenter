@@ -158,6 +158,13 @@
 	WHERE usd.category =#{category}  AND usd.psn_code = #{psnCode}
   </select>
   
-  
+  <select id="selectProfitLossPayIncomType" resultMap="BaseResultMap" parameterType="map" >   
+   SELECT  GROUP_CONCAT(cost_code SEPARATOR ',') AS cost_code FROM user_const_dic 
+   WHERE  psn_code = #{psnCode} 
+   AND  category IN 
+    <foreach collection="profitLossPayIncomTypeList" index="index" item="category" open="(" separator="," close=")">
+              #{category}       
+	</foreach>  
+  </select>
   
 </mapper>

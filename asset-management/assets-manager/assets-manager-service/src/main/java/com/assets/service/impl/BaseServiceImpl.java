@@ -36,6 +36,8 @@ public class BaseServiceImpl implements BaseService {
 
 	@Value("${EHCACHE_NAME_LOGIN_KEY}")
 	private String EHCACHE_NAME_LOGIN_KEY;
+
+
 	/**
 	 * 获取ECache缓存的登录人员信息
 	 */

@@ -191,9 +191,11 @@ CREATE TABLE `fund_change` (
   PRIMARY KEY (`id`),
   KEY `FK_Reference_10` (`psn_code`),
   CONSTRAINT `FK_Reference_10` FOREIGN KEY (`psn_code`) REFERENCES `person` (`psn_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `fund_change` */
+
+insert  into `fund_change`(`id`,`psn_code`,`current_month`,`consume_date`,`item`,`money`,`profit_loss_sort`,`pay_mode`,`pay_money`,`incom_mode`,`incom_money`,`create_date`,`tag_status`,`current_year`) values (1,1,'08',NULL,'12',NULL,'6',NULL,NULL,NULL,NULL,NULL,NULL,'2018'),(2,1,'09',NULL,'12',NULL,'7',NULL,NULL,NULL,NULL,NULL,NULL,'2018');
 
 /*Table structure for table `invest_bank` */
 
@@ -366,7 +368,7 @@ CREATE TABLE `sys_resource` (
 
 /*Data for the table `sys_resource` */
 
-insert  into `sys_resource`(`RESOURCE_ID`,`RESOURCE_TYPE`,`VALUE`,`ORDER_NUM`,`PARENT_ID`,`TARGET`,`ZH_CN_NAME`,`STATUS`,`LAVELS`,`REMARK`,`IMG_URL`,`TOTAL_SQL`,`NAV_IMG_URL`,`NAV_ENABLED`,`OLD_TOTAL_SQL`,`ZH_TW_NAME`,`EN_US_NAME`,`FLAG_LAN`,`STMS_MENU_ID`,`CLASS_NAME`) values ('1000','1','/assets/menulist',NULL,'0',NULL,'菜单管理','1',NULL,'菜单管理',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('1010','1','/assets/userlist',NULL,'0',NULL,'用户管理','1',NULL,'用户管理',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('1011','1','/assets/constCategory',NULL,'0',NULL,'数据字典类别','0',NULL,'数字字典类别',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('1012','1','/assets/constDictionary',NULL,'0',NULL,'数据字典信息','1',NULL,'数据字典，存储一些基本数据信息',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2010','2','/assets/personInfo',NULL,'0',NULL,'修改个人信息','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2020','2','',NULL,'0',NULL,'个人参数配置','0',NULL,'配置个人参数，例如使用的银行卡，支付方式等',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2021','2','/assets/payItem',NULL,'2020',NULL,'配置支出项','0',NULL,'生活中会使用到的支出项',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2022','2','/assets/incomItem',NULL,'2020',NULL,'配置收入项','0',NULL,'生活中收入的项',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2023','2','/assets/bankCardItem',NULL,'2020',NULL,'配置银行卡种类','0',NULL,'个人使用的银行卡',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2024','2','/assets/onlineBankItem',NULL,'2020',NULL,'配置线上货币银行','0',NULL,'线上支付的平台，eg:支付宝、微信等',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2025','2','/assets/creditLoanItem',NULL,'2020',NULL,'信用借款','0',NULL,'刷的信用卡、花呗、白条等信用消费',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3080','3','/assets/fixedAssets',NULL,'0',NULL,'固定资产','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `sys_resource`(`RESOURCE_ID`,`RESOURCE_TYPE`,`VALUE`,`ORDER_NUM`,`PARENT_ID`,`TARGET`,`ZH_CN_NAME`,`STATUS`,`LAVELS`,`REMARK`,`IMG_URL`,`TOTAL_SQL`,`NAV_IMG_URL`,`NAV_ENABLED`,`OLD_TOTAL_SQL`,`ZH_TW_NAME`,`EN_US_NAME`,`FLAG_LAN`,`STMS_MENU_ID`,`CLASS_NAME`) values ('1000','1','/assets/menulist',NULL,'0',NULL,'菜单管理','1',NULL,'菜单管理',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('1010','1','/assets/userlist',NULL,'0',NULL,'用户管理','1',NULL,'用户管理',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('1011','1','/assets/constCategory',NULL,'0',NULL,'数据字典类别','0',NULL,'数字字典类别',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('1012','1','/assets/constDictionary',NULL,'0',NULL,'数据字典信息','1',NULL,'数据字典，存储一些基本数据信息',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2010','2','/assets/personInfo',NULL,'0',NULL,'修改个人信息','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2020','2','',NULL,'0',NULL,'个人参数配置','0',NULL,'配置个人参数，例如使用的银行卡，支付方式等',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2021','2','/assets/payItem',NULL,'2020',NULL,'配置支出项','0',NULL,'生活中会使用到的支出项',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2022','2','/assets/incomItem',NULL,'2020',NULL,'配置收入项','0',NULL,'生活中收入的项',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2023','2','/assets/bankCardItem',NULL,'2020',NULL,'配置银行卡种类','0',NULL,'个人使用的银行卡',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2024','2','/assets/onlineBankItem',NULL,'2020',NULL,'配置线上货币银行','0',NULL,'线上支付的平台，eg:支付宝、微信等',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2025','2','/assets/creditLoanItem',NULL,'2020',NULL,'信用借款','0',NULL,'刷的信用卡、花呗、白条等信用消费',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3030','3','/assets/fundChange',NULL,'0',NULL,'资金变动','0',NULL,'资金流水记录表，所有数据的来源',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3080','3','/assets/fixedAssets',NULL,'0',NULL,'固定资产','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `sys_resource_authoritie` */
 
@@ -465,11 +467,11 @@ CREATE TABLE `user_const_dic` (
   `cost_code` varchar(500) DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增序列',
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user_const_dic` */
 
-insert  into `user_const_dic`(`category`,`psn_code`,`cost_code`,`id`) values ('2_ZCX','1','4,5,6,7,8,9,15',8),('3_SRX','1','10,11,12,13,14',9),('5_YHKZL','1','19,20,21,26',10),('6_XSYH','1','22,23,24,25',11),('4_BJSY','1','16',12),('7_XYJK','1','27,28,29',13);
+insert  into `user_const_dic`(`category`,`psn_code`,`cost_code`,`id`) values ('2_ZCX','1','4,5,6,7,8,9,15',8),('3_SRX','1','10,11,12,13,14',9),('5_YHKZL','1','19,20,21,26',10),('6_XSYH','1','22,23,24,25',11),('4_BJSY','1','16',12),('7_XYJK','1','27,28,29',13),('2_ZCX','2','1,2,3',14);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

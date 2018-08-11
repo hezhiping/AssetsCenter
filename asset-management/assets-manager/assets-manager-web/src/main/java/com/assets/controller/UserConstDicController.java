@@ -1,5 +1,6 @@
 package com.assets.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -208,4 +209,44 @@ public class UserConstDicController {
 				INCOM_ITEM_KEY);
 		return result;
 	}
+	
+	/**
+	 * 获取用户配置的损益分类 /assets/UserConstDic/getProfitLossType
+	 * 合并列值: category IN ('2_ZCX','3_SRX','4_BJSY')
+	 */
+	@RequestMapping("/UserConstDic/getProfitLossType")
+	@ResponseBody
+	public List<UserConstDic> getProfitLossType(HttpServletRequest request) {
+		// 创建map 存取mapper中查询条件的值
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<String> listType = new ArrayList<String>();
+		listType.add(PAY_ITEM_KEY);
+		listType.add(INCOM_ITEM_KEY);
+		listType.add(NOLOSS_ITEM_KEY);
+		map.put("profitLossPayIncomTypeList", listType);
+		// 设置缓存的类型为哪一种
+		map.put("cacheType", "PROFITLOSS");
+		List<UserConstDic> list = userConstDicService.getProfitLossPayIncomType(request,map);
+		return list;
+	}
+	/**
+	 * 获取用户配置的损益分类 /assets/UserConstDic/getPayIncomType
+	 * 合并列值: category IN ('5_YHKZL','6_XSYH','7_XYJK')
+	 */
+	@RequestMapping("/UserConstDic/getPayIncomType")
+	@ResponseBody
+	public List<UserConstDic> getPayIncomType(HttpServletRequest request) {
+		// 创建map 存取mapper中查询条件的值
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<String> listType = new ArrayList<String>();
+		listType.add(BANK_CARD_KEY);
+		listType.add(ONLINE_BANK_KEY);
+		listType.add(CREDIT_LOAN_KEY);
+		map.put("profitLossPayIncomTypeList", listType);
+		// 设置缓存的类型为哪一种
+		map.put("cacheType", "PAYINCOM");
+		List<UserConstDic> list = userConstDicService.getProfitLossPayIncomType(request,map);
+		return list;
+	}
+	
 }

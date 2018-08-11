@@ -24,6 +24,10 @@ public interface UserConstDicMapper {
 
     int updateByExample(@Param("record") UserConstDic record, @Param("example") UserConstDicExample example);
     
-    // 关联查询用户配置的支出项
+    // 关联查询用户配置的项
     UserConstDic selectUserSetDic(Map<String, Object> map);
+    // 查询 损益、收支分类
+    UserConstDic selectProfitLossPayIncomType(Map<String, Object> map);    
+    
+    
 }
