@@ -1,4 +1,4 @@
-﻿package com.assets.service.impl;
+package com.assets.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +64,9 @@ public class UserConstDicServiceImpl extends BaseServiceImpl implements
 				int insertCount = userConstDicMapper.insert(userConstDic);
 				if(insertCount <= 0){
 					return ResponseResult.build(500, "添加失败!");
+				}else {
+					Cache uDicCache = cacheManager.getCache(EHCACHE_U_CONST_DIC_KEY); // 获取缓存配置中的缓存容器
+					uDicCache.clear(); // 清空用户配置的常数缓存，清空容器
 				}
 			}
 		} catch (Exception e) {

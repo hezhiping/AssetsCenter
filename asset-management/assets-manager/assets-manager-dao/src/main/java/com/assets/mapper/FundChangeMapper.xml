@@ -17,6 +17,8 @@
     <result column="tag_status" property="tagStatus" jdbcType="CHAR" />
     <result column="current_year" property="currentYear" jdbcType="VARCHAR" />
     <result column="profit_loss_sort_name" property="profitLossSortName" jdbcType="VARCHAR" />
+    <result column="pay_mode_name" property="payModeName" jdbcType="VARCHAR" />
+    <result column="incom_mode_name" property="incomModeName" jdbcType="VARCHAR" />
     
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -352,10 +354,17 @@
       current_year = #{currentYear,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-   <select id="selectInfo" resultMap="BaseResultMap" parameterType="com.assets.pojo.FundChange" >
-   SELECT fc.id, fc.psn_code, fc.current_month, fc.consume_date, fc.item, fc.money, fc.profit_loss_sort, fc.pay_mode, 
-    fc.pay_money, fc.incom_mode, fc.incom_money, fc.create_date, fc.tag_status, fc.current_year,cd.zh_cn_caption  as profit_loss_sort_name 
-    from fund_change fc inner join const_dictionary  cd on fc.profit_loss_sort = cd.cost_code
+  <!-- add by hzp -->
+  <select id="selectFundChangeList" resultMap="BaseResultMap" parameterType="map" >
+  	SELECT fc.id, fc.psn_code, fc.current_month, fc.consume_date, fc.item, fc.money, fc.profit_loss_sort, fc.pay_mode, 
+    	fc.pay_money, fc.incom_mode, fc.incom_money, fc.create_date, fc.tag_status, fc.current_year,
+    	cd.zh_cn_caption  AS profit_loss_sort_name ,
+    	cd2.zh_cn_caption AS pay_mode_name,
+    	cd3.zh_cn_caption AS incom_mode_name
+    FROM fund_change fc INNER JOIN const_dictionary  cd ON fc.profit_loss_sort = cd.cost_code
+    	INNER JOIN const_dictionary cd2 ON fc.pay_mode = cd2.cost_code
+    	INNER JOIN const_dictionary cd3 ON fc.incom_mode = cd3.cost_code
+    WHERE fc.psn_code = #{psnCode} AND  fc.current_year = #{currentYear} AND fc.current_month=#{currentMonth}
   </select>
   
   

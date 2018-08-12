@@ -31,15 +31,36 @@ public class FundChange {
     private String tagStatus;
 
     private String currentYear;
-
-    private String  profitLossSortName;
     
-    public String getProfitLossSortName() {
+    //新增属性损益分类名称
+    private String  profitLossSortName;
+    //新增属性支出分类名称
+    private String  payModeName;
+    //新增属性收入分类名称
+    private String  incomModeName;
+
+	public String getProfitLossSortName() {
 		return profitLossSortName;
 	}
 
 	public void setProfitLossSortName(String profitLossSortName) {
 		this.profitLossSortName = profitLossSortName;
+	}
+
+	public String getPayModeName() {
+		return payModeName;
+	}
+
+	public void setPayModeName(String payModeName) {
+		this.payModeName = payModeName;
+	}
+
+	public String getIncomModeName() {
+		return incomModeName;
+	}
+
+	public void setIncomModeName(String incomModeName) {
+		this.incomModeName = incomModeName;
 	}
 
 	public Integer getId() {

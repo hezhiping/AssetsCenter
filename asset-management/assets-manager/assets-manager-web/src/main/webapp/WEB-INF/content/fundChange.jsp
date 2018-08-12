@@ -36,9 +36,19 @@
 		if (editIndex == undefined){return true}
 		if ($('#grid').datagrid('validateRow', editIndex)){
 			// 处理 combobox在datagrid显示值问题 开始
-			var ed = $('#grid').datagrid('getEditor', {index:editIndex,field:'profitLossSort'});
-			var productname = $(ed.target).combobox('getText');
-			$('#grid').datagrid('getRows')[editIndex]['profitLossSortName'] = productname;
+			// 损益
+			var proEd = $('#grid').datagrid('getEditor', {index:editIndex,field:'profitLossSort'});
+			var profitLossName = $(proEd.target).combobox('getText');
+			$('#grid').datagrid('getRows')[editIndex]['profitLossSortName'] = profitLossName;
+			// 支出
+			var payEd = $('#grid').datagrid('getEditor', {index:editIndex,field:'payMode'});
+			var payName = $(payEd.target).combobox('getText');
+			$('#grid').datagrid('getRows')[editIndex]['payModeName'] = payName;
+			// 收入
+			var incomeEd = $('#grid').datagrid('getEditor', {index:editIndex,field:'incomMode'});
+			var incomeName = $(incomeEd.target).combobox('getText');
+			$('#grid').datagrid('getRows')[editIndex]['incomModeName'] = incomeName;
+			
 			// 处理 combobox在datagrid显示值问题 结束
 			$('#grid').datagrid('endEdit', editIndex);
 			editIndex = undefined;
@@ -64,7 +74,7 @@
 		
 		// 当前行必填项验证通过才让追加一行
 		  if (endEditing()) {  
-			  $('#grid').datagrid('appendRow', {incomMode:0,payMoney:0,money:0});	// 添加一行不初始化某些列的值	，可以指定对应的列赋值eg: id:1
+			  $('#grid').datagrid('appendRow', {incomMoney:0,payMoney:0,money:0});	// 添加一行不初始化某些列的值	，可以指定对应的列赋值eg: id:1
 				 editIndex = $('#grid').datagrid('getRows').length - 1;
 	          $('#grid').datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
 		  }		 
@@ -79,15 +89,13 @@
 					}else{
 						$.messager.alert("提示", "请完成未编辑完的行，或者取消未编辑的行！");						
 					}
-		}else{
-			console.info(rowIndex);
+		}else{			
 			$('#grid').datagrid('beginEdit',rowIndex);
 			editIndex = rowIndex;
 		}		
 	}
 	// 取消行
 	function doCancel(){
-		alert(editIndex);
 		if(editIndex!=undefined){
 			$("#grid").datagrid('cancelEdit',editIndex);
 			if($('#grid').datagrid('getRows')[editIndex].id == undefined){
@@ -259,7 +267,7 @@
 		width : 100,
 		align : 'center',
 		editor :{
-			type : 'validatebox',
+			type : 'numberbox',
 			options : {
 				// required: true,
 				readonly:true
@@ -289,7 +297,10 @@
 		title : '支付方式',
 		width : 160,
 		align : 'center',
-		editor :{
+		formatter: function (value, row) {
+		    //这里是关健，对比找出显示值
+			return row.payModeName;
+		}, editor :{
 			type : 'combobox',
 			options : {
 				url:'/assets/UserConstDic/getPayIncomType',
@@ -304,7 +315,7 @@
 		width : 100,
 		align : 'center',
 		editor :{
-			type : 'validatebox',
+			type : 'numberbox',
 			options : {
 				
 			}
@@ -314,7 +325,10 @@
 		title : '收入方式',
 		width : 160,
 		align : 'center',
-		editor :{
+		formatter: function (value, row) {
+		   	 //这里是关健，对比找出显示值
+			 return row.incomModeName;
+		}, editor :{
 			type : 'combobox',
 			options : {
 				url:'/assets/UserConstDic/getPayIncomType',
@@ -329,7 +343,7 @@
 		width : 100,
 		align : 'center',
 		editor :{
-			type : 'validatebox',
+			type : 'numberbox',
 			options : {
 				
 			}
