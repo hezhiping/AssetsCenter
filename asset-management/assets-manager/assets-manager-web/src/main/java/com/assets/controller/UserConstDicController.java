@@ -47,6 +47,15 @@ public class UserConstDicController {
 	// 个人配置的信用借款项
 	@Value("${CREDIT_LOAN_KEY}")
 	private String CREDIT_LOAN_KEY;
+	
+	//缓存的类型为收支类型
+	@Value("${PAY_INCOM_CACHETYPE}")
+	private String PAY_INCOM_CACHETYPE;	
+	
+	//缓存的类型为损益分类
+	@Value("${PROFIT_LOSS_CACHETYPE}")
+	private String PROFIT_LOSS_CACHETYPE;	
+	
 
 	/**
 	 * 获取用户配置的支出项 /assets/UserConstDic/getUserPayDic
@@ -225,12 +234,12 @@ public class UserConstDicController {
 		listType.add(NOLOSS_ITEM_KEY);
 		map.put("profitLossPayIncomTypeList", listType);
 		// 设置缓存的类型为哪一种
-		map.put("cacheType", "PROFITLOSS");
+		map.put("cacheType",PROFIT_LOSS_CACHETYPE);
 		List<UserConstDic> list = userConstDicService.getProfitLossPayIncomType(request,map);
 		return list;
 	}
 	/**
-	 * 获取用户配置的损益分类 /assets/UserConstDic/getPayIncomType
+	 * 获取用户配置的收支方式 /assets/UserConstDic/getPayIncomType
 	 * 合并列值: category IN ('5_YHKZL','6_XSYH','7_XYJK')
 	 */
 	@RequestMapping("/UserConstDic/getPayIncomType")
@@ -244,9 +253,12 @@ public class UserConstDicController {
 		listType.add(CREDIT_LOAN_KEY);
 		map.put("profitLossPayIncomTypeList", listType);
 		// 设置缓存的类型为哪一种
-		map.put("cacheType", "PAYINCOM");
+		map.put("cacheType",PAY_INCOM_CACHETYPE);
 		List<UserConstDic> list = userConstDicService.getProfitLossPayIncomType(request,map);
 		return list;
 	}
+
+	
+	
 	
 }

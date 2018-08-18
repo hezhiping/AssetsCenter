@@ -361,10 +361,11 @@
     	cd.zh_cn_caption  AS profit_loss_sort_name ,
     	cd2.zh_cn_caption AS pay_mode_name,
     	cd3.zh_cn_caption AS incom_mode_name
-    FROM fund_change fc INNER JOIN const_dictionary  cd ON fc.profit_loss_sort = cd.cost_code
-    	INNER JOIN const_dictionary cd2 ON fc.pay_mode = cd2.cost_code
-    	INNER JOIN const_dictionary cd3 ON fc.incom_mode = cd3.cost_code
+    FROM fund_change fc LEFT JOIN const_dictionary  cd ON fc.profit_loss_sort = cd.cost_code
+    	LEFT JOIN const_dictionary cd2 ON fc.pay_mode = cd2.cost_code
+    	LEFT JOIN const_dictionary cd3 ON fc.incom_mode = cd3.cost_code
     WHERE fc.psn_code = #{psnCode} AND  fc.current_year = #{currentYear} AND fc.current_month=#{currentMonth}
+    order by fc.consume_date asc
   </select>
   
   

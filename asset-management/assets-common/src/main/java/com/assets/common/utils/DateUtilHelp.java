@@ -21,6 +21,9 @@ public class DateUtilHelp {
     public static final String DATE_DEFAULT_FORMAT = "yyyy-MM-dd";
     
     // 默认月份格式
+    public static final String YEAR_DEFAULT_FORMAT = "yyyy";
+    
+    // 默认月份格式
     public static final String MONTH_DEFAULT_FORMAT = "MM";
 
     // 默认时间格式
@@ -36,6 +39,8 @@ public class DateUtilHelp {
 
     private static DateFormat timeFormat = null;
     
+    private static DateFormat yearFormat = null;
+    
     private static DateFormat monthFormat = null;
 
     private static Calendar gregorianCalendar = null;
@@ -45,6 +50,7 @@ public class DateUtilHelp {
         dateTimeFormat = new SimpleDateFormat(DATETIME_DEFAULT_FORMAT);
         timeFormat = new SimpleDateFormat(TIME_DEFAULT_FORMAT);
         monthFormat = new SimpleDateFormat(MONTH_DEFAULT_FORMAT);
+        yearFormat = new SimpleDateFormat(YEAR_DEFAULT_FORMAT);
         gregorianCalendar = new GregorianCalendar();
     }
 
@@ -404,4 +410,24 @@ public class DateUtilHelp {
         c.add(Calendar.MONTH, -monty);
         return c.getTime();
     }
+
+    /**
+     * 根据传入的日期获取年
+     * @param consumeDate
+     * @return
+     */
+	public static String getNowYearStr(Date consumeDate) {
+		return yearFormat.format(consumeDate);
+	}
+
+    /**
+     * 根据传入的日期获取月
+     * @param consumeDate
+     * @return
+     */
+	public static String getNowMonthStr(Date consumeDate) {
+		  return monthFormat.format(consumeDate);
+	}
+	
+	
 }

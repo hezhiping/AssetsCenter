@@ -29,69 +29,97 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/assets-1.0.js"></script>	
 <script type="text/javascript">
-  
+	
 	var editIndex ;//全局的行索引
 	
 	function endEditing(){
 		if (editIndex == undefined){return true}
 		if ($('#grid').datagrid('validateRow', editIndex)){
-			// 处理 combobox在datagrid显示值问题 开始
-			// 损益
-			var proEd = $('#grid').datagrid('getEditor', {index:editIndex,field:'profitLossSort'});
-			var profitLossName = $(proEd.target).combobox('getText');
-			$('#grid').datagrid('getRows')[editIndex]['profitLossSortName'] = profitLossName;
-			// 支出
-			var payEd = $('#grid').datagrid('getEditor', {index:editIndex,field:'payMode'});
-			var payName = $(payEd.target).combobox('getText');
-			$('#grid').datagrid('getRows')[editIndex]['payModeName'] = payName;
-			// 收入
-			var incomeEd = $('#grid').datagrid('getEditor', {index:editIndex,field:'incomMode'});
-			var incomeName = $(incomeEd.target).combobox('getText');
-			$('#grid').datagrid('getRows')[editIndex]['incomModeName'] = incomeName;
-			
-			// 处理 combobox在datagrid显示值问题 结束
-			$('#grid').datagrid('endEdit', editIndex);
-			editIndex = undefined;
-			return true;
-		} else {
+			if(checkInputData(editIndex)){
+				// 处理 combobox在datagrid显示值问题 开始
+				// 损益
+				var proEd = $('#grid').datagrid('getEditor', {index:editIndex,field:'profitLossSort'});
+				var profitLossName = $(proEd.target).combobox('getText');
+				$('#grid').datagrid('getRows')[editIndex]['profitLossSortName'] = profitLossName;
+				// 支出
+				var payEd = $('#grid').datagrid('getEditor', {index:editIndex,field:'payMode'});
+				var payName = $(payEd.target).combobox('getText');
+				$('#grid').datagrid('getRows')[editIndex]['payModeName'] = payName;
+				// 收入
+				var incomeEd = $('#grid').datagrid('getEditor', {index:editIndex,field:'incomMode'});
+				var incomeName = $(incomeEd.target).combobox('getText');
+				$('#grid').datagrid('getRows')[editIndex]['incomModeName'] = incomeName;
+				
+				// 处理 combobox在datagrid显示值问题 结束
+				$('#grid').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				return true;
+			}
+		} else {			
 			return false;
 		}
-	}
+	}	
+	// 计算支出和收入的和
+	function setEditing(rowIndex){  
+	    var editors = $('#grid').datagrid('getEditors', rowIndex);  
+	    var payEditor = $(editors[5].target);  
+	    var incomEditor = $(editors[7].target);  
+	    var amountEditor = $(editors[2].target);  
+	    payEditor.add(incomEditor).numberbox({
+			onChange:function(){				
+		        var amount =payEditor.numberbox('getValue') - incomEditor.numberbox('getValue');   
+		        console.log(amount);
+		        amountEditor.numberbox('setValue',amount);  
+			}
+		})	    
+	}  
 	
-	//校验 当前行必填项是否已填写，通过了返回true，没有通过返回false   
- /*    function endEditing() {
-        if (editIndex == undefined) { return true }
-        if ($('#grid').datagrid('validateRow', editIndex)) {
-            $('#grid').datagrid('endEdit', editIndex);
-            editIndex = undefined;
-            return true;
-        } else {
-            return false;
-        }
-    } */
+	// 校验支出和收入填了金额确没有填写收入和支出方式
+	function checkInputData(rowIndex){  
+	    var editors = $('#grid').datagrid('getEditors', rowIndex); 
+	    var payModeEditor = $(editors[4].target).combobox('getValue');  
+	    var payEditor = $(editors[5].target).numberbox('getValue'); 
+	    var incomModeEditor = $(editors[6].target).combobox('getValue'); 
+	    var incomEditor = $(editors[7].target).numberbox('getValue'); 
+	    console.log("payModeEditor:"+payModeEditor+"payEditor:"+payEditor+"incomModeEditor:"+incomModeEditor+"incomEditor:"+incomEditor);
+	    if(payEditor > 0 && (payModeEditor == null || payModeEditor == undefined||payModeEditor == "")){
+	    	$.messager.alert("提示","填写了支出金额请填写支出方式！");
+	    	return false;
+	    }else if (incomEditor > 0 && (incomModeEditor == null || incomModeEditor == undefined ||incomModeEditor == "" )) {
+	    	$.messager.alert("提示","填写了收到金额请填写收入方式！");
+	    	return false;
+		}else{
+			return true;
+		}
+	  
+	}  
 	
+	//添加一行
 	function doAdd(){
 		
 		// 当前行必填项验证通过才让追加一行
-		  if (endEditing()) {  
+		  if (endEditing()) { 			
 			  $('#grid').datagrid('appendRow', {incomMoney:0,payMoney:0,money:0});	// 添加一行不初始化某些列的值	，可以指定对应的列赋值eg: id:1
 				 editIndex = $('#grid').datagrid('getRows').length - 1;
 	          $('#grid').datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
-		  }		 
+	          setEditing(editIndex);
+		  }		  
 	}
 	// 双击行修改数据
 	function doDblClickRow(rowIndex, rowData){
 		if(rowIndex != editIndex ){ //判断正在编辑的行和双击选中的行是否相等
 			if(endEditing()){ // 验证内容是否通过，通过结束当前编辑行，开启双击选中行
+				// 编辑行时，时间格式为1534435200000 这种格式，需要转换成yyyy-MM-dd格式后easyUI会处理该日期显示在date控件上
+				rowData.consumeDate = transformDate(rowData.consumeDate);
 				 $('#grid').datagrid('endEdit', editIndex);
 				 $('#grid').datagrid('beginEdit',rowIndex);
 					editIndex = rowIndex;
-					}else{
-						$.messager.alert("提示", "请完成未编辑完的行，或者取消未编辑的行！");						
-					}
+					setEditing(rowIndex);
+			}
 		}else{			
 			$('#grid').datagrid('beginEdit',rowIndex);
 			editIndex = rowIndex;
+			setEditing(rowIndex);
 		}		
 	}
 	// 取消行
@@ -104,114 +132,89 @@
 			editIndex = undefined;
 		}
 	}
-	
+	//结束编辑
 	function doSave(){
 		$("#grid").datagrid('endEdit',editIndex );
 	}
 
-	
-    // -----------------------------------人员明细表的增删改查--------------------//
-       
-        /*点击添加一行*/
-        function AddRowUserDetail() {
-            if (endEditing()) {  //增加一行datagrid是否成功
-                //获取datagrid所有改变行
-                var rows = $('#dgUserDetailETB').datagrid('getChanges');
-                //获取当前行
-                var row = $('#dgUserDetailETB').datagrid('getSelected');
-
-                if (rows.length > 1) {
-                    var _list = {};
-                    for (var i = 0; i < rows.length; i++) {
-
-                        _list["list[" + i + "].User_ID"] = rows[i].User_ID;
-
-                    }
-                    //判断数组里的数据是否重复
-                    //var bl = isRepeat(_list);
-                    //if (bl == true) {
-                    //    $.messager.alert("提示", "该人员已存在，请检查！", "warning");
-                    //    return;
-                    //}
-                    //console.log(_list);
-                }
-
-                $('#dgUserDetailETB').datagrid('appendRow', { FeeDetailCode: FeeDetail_Id });
-                editIndex = $('#dgUserDetailETB').datagrid('getRows').length - 1;
-                $('#dgUserDetailETB').datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
-            }
-        }
-
-    
-
-        //判断数组里的值是否存在
-        function isRepeat(arr) {
-            var hash = {};
-
-            for (var i in arr) {
-                if (hash[arr[i].User_ID])
-                    return true;
-                hash[arr[i].User_ID] = true;
-            }
-            return false;
-        }
-   
-
-    /*保存添加多条人员信息*/
-  /*   function doSaveUserDetail() {
-        var _list = {};
-        var rows = $('#dgUserDetailETB').datagrid('getChanges', 'inserted');
-        $('#dgUserDetailETB').datagrid('acceptChanges');
-        if (rows.length <= 0) {
-            //$.messager.alert("提示", "请输入信息！", "info");
-            return false;
-        } else {
-            var row;
-            for (var i = 0; i < rows.length; i++) { //for循环遍历添加的行
-                row = rows[i];
-                _list["list[" + i + "].FeeDetailCode"] = FeeDetail_Id;
-                if (row.BasePositionCode != undefined && row.User_ID != undefined) { //判断空行不能插入数据库
-                    _list["list[" + i + "].BasePositionCode"] = row.BasePositionCode;
-                    _list["list[" + i + "].User_ID"] = row.User_ID;
-                } else {
-                    return false;
-                }
-            }
-            $.ajax({
-                type: "POST",
-                url: "/LossFeeUserPublic/UserDetailAdd",
-                dataType: 'JSON',
-                data: _list,
-                success: function (data) {
-                    $('#dgUserDetailETB').datagrid('acceptChanges', 'inserted');
-                    if (data == "保存成功!") {
-                        //重载记录
-                        $('#dgUserDetail').datagrid('reload', { url: '/LossFeeUserPublic/GetUserDetailList' });
-                        $('#dlgUserDetail').dialog('close');
-                    }
-                    else {
-                        $.messager.alert("提示", "保存失败！错误：请输入信息或者该人员已经存在", data);
-                        return false;
-                    }
-                    console.log(data);
-                }
-            });
-        }
+   	// 保存所有改变的数据
+  	function doSaveAll() {
+   		if(endEditing){
+	        var _lists = [];//定义一个大数组
+	        var insertList = [];//定义一个数据
+	        var updateList = [];//定义一个数据
+	        var insertRows = $('#grid').datagrid('getChanges','inserted');
+	        var updateRows = $('#grid').datagrid('getChanges','updated');
+	        $('#grid').datagrid('acceptChanges');
+	        if (insertRows.length <= 0 && updateRows.length <= 0) {
+	            //$.messager.alert("提示", "请输入信息！", "info");
+	            return false;
+	        } else {
+	            var insertRow;
+	            var updateRow;
+	            // 插入的数据
+	            for (var i = 0; i < insertRows.length; i++) { //for循环遍历添加的行
+	            	insertRow = insertRows[i];	
+	            //拼接数据为json格式
+	            	
+               		insertList.push({"consumeDate":insertRow.consumeDate,"item":insertRow.item,"money":insertRow.money,"profitLossSort":insertRow.profitLossSort,
+               					"payMode":insertRow.payMode,"payMoney":insertRow.payMoney,"incomMode": insertRow.incomMode,"incomMoney":insertRow.incomMoney});			                
+	              
+	            }	
+	            _lists.push({"type":"insert","fundChanges":insertList})
+	            // 修改的数据
+	            for (var i = 0; i < updateRows.length; i++) { //for循环遍历添加的行
+	            	updateRow = updateRows[i];	
+	            //拼接数据为json格式		            	
+               		updateList.push({"id":updateRow.id,"consumeDate":updateRow.consumeDate,"item":updateRow.item,"money":updateRow.money,"profitLossSort":updateRow.profitLossSort,
+               					"payMode":updateRow.payMode,"payMoney":updateRow.payMoney,"incomMode": updateRow.incomMode,"incomMoney":updateRow.incomMoney,
+               					"psnCode":updateRow.psnCode});			                
+	              
+	            }
+	            _lists.push({"type":"update","fundChanges":updateList})
+	            console.log(_lists);
+	            $.ajax({
+	                type: "POST",
+	                url: "/assets/FundChange/addFundChange",
+	                contentType:'application/json;charset=UTF-8',//关键是要加上这行
+	                traditional:true,//这使json格式的字符不会被转码
+	                dataType: 'JSON',
+	                data:JSON.stringify(_lists),
+	                success: function (data) {
+	                	 console.log(data);
+	                    $('#grid').datagrid('acceptChanges', 'inserted');
+	                    if (data.status == 200) {
+	                    	editIndex = undefined;
+	                        //重载记录
+	                        $('#grid').datagrid('reload');		                      
+	                    }
+	                    else {
+	                        $.messager.alert("提示",data.msg);
+	                        return false;
+	                    }	                   
+	                }
+	            });
+	        }
+   		}
+   		else{
+   			return false;
+   		}
     }
- */
-    /*删除添加时的行*/
-  /*   function delRowUserDetail() {
-        var row = $('#dgUserDetailETB').datagrid('getSelected');
-        var index = $('#dgUserDetailETB').datagrid('getRowIndex', row);
-        if (row) {
-            $('#dgUserDetailETB').datagrid('deleteRow', index);
-        } else {
-            $.messager.alert("提示", "请选择要删除的行！", "warning");
-        }
-    } */
-
-
-    //---------------------人员明细------------------------------------------//	
+    //------------------------------------------//	
+    	// 格式化表格显示日期
+	function formatDatebox(value) {  
+	    if (value == null || value == '') {  
+	        return '';  
+	    }  
+	    var dt;  
+	    if (value instanceof Date) {  
+	        dt = value;  
+	    } else {  
+	        dt = new Date(value);  
+	    }  
+	  
+	    return dt.format("yyyy-MM-dd"); //扩展的Date的format方法(上述插件实现)  
+	}  
 	
 	//工具栏
 	var toolbar = [ {
@@ -226,9 +229,14 @@
 		handler : doCancel
 	}, {
 		id : 'button-save',
-		text : '保存',
+		text : '结束编辑',
 		iconCls : 'icon-save',
 		handler : doSave
+	}, {
+		id : 'button-save',
+		text : '保存',
+		iconCls : 'icon-save',
+		handler : doSaveAll
 	}];
 	// 定义列
 	var columns = [ [ {
@@ -236,17 +244,19 @@
 		title : '流水号',
 		width : 80,
 		align : 'center',
-		//hidden: true
+		hidden: true
 		
 	}, {
 		field : 'consumeDate',
 		title : '消费日期',
 		width : 180,
 		align : 'center',
+		formatter: formatDatebox,
 		editor :{
 			 type : 'datebox',
 			options : {
 				editable:false,
+				prompt: '请选择日期',
 				required: true
 			} 
 		}
@@ -269,10 +279,13 @@
 		editor :{
 			type : 'numberbox',
 			options : {
-				// required: true,
-				readonly:true
+				precision:2,
+				readonly:true				
 			}
-		}
+		},
+		styler: function (value, row, index) {
+            return 'color:red'
+         }
 	}, {
 		field : 'profitLossSort',
 		title : '损益分类',
@@ -288,6 +301,7 @@
 				url:'/assets/UserConstDic/getProfitLossType',
 				valueField:'costCode',
 				textField:'costName',
+				 prompt: '请选择',
 				required: true,
 				editable: false
 			}
@@ -305,7 +319,8 @@
 			options : {
 				url:'/assets/UserConstDic/getPayIncomType',
 				valueField:'costCode',
-				textField:'costName',				
+				textField:'costName',
+				 prompt: '请选择',
 				editable: false
 			}
 		}
@@ -317,9 +332,12 @@
 		editor :{
 			type : 'numberbox',
 			options : {
-				
+				precision:2
 			}
-		}
+		},
+		styler: function (value, row, index) {
+            return 'color:red'
+         }
 	}, {
 		field : 'incomMode',
 		title : '收入方式',
@@ -333,7 +351,8 @@
 			options : {
 				url:'/assets/UserConstDic/getPayIncomType',
 				valueField:'costCode',
-				textField:'costName',				
+				textField:'costName',
+			    prompt: '请选择',
 				editable: false
 			}
 		}
@@ -345,9 +364,12 @@
 		editor :{
 			type : 'numberbox',
 			options : {
-				
+				precision:2
 			}
-		}
+		},
+		styler: function (value, row, index) {
+            return 'color:red'
+         }
 	}] ];
 	
 	$(function(){
@@ -369,22 +391,11 @@
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow,
-			
-			/* onAfterEdit : function(rowIndex, rowData, changes){//结束编辑状态的事件
-				console.info(rowData);
-				editIndex = undefined;
-				//发送ajax请求，提交当前结束编辑行的数据到服务器，完成保存操作
-				var url = "";
-				$.post(url,rowData,function(data){
-					if(data == '1'){
-						//录入成功
-						$.messager.alert("提示信息","资金变动录入成功！","info");
-					}else{
-						//录入失败
-						$.messager.alert("提示信息","资金变动录入失败！","warning");
-					}
-				});
-			} */
+			rowStyler: function(index,row){
+				if (row.money < 0){					
+					return 'background-color:#EBFDE8;';
+				}
+			}			
 		});
 	});
 

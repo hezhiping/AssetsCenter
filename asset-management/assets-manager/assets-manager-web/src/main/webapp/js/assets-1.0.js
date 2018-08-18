@@ -30,7 +30,7 @@ function StrToDate(s) {
     //} else {
     //    return new Date();
     //}
-    var t = Date.parse(s);
+    var t = Date.parse(s); 
     if (!isNaN(t)) {
         return new Date(t);
     } else {
@@ -55,13 +55,13 @@ function MonthFirstDate(d) {
     return new Date(f);
 }
 //转换json日期
-function renderDate(jsondate) {
-    var d = new Date(parseInt(jsondate.replace("/Date(", "").replace(")/", "").split("+")[0]));
+function transformDate(jsondate) {
+    var d = new Date(jsondate);
     return DateToStr(d);
 }
 //转换json时间
-function renderDateTime(jsondate) {
-    var d = new Date(parseInt(jsondate.replace("/Date(", "").replace(")/", "").split("+")[0]));
+function transformDateTime(jsondate) {
+    var d = new Date(jsondate);
     return DateTimeToStr(d);
 }
 ////开始日期
@@ -487,6 +487,7 @@ function formatCellTooltip(value) {
 
 
 //日期的扩展方法，调用格式：date.format（时间格式）eg:
+
 Date.prototype.format = function (format) {
     if (isNaN(this.getMonth())) {
         return '';

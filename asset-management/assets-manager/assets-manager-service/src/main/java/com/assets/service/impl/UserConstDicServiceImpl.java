@@ -39,6 +39,10 @@ public class UserConstDicServiceImpl extends BaseServiceImpl implements
 	@Autowired
 	private CacheManager cacheManager;
 	
+	//缓存的类型为损益分类
+	@Value("${PROFIT_LOSS_CACHETYPE}")
+	private String PROFIT_LOSS_CACHETYPE;	
+	
 	/**
 	 * 添加用户配置的项
 	 */
@@ -131,6 +135,17 @@ public class UserConstDicServiceImpl extends BaseServiceImpl implements
 			list.add(userConstDic);
 		}
 	}
+	/**
+	 * comboBox添加请选择一栏
+	 * @param list
+	 */
+	private void addComboxValue(List<UserConstDic> list) {
+		UserConstDic constDic = new UserConstDic();
+		// 添加请选择项
+		constDic.setCostCode("0");
+		constDic.setCostName("请选择");
+		list.add(constDic);
+	}
 
 	/**
 	 * 获取用户配置损益、分类
@@ -139,34 +154,43 @@ public class UserConstDicServiceImpl extends BaseServiceImpl implements
 	public List<UserConstDic> getProfitLossPayIncomType(HttpServletRequest request,
 			Map<String, Object> map) {
 		List<UserConstDic> list = new ArrayList<UserConstDic>();
+	
 		try {
 			// 获取登录的人员信息
 			ResponseResult result = getUserPsnCodeByRequest(request);
 			// 判断缓存中是否存在
 			if (result.getStatus() == 200) {
-				String psnCode = result.getData().toString(); //人员编号
-				String cacheType = map.get("cacheType").toString(); // 是哪种形式的缓存： 损益  还是 收入支出
-				String cacheKey = EHCACHE_U_CONST_DIC_KEY +":"+ psnCode +"_" + cacheType; // 定义缓存的健
-				Cache uDicCache = cacheManager.getCache(EHCACHE_U_CONST_DIC_KEY); // 获取缓存配置中的缓存容器
-				ValueWrapper valueWrapper = uDicCache.get(cacheKey);  // 通过健去获取缓存中的值
+				//人员编号
+				String psnCode = result.getData().toString(); 
+				// 是哪种形式的缓存： 损益  还是 收入支出
+				String cacheType = map.get("cacheType").toString(); 
+				// 定义缓存的健
+				String cacheKey = EHCACHE_U_CONST_DIC_KEY +":"+ psnCode +"_" + cacheType; 
+				// 获取缓存配置中的缓存容器
+				Cache uDicCache = cacheManager.getCache(EHCACHE_U_CONST_DIC_KEY); 
+				// 通过健去获取缓存中的值
+				ValueWrapper valueWrapper = uDicCache.get(cacheKey);  
 				if (valueWrapper == null) {
-					// 第一次加载，从数据库取;
-					// 创建map 存取mapper中查询条件的值				
+					// 损益分类这个不需要请选择项,用 ==去判断会出现不等情况，用字符串比较方法equals			
+					if(!cacheType.equals(PROFIT_LOSS_CACHETYPE)){	
+						// comboBox添加请选择一栏	
+						addComboxValue(list);
+					}
+					// 第一次加载，从数据库取;								
 					map.put("psnCode", psnCode);
 					// 查找用户设置的参数
 					UserConstDic constDic = userConstDicMapper.selectProfitLossPayIncomType(map);
-					//得到配置的参数
 					if (constDic == null) {
 						return list;
 					}
-					// 根据用户配置的常数id,获取常熟字典的信息
+					// 根据用户配置的常数id,获取常熟字典的信息	
 					getConstDicById(list, constDic);
 					// 加入缓存
 					uDicCache.put(cacheKey, JsonUtils.objectToJson(list));
 				}else {
-					// 后面加载，从缓存中取
-					// 把json转换成list对象
-					list = JsonUtils.jsonToList(valueWrapper.get().toString(),UserConstDic.class );					
+					// 后面加载，从缓存中取	
+					// 把json转换成list对象	
+					list = JsonUtils.jsonToList(valueWrapper.get().toString(),UserConstDic.class );				
 				}				
 			}
 		} catch (Exception e) {
