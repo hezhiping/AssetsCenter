@@ -1,51 +1,51 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.assets.mapper.PersonMapper" >
-  <resultMap id="BaseResultMap" type="com.assets.pojo.Person" >
-    <id column="psn_code" property="psnCode" jdbcType="INTEGER" />
-    <result column="cname" property="cname" jdbcType="VARCHAR" />
-    <result column="fname" property="fname" jdbcType="VARCHAR" />
-    <result column="lname" property="lname" jdbcType="VARCHAR" />
-    <result column="gender" property="gender" jdbcType="VARCHAR" />
-    <result column="title_no" property="titleNo" jdbcType="VARCHAR" />
-    <result column="org_code" property="orgCode" jdbcType="DECIMAL" />
-    <result column="org_ename" property="orgEname" jdbcType="VARCHAR" />
-    <result column="org_cname" property="orgCname" jdbcType="VARCHAR" />
-    <result column="pos_in_org" property="posInOrg" jdbcType="VARCHAR" />
-    <result column="dept" property="dept" jdbcType="VARCHAR" />
-    <result column="eaddress" property="eaddress" jdbcType="VARCHAR" />
-    <result column="caddress" property="caddress" jdbcType="VARCHAR" />
-    <result column="tel" property="tel" jdbcType="VARCHAR" />
-    <result column="fax" property="fax" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="http" property="http" jdbcType="VARCHAR" />
-    <result column="highest_degree" property="highestDegree" jdbcType="VARCHAR" />
-    <result column="tag_status" property="tagStatus" jdbcType="CHAR" />
-    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assets.mapper.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.assets.pojo.Person">
+    <id column="psn_code" jdbcType="INTEGER" property="psnCode" />
+    <result column="cname" jdbcType="VARCHAR" property="cname" />
+    <result column="fname" jdbcType="VARCHAR" property="fname" />
+    <result column="lname" jdbcType="VARCHAR" property="lname" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="title_no" jdbcType="VARCHAR" property="titleNo" />
+    <result column="org_code" jdbcType="DECIMAL" property="orgCode" />
+    <result column="org_ename" jdbcType="VARCHAR" property="orgEname" />
+    <result column="org_cname" jdbcType="VARCHAR" property="orgCname" />
+    <result column="pos_in_org" jdbcType="VARCHAR" property="posInOrg" />
+    <result column="dept" jdbcType="VARCHAR" property="dept" />
+    <result column="eaddress" jdbcType="VARCHAR" property="eaddress" />
+    <result column="caddress" jdbcType="VARCHAR" property="caddress" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="fax" jdbcType="VARCHAR" property="fax" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="http" jdbcType="VARCHAR" property="http" />
+    <result column="highest_degree" jdbcType="VARCHAR" property="highestDegree" />
+    <result column="tag_status" jdbcType="CHAR" property="tagStatus" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.assets.pojo.Person" extends="BaseResultMap" >
-    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.assets.pojo.Person">
+    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -56,25 +56,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -85,45 +85,45 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     psn_code, cname, fname, lname, gender, title_no, org_code, org_ename, org_cname, 
     pos_in_org, dept, eaddress, caddress, tel, fax, email, http, highest_degree, tag_status, 
     create_date, update_time
   </sql>
-  <sql id="Blob_Column_List" >
+  <sql id="Blob_Column_List">
     remark
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.assets.pojo.PersonExample" >
+  <select id="selectByExampleWithBLOBs" parameterType="com.assets.pojo.PersonExample" resultMap="ResultMapWithBLOBs">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from person
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.PersonExample" >
+  <select id="selectByExample" parameterType="com.assets.pojo.PersonExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from person
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
     ,
@@ -131,17 +131,17 @@
     from person
     where psn_code = #{psnCode,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from person
     where psn_code = #{psnCode,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.assets.pojo.PersonExample" >
+  <delete id="deleteByExample" parameterType="com.assets.pojo.PersonExample">
     delete from person
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.assets.pojo.Person" >
+  <insert id="insert" parameterType="com.assets.pojo.Person">
     insert into person (psn_code, cname, fname, 
       lname, gender, title_no, 
       org_code, org_ename, org_cname, 
@@ -159,226 +159,226 @@
       #{tagStatus,jdbcType=CHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{remark,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.assets.pojo.Person" >
+  <insert id="insertSelective" parameterType="com.assets.pojo.Person">
     insert into person
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="psnCode != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psnCode != null">
         psn_code,
       </if>
-      <if test="cname != null" >
+      <if test="cname != null">
         cname,
       </if>
-      <if test="fname != null" >
+      <if test="fname != null">
         fname,
       </if>
-      <if test="lname != null" >
+      <if test="lname != null">
         lname,
       </if>
-      <if test="gender != null" >
+      <if test="gender != null">
         gender,
       </if>
-      <if test="titleNo != null" >
+      <if test="titleNo != null">
         title_no,
       </if>
-      <if test="orgCode != null" >
+      <if test="orgCode != null">
         org_code,
       </if>
-      <if test="orgEname != null" >
+      <if test="orgEname != null">
         org_ename,
       </if>
-      <if test="orgCname != null" >
+      <if test="orgCname != null">
         org_cname,
       </if>
-      <if test="posInOrg != null" >
+      <if test="posInOrg != null">
         pos_in_org,
       </if>
-      <if test="dept != null" >
+      <if test="dept != null">
         dept,
       </if>
-      <if test="eaddress != null" >
+      <if test="eaddress != null">
         eaddress,
       </if>
-      <if test="caddress != null" >
+      <if test="caddress != null">
         caddress,
       </if>
-      <if test="tel != null" >
+      <if test="tel != null">
         tel,
       </if>
-      <if test="fax != null" >
+      <if test="fax != null">
         fax,
       </if>
-      <if test="email != null" >
+      <if test="email != null">
         email,
       </if>
-      <if test="http != null" >
+      <if test="http != null">
         http,
       </if>
-      <if test="highestDegree != null" >
+      <if test="highestDegree != null">
         highest_degree,
       </if>
-      <if test="tagStatus != null" >
+      <if test="tagStatus != null">
         tag_status,
       </if>
-      <if test="createDate != null" >
+      <if test="createDate != null">
         create_date,
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         update_time,
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="psnCode != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psnCode != null">
         #{psnCode,jdbcType=INTEGER},
       </if>
-      <if test="cname != null" >
+      <if test="cname != null">
         #{cname,jdbcType=VARCHAR},
       </if>
-      <if test="fname != null" >
+      <if test="fname != null">
         #{fname,jdbcType=VARCHAR},
       </if>
-      <if test="lname != null" >
+      <if test="lname != null">
         #{lname,jdbcType=VARCHAR},
       </if>
-      <if test="gender != null" >
+      <if test="gender != null">
         #{gender,jdbcType=VARCHAR},
       </if>
-      <if test="titleNo != null" >
+      <if test="titleNo != null">
         #{titleNo,jdbcType=VARCHAR},
       </if>
-      <if test="orgCode != null" >
+      <if test="orgCode != null">
         #{orgCode,jdbcType=DECIMAL},
       </if>
-      <if test="orgEname != null" >
+      <if test="orgEname != null">
         #{orgEname,jdbcType=VARCHAR},
       </if>
-      <if test="orgCname != null" >
+      <if test="orgCname != null">
         #{orgCname,jdbcType=VARCHAR},
       </if>
-      <if test="posInOrg != null" >
+      <if test="posInOrg != null">
         #{posInOrg,jdbcType=VARCHAR},
       </if>
-      <if test="dept != null" >
+      <if test="dept != null">
         #{dept,jdbcType=VARCHAR},
       </if>
-      <if test="eaddress != null" >
+      <if test="eaddress != null">
         #{eaddress,jdbcType=VARCHAR},
       </if>
-      <if test="caddress != null" >
+      <if test="caddress != null">
         #{caddress,jdbcType=VARCHAR},
       </if>
-      <if test="tel != null" >
+      <if test="tel != null">
         #{tel,jdbcType=VARCHAR},
       </if>
-      <if test="fax != null" >
+      <if test="fax != null">
         #{fax,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
+      <if test="email != null">
         #{email,jdbcType=VARCHAR},
       </if>
-      <if test="http != null" >
+      <if test="http != null">
         #{http,jdbcType=VARCHAR},
       </if>
-      <if test="highestDegree != null" >
+      <if test="highestDegree != null">
         #{highestDegree,jdbcType=VARCHAR},
       </if>
-      <if test="tagStatus != null" >
+      <if test="tagStatus != null">
         #{tagStatus,jdbcType=CHAR},
       </if>
-      <if test="createDate != null" >
+      <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         #{remark,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.assets.pojo.PersonExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.assets.pojo.PersonExample" resultType="java.lang.Integer">
     select count(*) from person
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update person
-    <set >
-      <if test="record.psnCode != null" >
+    <set>
+      <if test="record.psnCode != null">
         psn_code = #{record.psnCode,jdbcType=INTEGER},
       </if>
-      <if test="record.cname != null" >
+      <if test="record.cname != null">
         cname = #{record.cname,jdbcType=VARCHAR},
       </if>
-      <if test="record.fname != null" >
+      <if test="record.fname != null">
         fname = #{record.fname,jdbcType=VARCHAR},
       </if>
-      <if test="record.lname != null" >
+      <if test="record.lname != null">
         lname = #{record.lname,jdbcType=VARCHAR},
       </if>
-      <if test="record.gender != null" >
+      <if test="record.gender != null">
         gender = #{record.gender,jdbcType=VARCHAR},
       </if>
-      <if test="record.titleNo != null" >
+      <if test="record.titleNo != null">
         title_no = #{record.titleNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.orgCode != null" >
+      <if test="record.orgCode != null">
         org_code = #{record.orgCode,jdbcType=DECIMAL},
       </if>
-      <if test="record.orgEname != null" >
+      <if test="record.orgEname != null">
         org_ename = #{record.orgEname,jdbcType=VARCHAR},
       </if>
-      <if test="record.orgCname != null" >
+      <if test="record.orgCname != null">
         org_cname = #{record.orgCname,jdbcType=VARCHAR},
       </if>
-      <if test="record.posInOrg != null" >
+      <if test="record.posInOrg != null">
         pos_in_org = #{record.posInOrg,jdbcType=VARCHAR},
       </if>
-      <if test="record.dept != null" >
+      <if test="record.dept != null">
         dept = #{record.dept,jdbcType=VARCHAR},
       </if>
-      <if test="record.eaddress != null" >
+      <if test="record.eaddress != null">
         eaddress = #{record.eaddress,jdbcType=VARCHAR},
       </if>
-      <if test="record.caddress != null" >
+      <if test="record.caddress != null">
         caddress = #{record.caddress,jdbcType=VARCHAR},
       </if>
-      <if test="record.tel != null" >
+      <if test="record.tel != null">
         tel = #{record.tel,jdbcType=VARCHAR},
       </if>
-      <if test="record.fax != null" >
+      <if test="record.fax != null">
         fax = #{record.fax,jdbcType=VARCHAR},
       </if>
-      <if test="record.email != null" >
+      <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
       </if>
-      <if test="record.http != null" >
+      <if test="record.http != null">
         http = #{record.http,jdbcType=VARCHAR},
       </if>
-      <if test="record.highestDegree != null" >
+      <if test="record.highestDegree != null">
         highest_degree = #{record.highestDegree,jdbcType=VARCHAR},
       </if>
-      <if test="record.tagStatus != null" >
+      <if test="record.tagStatus != null">
         tag_status = #{record.tagStatus,jdbcType=CHAR},
       </if>
-      <if test="record.createDate != null" >
+      <if test="record.createDate != null">
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.updateTime != null" >
+      <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.remark != null" >
+      <if test="record.remark != null">
         remark = #{record.remark,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
+  <update id="updateByExampleWithBLOBs" parameterType="map">
     update person
     set psn_code = #{record.psnCode,jdbcType=INTEGER},
       cname = #{record.cname,jdbcType=VARCHAR},
@@ -402,11 +402,11 @@
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       remark = #{record.remark,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update person
     set psn_code = #{record.psnCode,jdbcType=INTEGER},
       cname = #{record.cname,jdbcType=VARCHAR},
@@ -429,80 +429,80 @@
       tag_status = #{record.tagStatus,jdbcType=CHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.Person" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.Person">
     update person
-    <set >
-      <if test="cname != null" >
+    <set>
+      <if test="cname != null">
         cname = #{cname,jdbcType=VARCHAR},
       </if>
-      <if test="fname != null" >
+      <if test="fname != null">
         fname = #{fname,jdbcType=VARCHAR},
       </if>
-      <if test="lname != null" >
+      <if test="lname != null">
         lname = #{lname,jdbcType=VARCHAR},
       </if>
-      <if test="gender != null" >
+      <if test="gender != null">
         gender = #{gender,jdbcType=VARCHAR},
       </if>
-      <if test="titleNo != null" >
+      <if test="titleNo != null">
         title_no = #{titleNo,jdbcType=VARCHAR},
       </if>
-      <if test="orgCode != null" >
+      <if test="orgCode != null">
         org_code = #{orgCode,jdbcType=DECIMAL},
       </if>
-      <if test="orgEname != null" >
+      <if test="orgEname != null">
         org_ename = #{orgEname,jdbcType=VARCHAR},
       </if>
-      <if test="orgCname != null" >
+      <if test="orgCname != null">
         org_cname = #{orgCname,jdbcType=VARCHAR},
       </if>
-      <if test="posInOrg != null" >
+      <if test="posInOrg != null">
         pos_in_org = #{posInOrg,jdbcType=VARCHAR},
       </if>
-      <if test="dept != null" >
+      <if test="dept != null">
         dept = #{dept,jdbcType=VARCHAR},
       </if>
-      <if test="eaddress != null" >
+      <if test="eaddress != null">
         eaddress = #{eaddress,jdbcType=VARCHAR},
       </if>
-      <if test="caddress != null" >
+      <if test="caddress != null">
         caddress = #{caddress,jdbcType=VARCHAR},
       </if>
-      <if test="tel != null" >
+      <if test="tel != null">
         tel = #{tel,jdbcType=VARCHAR},
       </if>
-      <if test="fax != null" >
+      <if test="fax != null">
         fax = #{fax,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
+      <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="http != null" >
+      <if test="http != null">
         http = #{http,jdbcType=VARCHAR},
       </if>
-      <if test="highestDegree != null" >
+      <if test="highestDegree != null">
         highest_degree = #{highestDegree,jdbcType=VARCHAR},
       </if>
-      <if test="tagStatus != null" >
+      <if test="tagStatus != null">
         tag_status = #{tagStatus,jdbcType=CHAR},
       </if>
-      <if test="createDate != null" >
+      <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark = #{remark,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where psn_code = #{psnCode,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.assets.pojo.Person" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.assets.pojo.Person">
     update person
     set cname = #{cname,jdbcType=VARCHAR},
       fname = #{fname,jdbcType=VARCHAR},
@@ -527,7 +527,557 @@
       remark = #{remark,jdbcType=LONGVARCHAR}
     where psn_code = #{psnCode,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.Person" >
+  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.Person">
+    update person
+    set cname = #{cname,jdbcType=VARCHAR},
+      fname = #{fname,jdbcType=VARCHAR},
+      lname = #{lname,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      title_no = #{titleNo,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=DECIMAL},
+      org_ename = #{orgEname,jdbcType=VARCHAR},
+      org_cname = #{orgCname,jdbcType=VARCHAR},
+      pos_in_org = #{posInOrg,jdbcType=VARCHAR},
+      dept = #{dept,jdbcType=VARCHAR},
+      eaddress = #{eaddress,jdbcType=VARCHAR},
+      caddress = #{caddress,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      http = #{http,jdbcType=VARCHAR},
+      highest_degree = #{highestDegree,jdbcType=VARCHAR},
+      tag_status = #{tagStatus,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where psn_code = #{psnCode,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.assets.pojo.Person">
+    <id column="psn_code" jdbcType="INTEGER" property="psnCode" />
+    <result column="cname" jdbcType="VARCHAR" property="cname" />
+    <result column="fname" jdbcType="VARCHAR" property="fname" />
+    <result column="lname" jdbcType="VARCHAR" property="lname" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="title_no" jdbcType="VARCHAR" property="titleNo" />
+    <result column="org_code" jdbcType="DECIMAL" property="orgCode" />
+    <result column="org_ename" jdbcType="VARCHAR" property="orgEname" />
+    <result column="org_cname" jdbcType="VARCHAR" property="orgCname" />
+    <result column="pos_in_org" jdbcType="VARCHAR" property="posInOrg" />
+    <result column="dept" jdbcType="VARCHAR" property="dept" />
+    <result column="eaddress" jdbcType="VARCHAR" property="eaddress" />
+    <result column="caddress" jdbcType="VARCHAR" property="caddress" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="fax" jdbcType="VARCHAR" property="fax" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="http" jdbcType="VARCHAR" property="http" />
+    <result column="highest_degree" jdbcType="VARCHAR" property="highestDegree" />
+    <result column="tag_status" jdbcType="CHAR" property="tagStatus" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.assets.pojo.Person">
+    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    psn_code, cname, fname, lname, gender, title_no, org_code, org_ename, org_cname, 
+    pos_in_org, dept, eaddress, caddress, tel, fax, email, http, highest_degree, tag_status, 
+    create_date, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    remark
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.assets.pojo.PersonExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.assets.pojo.PersonExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from person
+    where psn_code = #{psnCode,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from person
+    where psn_code = #{psnCode,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.assets.pojo.PersonExample">
+    delete from person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.assets.pojo.Person">
+    insert into person (psn_code, cname, fname, 
+      lname, gender, title_no, 
+      org_code, org_ename, org_cname, 
+      pos_in_org, dept, eaddress, 
+      caddress, tel, fax, 
+      email, http, highest_degree, 
+      tag_status, create_date, update_time, 
+      remark)
+    values (#{psnCode,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, #{fname,jdbcType=VARCHAR}, 
+      #{lname,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{titleNo,jdbcType=VARCHAR}, 
+      #{orgCode,jdbcType=DECIMAL}, #{orgEname,jdbcType=VARCHAR}, #{orgCname,jdbcType=VARCHAR}, 
+      #{posInOrg,jdbcType=VARCHAR}, #{dept,jdbcType=VARCHAR}, #{eaddress,jdbcType=VARCHAR}, 
+      #{caddress,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{http,jdbcType=VARCHAR}, #{highestDegree,jdbcType=VARCHAR}, 
+      #{tagStatus,jdbcType=CHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.assets.pojo.Person">
+    insert into person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psnCode != null">
+        psn_code,
+      </if>
+      <if test="cname != null">
+        cname,
+      </if>
+      <if test="fname != null">
+        fname,
+      </if>
+      <if test="lname != null">
+        lname,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="titleNo != null">
+        title_no,
+      </if>
+      <if test="orgCode != null">
+        org_code,
+      </if>
+      <if test="orgEname != null">
+        org_ename,
+      </if>
+      <if test="orgCname != null">
+        org_cname,
+      </if>
+      <if test="posInOrg != null">
+        pos_in_org,
+      </if>
+      <if test="dept != null">
+        dept,
+      </if>
+      <if test="eaddress != null">
+        eaddress,
+      </if>
+      <if test="caddress != null">
+        caddress,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="fax != null">
+        fax,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="http != null">
+        http,
+      </if>
+      <if test="highestDegree != null">
+        highest_degree,
+      </if>
+      <if test="tagStatus != null">
+        tag_status,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psnCode != null">
+        #{psnCode,jdbcType=INTEGER},
+      </if>
+      <if test="cname != null">
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="fname != null">
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="lname != null">
+        #{lname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="titleNo != null">
+        #{titleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=DECIMAL},
+      </if>
+      <if test="orgEname != null">
+        #{orgEname,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCname != null">
+        #{orgCname,jdbcType=VARCHAR},
+      </if>
+      <if test="posInOrg != null">
+        #{posInOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null">
+        #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="eaddress != null">
+        #{eaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="caddress != null">
+        #{caddress,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="http != null">
+        #{http,jdbcType=VARCHAR},
+      </if>
+      <if test="highestDegree != null">
+        #{highestDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="tagStatus != null">
+        #{tagStatus,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.assets.pojo.PersonExample" resultType="java.lang.Integer">
+    select count(*) from person
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update person
+    <set>
+      <if test="record.psnCode != null">
+        psn_code = #{record.psnCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.cname != null">
+        cname = #{record.cname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fname != null">
+        fname = #{record.fname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lname != null">
+        lname = #{record.lname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleNo != null">
+        title_no = #{record.titleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgCode != null">
+        org_code = #{record.orgCode,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orgEname != null">
+        org_ename = #{record.orgEname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgCname != null">
+        org_cname = #{record.orgCname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posInOrg != null">
+        pos_in_org = #{record.posInOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dept != null">
+        dept = #{record.dept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eaddress != null">
+        eaddress = #{record.eaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caddress != null">
+        caddress = #{record.caddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null">
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null">
+        fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.http != null">
+        http = #{record.http,jdbcType=VARCHAR},
+      </if>
+      <if test="record.highestDegree != null">
+        highest_degree = #{record.highestDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tagStatus != null">
+        tag_status = #{record.tagStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update person
+    set psn_code = #{record.psnCode,jdbcType=INTEGER},
+      cname = #{record.cname,jdbcType=VARCHAR},
+      fname = #{record.fname,jdbcType=VARCHAR},
+      lname = #{record.lname,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      title_no = #{record.titleNo,jdbcType=VARCHAR},
+      org_code = #{record.orgCode,jdbcType=DECIMAL},
+      org_ename = #{record.orgEname,jdbcType=VARCHAR},
+      org_cname = #{record.orgCname,jdbcType=VARCHAR},
+      pos_in_org = #{record.posInOrg,jdbcType=VARCHAR},
+      dept = #{record.dept,jdbcType=VARCHAR},
+      eaddress = #{record.eaddress,jdbcType=VARCHAR},
+      caddress = #{record.caddress,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      fax = #{record.fax,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      http = #{record.http,jdbcType=VARCHAR},
+      highest_degree = #{record.highestDegree,jdbcType=VARCHAR},
+      tag_status = #{record.tagStatus,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update person
+    set psn_code = #{record.psnCode,jdbcType=INTEGER},
+      cname = #{record.cname,jdbcType=VARCHAR},
+      fname = #{record.fname,jdbcType=VARCHAR},
+      lname = #{record.lname,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      title_no = #{record.titleNo,jdbcType=VARCHAR},
+      org_code = #{record.orgCode,jdbcType=DECIMAL},
+      org_ename = #{record.orgEname,jdbcType=VARCHAR},
+      org_cname = #{record.orgCname,jdbcType=VARCHAR},
+      pos_in_org = #{record.posInOrg,jdbcType=VARCHAR},
+      dept = #{record.dept,jdbcType=VARCHAR},
+      eaddress = #{record.eaddress,jdbcType=VARCHAR},
+      caddress = #{record.caddress,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      fax = #{record.fax,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      http = #{record.http,jdbcType=VARCHAR},
+      highest_degree = #{record.highestDegree,jdbcType=VARCHAR},
+      tag_status = #{record.tagStatus,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.Person">
+    update person
+    <set>
+      <if test="cname != null">
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="fname != null">
+        fname = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="lname != null">
+        lname = #{lname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="titleNo != null">
+        title_no = #{titleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        org_code = #{orgCode,jdbcType=DECIMAL},
+      </if>
+      <if test="orgEname != null">
+        org_ename = #{orgEname,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCname != null">
+        org_cname = #{orgCname,jdbcType=VARCHAR},
+      </if>
+      <if test="posInOrg != null">
+        pos_in_org = #{posInOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null">
+        dept = #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="eaddress != null">
+        eaddress = #{eaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="caddress != null">
+        caddress = #{caddress,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="http != null">
+        http = #{http,jdbcType=VARCHAR},
+      </if>
+      <if test="highestDegree != null">
+        highest_degree = #{highestDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="tagStatus != null">
+        tag_status = #{tagStatus,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where psn_code = #{psnCode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.assets.pojo.Person">
+    update person
+    set cname = #{cname,jdbcType=VARCHAR},
+      fname = #{fname,jdbcType=VARCHAR},
+      lname = #{lname,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      title_no = #{titleNo,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=DECIMAL},
+      org_ename = #{orgEname,jdbcType=VARCHAR},
+      org_cname = #{orgCname,jdbcType=VARCHAR},
+      pos_in_org = #{posInOrg,jdbcType=VARCHAR},
+      dept = #{dept,jdbcType=VARCHAR},
+      eaddress = #{eaddress,jdbcType=VARCHAR},
+      caddress = #{caddress,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      http = #{http,jdbcType=VARCHAR},
+      highest_degree = #{highestDegree,jdbcType=VARCHAR},
+      tag_status = #{tagStatus,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where psn_code = #{psnCode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.Person">
     update person
     set cname = #{cname,jdbcType=VARCHAR},
       fname = #{fname,jdbcType=VARCHAR},

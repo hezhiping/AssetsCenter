@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>资金变动录入</title>
+<title>待收款项录入</title>
 <!-- 导入jquery核心类库 -->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
@@ -34,27 +34,11 @@
 	
 	function endEditing(){
 		if (editIndex == undefined){return true}
-		if ($('#grid').datagrid('validateRow', editIndex)){
-			if(checkInputData(editIndex)){
-				// 处理 combobox在datagrid显示值问题 开始
-				// 损益
-				var proEd = $('#grid').datagrid('getEditor', {index:editIndex,field:'profitLossSort'});
-				var profitLossName = $(proEd.target).combobox('getText');
-				$('#grid').datagrid('getRows')[editIndex]['profitLossSortName'] = profitLossName;
-				// 支出
-				var payEd = $('#grid').datagrid('getEditor', {index:editIndex,field:'payMode'});
-				var payName = $(payEd.target).combobox('getText');
-				$('#grid').datagrid('getRows')[editIndex]['payModeName'] = payName;
-				// 收入
-				var incomeEd = $('#grid').datagrid('getEditor', {index:editIndex,field:'incomMode'});
-				var incomeName = $(incomeEd.target).combobox('getText');
-				$('#grid').datagrid('getRows')[editIndex]['incomModeName'] = incomeName;
-				
-				// 处理 combobox在datagrid显示值问题 结束
+		if ($('#grid').datagrid('validateRow', editIndex)){			
 				$('#grid').datagrid('endEdit', editIndex);
 				editIndex = undefined;
 				return true;
-			}
+			
 		} else {			
 			return false;
 		}
@@ -72,26 +56,6 @@
 		        amountEditor.numberbox('setValue',amount);  
 			}
 		})	    
-	}  
-	
-	// 校验支出和收入填了金额确没有填写收入和支出方式
-	function checkInputData(rowIndex){  
-	    var editors = $('#grid').datagrid('getEditors', rowIndex); 
-	    var payModeEditor = $(editors[4].target).combobox('getValue');  
-	    var payEditor = $(editors[5].target).numberbox('getValue'); 
-	    var incomModeEditor = $(editors[6].target).combobox('getValue'); 
-	    var incomEditor = $(editors[7].target).numberbox('getValue'); 
-	    console.log("payModeEditor:"+payModeEditor+"payEditor:"+payEditor+"incomModeEditor:"+incomModeEditor+"incomEditor:"+incomEditor);
-	    if(payEditor > 0 && (payModeEditor == null || payModeEditor == undefined||payModeEditor == "")){
-	    	$.messager.alert("提示","填写了支出金额请填写支出方式！");
-	    	return false;
-	    }else if (incomEditor > 0 && (incomModeEditor == null || incomModeEditor == undefined ||incomModeEditor == "" )) {
-	    	$.messager.alert("提示","填写了收到金额请填写收入方式！");
-	    	return false;
-		}else{
-			return true;
-		}
-	  
 	}  
 	
 	//添加一行
@@ -135,10 +99,10 @@
 	//结束编辑
 	function doSave(){
 		 if (endEditing()) { 
-			$("#grid").datagrid('endEdit',editIndex );
-		 }else{
-			 $.messager.alert("提示","请填写完必填项");
-		 }
+				$("#grid").datagrid('endEdit',editIndex );
+			 }else{
+				 $.messager.alert("提示","请填写完必填项");
+			 }
 	}
 
    	// 保存所有改变的数据
@@ -165,7 +129,7 @@
                					"payMode":insertRow.payMode,"payMoney":insertRow.payMoney,"incomMode": insertRow.incomMode,"incomMoney":insertRow.incomMoney});			                
 	              
 	            }	
-	            _lists.push({"type":"insert","insertUpdateData":insertList})
+	            _lists.push({"type":"insert","PayCollections":insertList})
 	            // 修改的数据
 	            for (var i = 0; i < updateRows.length; i++) { //for循环遍历添加的行
 	            	updateRow = updateRows[i];	
@@ -175,11 +139,11 @@
                					"psnCode":updateRow.psnCode});			                
 	              
 	            }
-	            _lists.push({"type":"update","insertUpdateData":updateList})
+	            _lists.push({"type":"update","PayCollections":updateList})
 	            console.log(_lists);
 	            $.ajax({
 	                type: "POST",
-	                url: "/assets/FundChange/addFundChange",
+	                url: "/assets/PayCollection/addPayCollection",
 	                contentType:'application/json;charset=UTF-8',//关键是要加上这行
 	                traditional:true,//这使json格式的字符不会被转码
 	                dataType: 'JSON',
@@ -251,7 +215,7 @@
 		hidden: true
 		
 	}, {
-		field : 'consumeDate',
+		field : 'receiptDate',
 		title : '消费日期',
 		width : 180,
 		align : 'center',
@@ -265,7 +229,7 @@
 			} 
 		}
 	}, {
-		field : 'item',
+		field : 'receiptItem',
 		title : '事项',
 		width : 220,
 		align : 'center',
@@ -276,99 +240,26 @@
 			}
 		}
 	},{
-		field : 'money',
-		title : '金额',
+		field : 'person',
+		title : '人员姓名',
+		width : 100,
+		align : 'center',
+		editor :{
+			type : 'validatebox',
+			options : {				
+				required:true				
+			}
+		}
+	}, {
+		field : 'receiptPay',
+		title : '待收金额',
 		width : 100,
 		align : 'center',
 		editor :{
 			type : 'numberbox',
 			options : {
 				precision:2,
-				readonly:true				
-			}
-		},
-		styler: function (value, row, index) {
-            return 'color:red'
-         }
-	}, {
-		field : 'profitLossSort',
-		title : '损益分类',
-		width : 160,
-		align : 'center',
-	    formatter: function (value, row) {
-   	  	//这里是关健，对比找出显示值
-	    	return row.profitLossSortName;
-            }, 
-		editor :{
-			type : 'combobox',
-			options : {
-				url:'/assets/UserConstDic/getProfitLossType',
-				valueField:'costCode',
-				textField:'costName',
-				 prompt: '请选择',
-				required: true,
-				editable: false
-			}
-		}
-	}, {
-		field : 'payMode',
-		title : '支付方式',
-		width : 160,
-		align : 'center',
-		formatter: function (value, row) {
-		    //这里是关健，对比找出显示值
-			return row.payModeName;
-		}, editor :{
-			type : 'combobox',
-			options : {
-				url:'/assets/UserConstDic/getPayIncomType',
-				valueField:'costCode',
-				textField:'costName',
-				 prompt: '请选择',
-				editable: false
-			}
-		}
-	}, {
-		field : 'payMoney',
-		title : '支付金额',
-		width : 100,
-		align : 'center',
-		editor :{
-			type : 'numberbox',
-			options : {
-				precision:2
-			}
-		},
-		styler: function (value, row, index) {
-            return 'color:red'
-         }
-	}, {
-		field : 'incomMode',
-		title : '收入方式',
-		width : 160,
-		align : 'center',
-		formatter: function (value, row) {
-		   	 //这里是关健，对比找出显示值
-			 return row.incomModeName;
-		}, editor :{
-			type : 'combobox',
-			options : {
-				url:'/assets/UserConstDic/getPayIncomType',
-				valueField:'costCode',
-				textField:'costName',
-			    prompt: '请选择',
-				editable: false
-			}
-		}
-	}, {
-		field : 'incomMoney',
-		title : '收到金额',
-		width : 100,
-		align : 'center',
-		editor :{
-			type : 'numberbox',
-			options : {
-				precision:2
+				required:true		
 			}
 		},
 		styler: function (value, row, index) {
@@ -391,15 +282,10 @@
 			pageSize: 100,
 			pagination : true,
 			toolbar : toolbar,
-			url :  "/assets/FundChange/fundChangeList",
+			url :  "/assets/PayCollection/payCollectionList",
 			idField : 'id',
 			columns : columns,
-			onDblClickRow : doDblClickRow,
-			rowStyler: function(index,row){
-				if (row.money < 0){					
-					return 'background-color:#EBFDE8;';
-				}
-			}			
+			onDblClickRow : doDblClickRow					
 		});
 	});
 

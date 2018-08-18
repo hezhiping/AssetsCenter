@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.assets.mapper.SysResourceAuthoritieMapper" >
-  <resultMap id="BaseResultMap" type="com.assets.pojo.SysResourceAuthoritieKey" >
-    <id column="AUTHORITY_ID" property="authorityId" jdbcType="DECIMAL" />
-    <id column="RESOURCE_ID" property="resourceId" jdbcType="DECIMAL" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assets.mapper.SysResourceAuthoritieMapper">
+  <resultMap id="BaseResultMap" type="com.assets.pojo.SysResourceAuthoritieKey">
+    <id column="AUTHORITY_ID" jdbcType="DECIMAL" property="authorityId" />
+    <id column="RESOURCE_ID" jdbcType="DECIMAL" property="resourceId" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -34,25 +34,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -63,82 +63,223 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     AUTHORITY_ID, RESOURCE_ID
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.SysResourceAuthoritieExample" >
+  <select id="selectByExample" parameterType="com.assets.pojo.SysResourceAuthoritieExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from sys_resource_authoritie
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.assets.pojo.SysResourceAuthoritieKey" >
+  <delete id="deleteByPrimaryKey" parameterType="com.assets.pojo.SysResourceAuthoritieKey">
     delete from sys_resource_authoritie
     where AUTHORITY_ID = #{authorityId,jdbcType=DECIMAL}
       and RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.assets.pojo.SysResourceAuthoritieExample" >
+  <delete id="deleteByExample" parameterType="com.assets.pojo.SysResourceAuthoritieExample">
     delete from sys_resource_authoritie
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.assets.pojo.SysResourceAuthoritieKey" >
+  <insert id="insert" parameterType="com.assets.pojo.SysResourceAuthoritieKey">
     insert into sys_resource_authoritie (AUTHORITY_ID, RESOURCE_ID)
     values (#{authorityId,jdbcType=DECIMAL}, #{resourceId,jdbcType=DECIMAL})
   </insert>
-  <insert id="insertSelective" parameterType="com.assets.pojo.SysResourceAuthoritieKey" >
+  <insert id="insertSelective" parameterType="com.assets.pojo.SysResourceAuthoritieKey">
     insert into sys_resource_authoritie
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="authorityId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authorityId != null">
         AUTHORITY_ID,
       </if>
-      <if test="resourceId != null" >
+      <if test="resourceId != null">
         RESOURCE_ID,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="authorityId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authorityId != null">
         #{authorityId,jdbcType=DECIMAL},
       </if>
-      <if test="resourceId != null" >
+      <if test="resourceId != null">
         #{resourceId,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.assets.pojo.SysResourceAuthoritieExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.assets.pojo.SysResourceAuthoritieExample" resultType="java.lang.Integer">
     select count(*) from sys_resource_authoritie
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update sys_resource_authoritie
-    <set >
-      <if test="record.authorityId != null" >
+    <set>
+      <if test="record.authorityId != null">
         AUTHORITY_ID = #{record.authorityId,jdbcType=DECIMAL},
       </if>
-      <if test="record.resourceId != null" >
+      <if test="record.resourceId != null">
         RESOURCE_ID = #{record.resourceId,jdbcType=DECIMAL},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update sys_resource_authoritie
     set AUTHORITY_ID = #{record.authorityId,jdbcType=DECIMAL},
       RESOURCE_ID = #{record.resourceId,jdbcType=DECIMAL}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.assets.pojo.SysResourceAuthoritieKey">
+    <id column="AUTHORITY_ID" jdbcType="DECIMAL" property="authorityId" />
+    <id column="RESOURCE_ID" jdbcType="DECIMAL" property="resourceId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    AUTHORITY_ID, RESOURCE_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.assets.pojo.SysResourceAuthoritieExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_resource_authoritie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.assets.pojo.SysResourceAuthoritieKey">
+    delete from sys_resource_authoritie
+    where AUTHORITY_ID = #{authorityId,jdbcType=DECIMAL}
+      and RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.assets.pojo.SysResourceAuthoritieExample">
+    delete from sys_resource_authoritie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.assets.pojo.SysResourceAuthoritieKey">
+    insert into sys_resource_authoritie (AUTHORITY_ID, RESOURCE_ID)
+    values (#{authorityId,jdbcType=DECIMAL}, #{resourceId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.assets.pojo.SysResourceAuthoritieKey">
+    insert into sys_resource_authoritie
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authorityId != null">
+        AUTHORITY_ID,
+      </if>
+      <if test="resourceId != null">
+        RESOURCE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authorityId != null">
+        #{authorityId,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.assets.pojo.SysResourceAuthoritieExample" resultType="java.lang.Integer">
+    select count(*) from sys_resource_authoritie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_resource_authoritie
+    <set>
+      <if test="record.authorityId != null">
+        AUTHORITY_ID = #{record.authorityId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.resourceId != null">
+        RESOURCE_ID = #{record.resourceId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_resource_authoritie
+    set AUTHORITY_ID = #{record.authorityId,jdbcType=DECIMAL},
+      RESOURCE_ID = #{record.resourceId,jdbcType=DECIMAL}
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

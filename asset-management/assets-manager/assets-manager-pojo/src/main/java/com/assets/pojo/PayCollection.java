@@ -8,7 +8,7 @@ public class PayCollection {
 
     private Integer psnCode;
 
-    private Date currentMonthDate;
+    private String currentMonth;
 
     private String receiptItem;
 
@@ -21,6 +21,8 @@ public class PayCollection {
     private String tagStatus;
 
     private Date createDate;
+
+    private String currentYear;
 
     public Integer getId() {
         return id;
@@ -38,12 +40,12 @@ public class PayCollection {
         this.psnCode = psnCode;
     }
 
-    public Date getCurrentMonthDate() {
-        return currentMonthDate;
+    public String getCurrentMonth() {
+        return currentMonth;
     }
 
-    public void setCurrentMonthDate(Date currentMonthDate) {
-        this.currentMonthDate = currentMonthDate;
+    public void setCurrentMonth(String currentMonth) {
+        this.currentMonth = currentMonth == null ? null : currentMonth.trim();
     }
 
     public String getReceiptItem() {
@@ -92,5 +94,13 @@ public class PayCollection {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getCurrentYear() {
+        return currentYear;
+    }
+
+    public void setCurrentYear(String currentYear) {
+        this.currentYear = currentYear == null ? null : currentYear.trim();
     }
 }

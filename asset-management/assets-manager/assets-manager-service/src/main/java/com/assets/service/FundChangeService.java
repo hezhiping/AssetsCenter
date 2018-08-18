@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.assets.common.pojo.EasyUIDataGridResult;
 import com.assets.common.utils.ResponseResult;
 import com.assets.pojo.FundChange;
-import com.assets.pojo.SaveFundCahngePojo;
+import com.assets.pojo.InsertUpdateDataPojo;
 
 public interface FundChangeService extends BaseService {
 
@@ -25,6 +25,6 @@ public interface FundChangeService extends BaseService {
 	 * @param rows
 	 * @return
 	 */
-	ResponseResult addFundChange(final HttpServletRequest request,List<SaveFundCahngePojo> list);
+	ResponseResult addFundChange(final HttpServletRequest request,List<InsertUpdateDataPojo> list);
 
 }

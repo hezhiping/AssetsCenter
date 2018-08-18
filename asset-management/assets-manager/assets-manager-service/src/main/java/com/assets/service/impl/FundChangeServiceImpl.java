@@ -23,7 +23,7 @@ import com.assets.common.utils.ResponseResult;
 import com.assets.mapper.FundChangeMapper;
 import com.assets.pojo.FundChange;
 import com.assets.pojo.FundChangeExample;
-import com.assets.pojo.SaveFundCahngePojo;
+import com.assets.pojo.InsertUpdateDataPojo;
 import com.assets.service.FundChangeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -61,16 +61,13 @@ public class FundChangeServiceImpl extends BaseServiceImpl implements
 				// 获取到分页后的信息
 				PageInfo<FundChange> pageInfo = new PageInfo<FundChange>(list);
 				result.setTotal(pageInfo.getTotal());
-				result.setRows(list);
-				return result;
+				result.setRows(list);				
 			}
-			return result;
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			return result;
 		}
-
+		return result;
 	}
 
 	/**
@@ -78,17 +75,16 @@ public class FundChangeServiceImpl extends BaseServiceImpl implements
 	 */
 	@Override
 	public ResponseResult addFundChange(final HttpServletRequest request,
-			List<SaveFundCahngePojo> list) {
+			List<InsertUpdateDataPojo> list) {
 		try {
 			// 获取登入人员的PSN_CODE
 			ResponseResult responseResult = getUserPsnCodeByRequest(request);
 			if (responseResult.getStatus() == 200) {
 				// 判断是新增的记录还是修改的记录
-				for (SaveFundCahngePojo fundCahngePojo : list) {
+				for (InsertUpdateDataPojo fundCahnge : list) {
 					// insert的数据
-					if (fundCahngePojo.getType().equals("insert")) {
-						List<FundChange> insertRecord = fundCahngePojo
-								.getFundChanges();
+					if (fundCahnge.getType().equals("insert")) {
+						List<FundChange> insertRecord = (List<FundChange>) fundCahnge.getInsertUpdateData();
 						for (FundChange fcInsert : insertRecord) {
 							fcInsert.setPsnCode((Integer) responseResult
 									.getData());
@@ -102,9 +98,8 @@ public class FundChangeServiceImpl extends BaseServiceImpl implements
 								return ResponseResult.build(500, "添加失败");
 							}
 						}
-					} else if (fundCahngePojo.getType().equals("update")) {// update的数据
-						List<FundChange> updateRecord = fundCahngePojo
-								.getFundChanges();
+					} else if (fundCahnge.getType().equals("update")) {// update的数据
+						List<FundChange> updateRecord = (List<FundChange>) fundCahnge.getInsertUpdateData();
 						for (FundChange fcUpdate : updateRecord) {
 							fcUpdate.setCurrentYear(DateUtilHelp
 									.getNowYearStr(fcUpdate.getConsumeDate()));

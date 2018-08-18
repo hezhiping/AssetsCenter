@@ -1,37 +1,37 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.assets.mapper.CurrencyFundMapper" >
-  <resultMap id="BaseResultMap" type="com.assets.pojo.CurrencyFund" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="psn_code" property="psnCode" jdbcType="INTEGER" />
-    <result column="current_month" property="currentMonth" jdbcType="VARCHAR" />
-    <result column="opening_balance" property="openingBalance" jdbcType="DECIMAL" />
-    <result column="period_incom" property="periodIncom" jdbcType="DECIMAL" />
-    <result column="period_pay" property="periodPay" jdbcType="DECIMAL" />
-    <result column="ending_balance" property="endingBalance" jdbcType="DECIMAL" />
-    <result column="tag_status" property="tagStatus" jdbcType="CHAR" />
-    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
-    <result column="current_year" property="currentYear" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assets.mapper.CurrencyFundMapper">
+  <resultMap id="BaseResultMap" type="com.assets.pojo.CurrencyFund">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="psn_code" jdbcType="INTEGER" property="psnCode" />
+    <result column="current_month" jdbcType="VARCHAR" property="currentMonth" />
+    <result column="opening_balance" jdbcType="DECIMAL" property="openingBalance" />
+    <result column="period_incom" jdbcType="DECIMAL" property="periodIncom" />
+    <result column="period_pay" jdbcType="DECIMAL" property="periodPay" />
+    <result column="ending_balance" jdbcType="DECIMAL" property="endingBalance" />
+    <result column="tag_status" jdbcType="CHAR" property="tagStatus" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="current_year" jdbcType="VARCHAR" property="currentYear" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -42,25 +42,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -71,41 +71,41 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, psn_code, current_month, opening_balance, period_incom, period_pay, ending_balance, 
     tag_status, create_date, current_year
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.CurrencyFundExample" >
+  <select id="selectByExample" parameterType="com.assets.pojo.CurrencyFundExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from currency_fund
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from currency_fund
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from currency_fund
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.assets.pojo.CurrencyFundExample" >
+  <delete id="deleteByExample" parameterType="com.assets.pojo.CurrencyFundExample">
     delete from currency_fund
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.assets.pojo.CurrencyFund" >
+  <insert id="insert" parameterType="com.assets.pojo.CurrencyFund">
     insert into currency_fund (id, psn_code, current_month, 
       opening_balance, period_incom, period_pay, 
       ending_balance, tag_status, create_date, 
@@ -115,118 +115,118 @@
       #{endingBalance,jdbcType=DECIMAL}, #{tagStatus,jdbcType=CHAR}, #{createDate,jdbcType=TIMESTAMP}, 
       #{currentYear,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.assets.pojo.CurrencyFund" >
+  <insert id="insertSelective" parameterType="com.assets.pojo.CurrencyFund">
     insert into currency_fund
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="psnCode != null" >
+      <if test="psnCode != null">
         psn_code,
       </if>
-      <if test="currentMonth != null" >
+      <if test="currentMonth != null">
         current_month,
       </if>
-      <if test="openingBalance != null" >
+      <if test="openingBalance != null">
         opening_balance,
       </if>
-      <if test="periodIncom != null" >
+      <if test="periodIncom != null">
         period_incom,
       </if>
-      <if test="periodPay != null" >
+      <if test="periodPay != null">
         period_pay,
       </if>
-      <if test="endingBalance != null" >
+      <if test="endingBalance != null">
         ending_balance,
       </if>
-      <if test="tagStatus != null" >
+      <if test="tagStatus != null">
         tag_status,
       </if>
-      <if test="createDate != null" >
+      <if test="createDate != null">
         create_date,
       </if>
-      <if test="currentYear != null" >
+      <if test="currentYear != null">
         current_year,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="psnCode != null" >
+      <if test="psnCode != null">
         #{psnCode,jdbcType=INTEGER},
       </if>
-      <if test="currentMonth != null" >
+      <if test="currentMonth != null">
         #{currentMonth,jdbcType=VARCHAR},
       </if>
-      <if test="openingBalance != null" >
+      <if test="openingBalance != null">
         #{openingBalance,jdbcType=DECIMAL},
       </if>
-      <if test="periodIncom != null" >
+      <if test="periodIncom != null">
         #{periodIncom,jdbcType=DECIMAL},
       </if>
-      <if test="periodPay != null" >
+      <if test="periodPay != null">
         #{periodPay,jdbcType=DECIMAL},
       </if>
-      <if test="endingBalance != null" >
+      <if test="endingBalance != null">
         #{endingBalance,jdbcType=DECIMAL},
       </if>
-      <if test="tagStatus != null" >
+      <if test="tagStatus != null">
         #{tagStatus,jdbcType=CHAR},
       </if>
-      <if test="createDate != null" >
+      <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="currentYear != null" >
+      <if test="currentYear != null">
         #{currentYear,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.assets.pojo.CurrencyFundExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.assets.pojo.CurrencyFundExample" resultType="java.lang.Integer">
     select count(*) from currency_fund
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update currency_fund
-    <set >
-      <if test="record.id != null" >
+    <set>
+      <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.psnCode != null" >
+      <if test="record.psnCode != null">
         psn_code = #{record.psnCode,jdbcType=INTEGER},
       </if>
-      <if test="record.currentMonth != null" >
+      <if test="record.currentMonth != null">
         current_month = #{record.currentMonth,jdbcType=VARCHAR},
       </if>
-      <if test="record.openingBalance != null" >
+      <if test="record.openingBalance != null">
         opening_balance = #{record.openingBalance,jdbcType=DECIMAL},
       </if>
-      <if test="record.periodIncom != null" >
+      <if test="record.periodIncom != null">
         period_incom = #{record.periodIncom,jdbcType=DECIMAL},
       </if>
-      <if test="record.periodPay != null" >
+      <if test="record.periodPay != null">
         period_pay = #{record.periodPay,jdbcType=DECIMAL},
       </if>
-      <if test="record.endingBalance != null" >
+      <if test="record.endingBalance != null">
         ending_balance = #{record.endingBalance,jdbcType=DECIMAL},
       </if>
-      <if test="record.tagStatus != null" >
+      <if test="record.tagStatus != null">
         tag_status = #{record.tagStatus,jdbcType=CHAR},
       </if>
-      <if test="record.createDate != null" >
+      <if test="record.createDate != null">
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.currentYear != null" >
+      <if test="record.currentYear != null">
         current_year = #{record.currentYear,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update currency_fund
     set id = #{record.id,jdbcType=INTEGER},
       psn_code = #{record.psnCode,jdbcType=INTEGER},
@@ -238,44 +238,331 @@
       tag_status = #{record.tagStatus,jdbcType=CHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       current_year = #{record.currentYear,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.CurrencyFund" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.CurrencyFund">
     update currency_fund
-    <set >
-      <if test="psnCode != null" >
+    <set>
+      <if test="psnCode != null">
         psn_code = #{psnCode,jdbcType=INTEGER},
       </if>
-      <if test="currentMonth != null" >
+      <if test="currentMonth != null">
         current_month = #{currentMonth,jdbcType=VARCHAR},
       </if>
-      <if test="openingBalance != null" >
+      <if test="openingBalance != null">
         opening_balance = #{openingBalance,jdbcType=DECIMAL},
       </if>
-      <if test="periodIncom != null" >
+      <if test="periodIncom != null">
         period_incom = #{periodIncom,jdbcType=DECIMAL},
       </if>
-      <if test="periodPay != null" >
+      <if test="periodPay != null">
         period_pay = #{periodPay,jdbcType=DECIMAL},
       </if>
-      <if test="endingBalance != null" >
+      <if test="endingBalance != null">
         ending_balance = #{endingBalance,jdbcType=DECIMAL},
       </if>
-      <if test="tagStatus != null" >
+      <if test="tagStatus != null">
         tag_status = #{tagStatus,jdbcType=CHAR},
       </if>
-      <if test="createDate != null" >
+      <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="currentYear != null" >
+      <if test="currentYear != null">
         current_year = #{currentYear,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.CurrencyFund" >
+  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.CurrencyFund">
+    update currency_fund
+    set psn_code = #{psnCode,jdbcType=INTEGER},
+      current_month = #{currentMonth,jdbcType=VARCHAR},
+      opening_balance = #{openingBalance,jdbcType=DECIMAL},
+      period_incom = #{periodIncom,jdbcType=DECIMAL},
+      period_pay = #{periodPay,jdbcType=DECIMAL},
+      ending_balance = #{endingBalance,jdbcType=DECIMAL},
+      tag_status = #{tagStatus,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      current_year = #{currentYear,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.assets.pojo.CurrencyFund">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="psn_code" jdbcType="INTEGER" property="psnCode" />
+    <result column="current_month" jdbcType="VARCHAR" property="currentMonth" />
+    <result column="opening_balance" jdbcType="DECIMAL" property="openingBalance" />
+    <result column="period_incom" jdbcType="DECIMAL" property="periodIncom" />
+    <result column="period_pay" jdbcType="DECIMAL" property="periodPay" />
+    <result column="ending_balance" jdbcType="DECIMAL" property="endingBalance" />
+    <result column="tag_status" jdbcType="CHAR" property="tagStatus" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="current_year" jdbcType="VARCHAR" property="currentYear" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, psn_code, current_month, opening_balance, period_incom, period_pay, ending_balance, 
+    tag_status, create_date, current_year
+  </sql>
+  <select id="selectByExample" parameterType="com.assets.pojo.CurrencyFundExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from currency_fund
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from currency_fund
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from currency_fund
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.assets.pojo.CurrencyFundExample">
+    delete from currency_fund
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.assets.pojo.CurrencyFund">
+    insert into currency_fund (id, psn_code, current_month, 
+      opening_balance, period_incom, period_pay, 
+      ending_balance, tag_status, create_date, 
+      current_year)
+    values (#{id,jdbcType=INTEGER}, #{psnCode,jdbcType=INTEGER}, #{currentMonth,jdbcType=VARCHAR}, 
+      #{openingBalance,jdbcType=DECIMAL}, #{periodIncom,jdbcType=DECIMAL}, #{periodPay,jdbcType=DECIMAL}, 
+      #{endingBalance,jdbcType=DECIMAL}, #{tagStatus,jdbcType=CHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{currentYear,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.assets.pojo.CurrencyFund">
+    insert into currency_fund
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="psnCode != null">
+        psn_code,
+      </if>
+      <if test="currentMonth != null">
+        current_month,
+      </if>
+      <if test="openingBalance != null">
+        opening_balance,
+      </if>
+      <if test="periodIncom != null">
+        period_incom,
+      </if>
+      <if test="periodPay != null">
+        period_pay,
+      </if>
+      <if test="endingBalance != null">
+        ending_balance,
+      </if>
+      <if test="tagStatus != null">
+        tag_status,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="currentYear != null">
+        current_year,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="psnCode != null">
+        #{psnCode,jdbcType=INTEGER},
+      </if>
+      <if test="currentMonth != null">
+        #{currentMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="openingBalance != null">
+        #{openingBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="periodIncom != null">
+        #{periodIncom,jdbcType=DECIMAL},
+      </if>
+      <if test="periodPay != null">
+        #{periodPay,jdbcType=DECIMAL},
+      </if>
+      <if test="endingBalance != null">
+        #{endingBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="tagStatus != null">
+        #{tagStatus,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentYear != null">
+        #{currentYear,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.assets.pojo.CurrencyFundExample" resultType="java.lang.Integer">
+    select count(*) from currency_fund
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update currency_fund
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.psnCode != null">
+        psn_code = #{record.psnCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.currentMonth != null">
+        current_month = #{record.currentMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openingBalance != null">
+        opening_balance = #{record.openingBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.periodIncom != null">
+        period_incom = #{record.periodIncom,jdbcType=DECIMAL},
+      </if>
+      <if test="record.periodPay != null">
+        period_pay = #{record.periodPay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.endingBalance != null">
+        ending_balance = #{record.endingBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tagStatus != null">
+        tag_status = #{record.tagStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.currentYear != null">
+        current_year = #{record.currentYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update currency_fund
+    set id = #{record.id,jdbcType=INTEGER},
+      psn_code = #{record.psnCode,jdbcType=INTEGER},
+      current_month = #{record.currentMonth,jdbcType=VARCHAR},
+      opening_balance = #{record.openingBalance,jdbcType=DECIMAL},
+      period_incom = #{record.periodIncom,jdbcType=DECIMAL},
+      period_pay = #{record.periodPay,jdbcType=DECIMAL},
+      ending_balance = #{record.endingBalance,jdbcType=DECIMAL},
+      tag_status = #{record.tagStatus,jdbcType=CHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      current_year = #{record.currentYear,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.CurrencyFund">
+    update currency_fund
+    <set>
+      <if test="psnCode != null">
+        psn_code = #{psnCode,jdbcType=INTEGER},
+      </if>
+      <if test="currentMonth != null">
+        current_month = #{currentMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="openingBalance != null">
+        opening_balance = #{openingBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="periodIncom != null">
+        period_incom = #{periodIncom,jdbcType=DECIMAL},
+      </if>
+      <if test="periodPay != null">
+        period_pay = #{periodPay,jdbcType=DECIMAL},
+      </if>
+      <if test="endingBalance != null">
+        ending_balance = #{endingBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="tagStatus != null">
+        tag_status = #{tagStatus,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentYear != null">
+        current_year = #{currentYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.CurrencyFund">
     update currency_fund
     set psn_code = #{psnCode,jdbcType=INTEGER},
       current_month = #{currentMonth,jdbcType=VARCHAR},
