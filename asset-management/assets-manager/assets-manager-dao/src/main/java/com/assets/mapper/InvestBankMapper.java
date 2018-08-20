@@ -2,7 +2,10 @@ package com.assets.mapper;
 
 import com.assets.pojo.InvestBank;
 import com.assets.pojo.InvestBankExample;
+
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface InvestBankMapper {
@@ -27,4 +30,6 @@ public interface InvestBankMapper {
     int updateByPrimaryKeySelective(InvestBank record);
 
     int updateByPrimaryKey(InvestBank record);
+
+	List<InvestBank> selectInvestSum(Map<String, Object> map);
 }

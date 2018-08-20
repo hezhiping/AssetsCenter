@@ -355,4 +355,181 @@
     where ROLE_ID = #{roleId,jdbcType=DECIMAL}
       and AUTHORITY_ID = #{authorityId,jdbcType=DECIMAL}
   </update>
+  <resultMap id="BaseResultMap" type="com.assets.pojo.SysRoleAuthoritie">
+    <id column="ROLE_ID" jdbcType="DECIMAL" property="roleId" />
+    <id column="AUTHORITY_ID" jdbcType="DECIMAL" property="authorityId" />
+    <result column="TYPE" jdbcType="DECIMAL" property="type" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ROLE_ID, AUTHORITY_ID, TYPE
+  </sql>
+  <select id="selectByExample" parameterType="com.assets.pojo.SysRoleAuthoritieExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_role_authoritie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.assets.pojo.SysRoleAuthoritieKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_authoritie
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+      and AUTHORITY_ID = #{authorityId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.assets.pojo.SysRoleAuthoritieKey">
+    delete from sys_role_authoritie
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+      and AUTHORITY_ID = #{authorityId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.assets.pojo.SysRoleAuthoritieExample">
+    delete from sys_role_authoritie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.assets.pojo.SysRoleAuthoritie">
+    insert into sys_role_authoritie (ROLE_ID, AUTHORITY_ID, TYPE
+      )
+    values (#{roleId,jdbcType=DECIMAL}, #{authorityId,jdbcType=DECIMAL}, #{type,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.assets.pojo.SysRoleAuthoritie">
+    insert into sys_role_authoritie
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        ROLE_ID,
+      </if>
+      <if test="authorityId != null">
+        AUTHORITY_ID,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="authorityId != null">
+        #{authorityId,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.assets.pojo.SysRoleAuthoritieExample" resultType="java.lang.Integer">
+    select count(*) from sys_role_authoritie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_role_authoritie
+    <set>
+      <if test="record.roleId != null">
+        ROLE_ID = #{record.roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.authorityId != null">
+        AUTHORITY_ID = #{record.authorityId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_role_authoritie
+    set ROLE_ID = #{record.roleId,jdbcType=DECIMAL},
+      AUTHORITY_ID = #{record.authorityId,jdbcType=DECIMAL},
+      TYPE = #{record.type,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.SysRoleAuthoritie">
+    update sys_role_authoritie
+    <set>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+      and AUTHORITY_ID = #{authorityId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.SysRoleAuthoritie">
+    update sys_role_authoritie
+    set TYPE = #{type,jdbcType=DECIMAL}
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+      and AUTHORITY_ID = #{authorityId,jdbcType=DECIMAL}
+  </update>
 </mapper>

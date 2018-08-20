@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.assets.common.utils.ExceptionUtil;
 import com.assets.common.utils.ResponseResult;
-import com.assets.remote.service.ServiceFactory;
-import com.assets.service.IUser;
 import com.assets.service.LoginService;
 
 /**

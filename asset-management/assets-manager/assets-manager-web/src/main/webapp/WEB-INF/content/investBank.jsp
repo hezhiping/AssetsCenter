@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>待收款项录入</title>
+<title>投资理财</title>
 <!-- 导入jquery核心类库 -->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
@@ -43,6 +43,20 @@
 			return false;
 		}
 	}	
+	// 计算支出和收入的和
+	function setEditing(rowIndex){  
+	    var editors = $('#grid').datagrid('getEditors', rowIndex);  
+	    var payEditor = $(editors[5].target);  
+	    var incomEditor = $(editors[7].target);  
+	    var amountEditor = $(editors[2].target);  
+	    payEditor.add(incomEditor).numberbox({
+			onChange:function(){				
+		        var amount =payEditor.numberbox('getValue') - incomEditor.numberbox('getValue');   
+		        console.log(amount);
+		        amountEditor.numberbox('setValue',amount);  
+			}
+		})	    
+	}  
 	
 	//添加一行
 	function doAdd(){
@@ -60,7 +74,8 @@
 		if(rowIndex != editIndex ){ //判断正在编辑的行和双击选中的行是否相等
 			if(endEditing()){ // 验证内容是否通过，通过结束当前编辑行，开启双击选中行
 				// 编辑行时，时间格式为1534435200000 这种格式，需要转换成yyyy-MM-dd格式后easyUI会处理该日期显示在date控件上
-				rowData.receiptDate = transformDate(rowData.receiptDate);
+				rowData.investDate = transformDate(rowData.investDate);
+				rowData.investProfitDate = transformDate(rowData.investProfitDate);
 				 $('#grid').datagrid('endEdit', editIndex);
 				 $('#grid').datagrid('beginEdit',rowIndex);
 					editIndex = rowIndex;				
@@ -109,7 +124,9 @@
 	            	insertRow = insertRows[i];	
 	            //拼接数据为json格式
 	            	
-               		insertList.push({"receiptDate":insertRow.receiptDate,"receiptItem":insertRow.receiptItem,"person":insertRow.person,"receiptPay":insertRow.receiptPay});			                
+               		insertList.push({"investCode":insertRow.investCode,"investName":insertRow.investName,"investDate":insertRow.investDate,
+               			"investType":insertRow.investType,"investMoney":insertRow.investMoney,"investProfit":insertRow.investProfit,"investProfitDate":insertRow.investProfitDate,
+               			"annualizedRateReturn":insertRow.annualizedRateReturn,"tagStatus":insertRow.tagStatus,});			                
 	              
 	            }	
 	            _lists.push({"type":"insert","insertUpdateData":insertList})
@@ -117,15 +134,16 @@
 	            for (var i = 0; i < updateRows.length; i++) { //for循环遍历添加的行
 	            	updateRow = updateRows[i];	
 	            //拼接数据为json格式		            	
-               		updateList.push({"id":updateRow.id,"receiptDate":insertRow.receiptDate,"receiptItem":insertRow.receiptItem,"person":insertRow.person,
-               			"receiptPay":insertRow.receiptPay,"psnCode":updateRow.psnCode});			                
+               		updateList.push({"id":updateRow.id,"investCode":insertRow.investCode,"investName":insertRow.investName,"investDate":insertRow.investDate,
+               			"investType":insertRow.investType,"investMoney":insertRow.investMoney,"investProfit":insertRow.investProfit,"investProfitDate":insertRow.investProfitDate,
+               			"annualizedRateReturn":insertRow.annualizedRateReturn,"tagStatus":insertRow.tagStatus,"psnCode":updateRow.psnCode});			                
 	              
 	            }
 	            _lists.push({"type":"update","insertUpdateData":updateList})
 	            console.log(_lists);
 	            $.ajax({
 	                type: "POST",
-	                url: "/assets/PayCollection/addPayCollection",
+	                url: "/assets/InvestBank/addInvestBank",
 	                contentType:'application/json;charset=UTF-8',//关键是要加上这行
 	                traditional:true,//这使json格式的字符不会被转码
 	                dataType: 'JSON',
@@ -197,8 +215,30 @@
 		hidden: true
 		
 	}, {
-		field : 'receiptDate',
-		title : '消费日期',
+		field : 'investCode',
+		title : '代码',
+		width : 120,
+		align : 'center',
+		editor :{
+			type : 'validatebox',
+			options : {
+				required: true
+			}
+		}
+	}, {
+		field : 'investName',
+		title : '名称',
+		width : 220,
+		align : 'center',
+		editor :{
+			type : 'validatebox',
+			options : {
+				required: true
+			}
+		}
+	},{
+		field : 'investDate',
+		title : '买入日期',
 		width : 180,
 		align : 'center',
 		formatter: formatDatebox,
@@ -211,9 +251,9 @@
 			} 
 		}
 	}, {
-		field : 'receiptItem',
-		title : '事项',
-		width : 220,
+		field : 'investType',
+		title : '投资类型',
+		width : 120,
 		align : 'center',
 		editor :{
 			type : 'validatebox',
@@ -221,20 +261,9 @@
 				required: true
 			}
 		}
-	},{
-		field : 'person',
-		title : '人员姓名',
-		width : 100,
-		align : 'center',
-		editor :{
-			type : 'validatebox',
-			options : {				
-				required:true				
-			}
-		}
 	}, {
-		field : 'receiptPay',
-		title : '待收金额',
+		field : 'investMoney',
+		title : '投资金额',
 		width : 100,
 		align : 'center',
 		editor :{
@@ -247,6 +276,60 @@
 		styler: function (value, row, index) {
             return 'color:red'
          }
+	}, {
+		field : 'investProfit',
+		title : '投资收益',
+		width : 100,
+		align : 'center',
+		editor :{
+			type : 'numberbox',
+			options : {
+				precision:2,
+				required:true		
+			}
+		},
+		styler: function (value, row, index) {
+            return 'color:red'
+         }
+	},{
+		field : 'investProfitDate',
+		title : '收益日期',
+		width : 180,
+		align : 'center',
+		formatter: formatDatebox,
+		editor :{
+			 type : 'datebox',
+			options : {
+				editable:false,
+				prompt: '请选择日期',
+				required: true
+			} 
+		}
+	}, {
+		field : 'annualizedRateReturn',
+		title : '年化收益率',
+		width : 100,
+		align : 'center',
+		editor :{
+			type : 'validatebox',
+			options : {			
+				required:true		
+			}
+		},
+		styler: function (value, row, index) {
+            return 'color:red'
+         }
+	}, {
+		field : 'tagStatus',
+		title : '状态',
+		width : 100,
+		align : 'center',
+		editor :{
+			type : 'validatebox',
+			options : {
+					
+			}
+		}
 	}] ];
 	
 	$(function(){
@@ -265,13 +348,13 @@
 			pageSize: 100,
 			pagination : true,
 			toolbar : toolbar,
-			url :  "/assets/PayCollection/payCollectionList",
+			url :  "/assets/InvestBank/investBankList",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow,
 			showFooter: true,
 			rowStyler: function(index,row){			
-				if (row.person == "合  计"){					
+				if (row.investType == "合  计"){					
 					return 'background-color:#E0ECFF;color:red;font-weight:bold;height:40px;';
 				}
 			}

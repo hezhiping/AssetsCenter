@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.assets.common.utils.ResponseResult;
-import com.assets.pojo.SysUser;
 
 
 public interface LoginService extends BaseService {
