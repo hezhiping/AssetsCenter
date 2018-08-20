@@ -1,8 +1,11 @@
 package com.assets.common.utils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -62,14 +65,29 @@ public class JsonUtils {
     		List<T> list = MAPPER.readValue(jsonData, javaType);
     		return list;
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();			
 		}
     	
     	return null;
     }
     
-   
+    public static <T> List<T> json2list(String jsonArrayStr, Class<T> clazz)
+                 throws Exception {
+            List<Map<String, Object>> list = MAPPER.readValue(jsonArrayStr,
+                    new TypeReference<List<T>>() {
+                     });
+             List<T> result = new ArrayList<T>();
+            for (Map<String, Object> map : list) {
+                 result.add(map2pojo(map, clazz));
+             }
+             return result;
+         }
 
-	
+    	/**
+          * map convert to javaBean
+          */
+        public static <T> T map2pojo(Map map, Class<T> clazz) {
+             return MAPPER.convertValue(map, clazz);
+         }
     
 }

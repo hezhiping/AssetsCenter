@@ -6,13 +6,13 @@ public class InsertUpdateDataPojo {
 	
 	private String type;
 	
-	private  List<?> insertUpdateData;
+	private List<?> insertUpdateData;
 
-	public List<?> getInsertUpdateData() {
+	public List<?>  getInsertUpdateData() {
 		return insertUpdateData;
 	}
 
-	public void setInsertUpdateData(List<?> insertUpdateData) {
+	public void setInsertUpdateData(List<?>  insertUpdateData) {
 		this.insertUpdateData = insertUpdateData;
 	}
 

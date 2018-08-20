@@ -288,4 +288,13 @@
       current_year = #{currentYear,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <resultMap type="com.assets.pojo.PayCollection" id="sumMap">
+  	 <result column="name" property="person"/>
+     <result column="pay_sum" property="receiptPay"/>
+  </resultMap>
+  <select id="selectPaySum" resultMap="sumMap" parameterType="map" >
+   	SELECT '合  计' AS name, SUM(receipt_pay) AS pay_sum FROM  pay_collection LIMIT ${startRow},${Rows}
+  </select>
+  
 </mapper>

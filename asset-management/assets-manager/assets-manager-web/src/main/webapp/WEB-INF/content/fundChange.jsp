@@ -286,8 +286,10 @@
 				precision:2,
 				readonly:true				
 			}
-		},
-		styler: function (value, row, index) {
+		},formatter:function(val,rowData,rowIndex){
+		        if(val!=null)
+		            return val.toFixed(2);
+		},styler: function (value, row, index) {
             return 'color:red'
          }
 	}, {

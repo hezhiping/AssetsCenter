@@ -1,5 +1,10 @@
 package com.assets.common.pojo;
 
+/**
+ * 时间工具类中用到的pojo
+ * @author hzp
+ *
+ */
 public class KeyValueHelp {
 	
 	private Object dateKey;

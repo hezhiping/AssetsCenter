@@ -1,9 +1,12 @@
 package com.assets.mapper;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.assets.pojo.PayCollection;
 import com.assets.pojo.PayCollectionExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface PayCollectionMapper {
     int countByExample(PayCollectionExample example);
@@ -27,4 +30,6 @@ public interface PayCollectionMapper {
     int updateByPrimaryKeySelective(PayCollection record);
 
     int updateByPrimaryKey(PayCollection record);
+
+    List<PayCollection> selectPaySum(Map<String, Object> map);
 }

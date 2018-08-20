@@ -4,6 +4,15 @@ import java.util.List;
 
 public class EasyUIDataGridResult {
 	private long total;
+	private List<?> rows;
+	private List<?> footer;
+	
+	public List<?> getFooter() {
+		return footer;
+	}
+	public void setFooter(List<?> footer) {
+		this.footer = footer;
+	}
 	public long getTotal() {
 		return total;
 	}
@@ -16,7 +25,7 @@ public class EasyUIDataGridResult {
 	public void setRows(List<?> rows) {
 		this.rows = rows;
 	}
-	private List<?> rows;
+	
 	
 
 }

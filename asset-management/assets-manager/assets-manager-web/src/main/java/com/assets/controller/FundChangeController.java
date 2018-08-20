@@ -46,8 +46,8 @@ public class FundChangeController {
 	 * @requestBody注解常用来处理content-type不是默认的application/x-www-form-urlcoded编码的内容，
 	 * 比如说：application/json或者是application/xml等。一般情况下来说常用其来处理application/json类型。
 	 * @return
-	 */
-	
+	 */	
+
 	@RequestMapping(value="/FundChange/addFundChange",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseResult addFundChange(HttpServletRequest request,@RequestBody String requestJson) {			

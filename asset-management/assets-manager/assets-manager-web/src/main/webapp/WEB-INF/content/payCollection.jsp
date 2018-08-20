@@ -63,10 +63,10 @@
 		
 		// 当前行必填项验证通过才让追加一行
 		  if (endEditing()) { 			
-			  $('#grid').datagrid('appendRow', {incomMoney:0,payMoney:0,money:0});	// 添加一行不初始化某些列的值	，可以指定对应的列赋值eg: id:1
+			  $('#grid').datagrid('appendRow', {receiptPay:0});	// 添加一行不初始化某些列的值	，可以指定对应的列赋值eg: id:1
 				 editIndex = $('#grid').datagrid('getRows').length - 1;
 	          $('#grid').datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
-	          setEditing(editIndex);
+	         
 		  }		  
 	}
 	// 双击行修改数据
@@ -74,16 +74,14 @@
 		if(rowIndex != editIndex ){ //判断正在编辑的行和双击选中的行是否相等
 			if(endEditing()){ // 验证内容是否通过，通过结束当前编辑行，开启双击选中行
 				// 编辑行时，时间格式为1534435200000 这种格式，需要转换成yyyy-MM-dd格式后easyUI会处理该日期显示在date控件上
-				rowData.consumeDate = transformDate(rowData.consumeDate);
+				rowData.receiptDate = transformDate(rowData.receiptDate);
 				 $('#grid').datagrid('endEdit', editIndex);
 				 $('#grid').datagrid('beginEdit',rowIndex);
-					editIndex = rowIndex;
-					setEditing(rowIndex);
+					editIndex = rowIndex;				
 			}
 		}else{			
 			$('#grid').datagrid('beginEdit',rowIndex);
-			editIndex = rowIndex;
-			setEditing(rowIndex);
+			editIndex = rowIndex;			
 		}		
 	}
 	// 取消行
@@ -125,21 +123,19 @@
 	            	insertRow = insertRows[i];	
 	            //拼接数据为json格式
 	            	
-               		insertList.push({"consumeDate":insertRow.consumeDate,"item":insertRow.item,"money":insertRow.money,"profitLossSort":insertRow.profitLossSort,
-               					"payMode":insertRow.payMode,"payMoney":insertRow.payMoney,"incomMode": insertRow.incomMode,"incomMoney":insertRow.incomMoney});			                
+               		insertList.push({"receiptDate":insertRow.receiptDate,"receiptItem":insertRow.receiptItem,"person":insertRow.person,"receiptPay":insertRow.receiptPay});			                
 	              
 	            }	
-	            _lists.push({"type":"insert","PayCollections":insertList})
+	            _lists.push({"type":"insert","insertUpdateData":insertList})
 	            // 修改的数据
 	            for (var i = 0; i < updateRows.length; i++) { //for循环遍历添加的行
 	            	updateRow = updateRows[i];	
 	            //拼接数据为json格式		            	
-               		updateList.push({"id":updateRow.id,"consumeDate":updateRow.consumeDate,"item":updateRow.item,"money":updateRow.money,"profitLossSort":updateRow.profitLossSort,
-               					"payMode":updateRow.payMode,"payMoney":updateRow.payMoney,"incomMode": updateRow.incomMode,"incomMoney":updateRow.incomMoney,
-               					"psnCode":updateRow.psnCode});			                
+               		updateList.push({"id":updateRow.id,"receiptDate":insertRow.receiptDate,"receiptItem":insertRow.receiptItem,"person":insertRow.person,
+               			"receiptPay":insertRow.receiptPay,"psnCode":updateRow.psnCode});			                
 	              
 	            }
-	            _lists.push({"type":"update","PayCollections":updateList})
+	            _lists.push({"type":"update","insertUpdateData":updateList})
 	            console.log(_lists);
 	            $.ajax({
 	                type: "POST",
@@ -273,6 +269,7 @@
 		
 		// 收派标准数据表格
 		$('#grid').datagrid( {
+			view: myview,//重写datagrid,改变footer的样式
 			iconCls : 'icon-forward',
 			fit : true,
 			border : true,
@@ -285,10 +282,15 @@
 			url :  "/assets/PayCollection/payCollectionList",
 			idField : 'id',
 			columns : columns,
-			onDblClickRow : doDblClickRow					
+			onDblClickRow : doDblClickRow,
+			showFooter: true,
+			rowStyler: function(index,row){			
+				if (row.person == "合  计"){					
+					return 'background-color:#E0ECFF;color:red;font-weight:bold;height:40px;';
+				}
+			}
 		});
 	});
-
 
 </script>
 </head>

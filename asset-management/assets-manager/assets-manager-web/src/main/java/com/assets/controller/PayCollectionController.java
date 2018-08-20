@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +33,7 @@ public class PayCollectionController {
 	 * @return
 	 */
 	@RequestMapping("/PayCollection/payCollectionList")
+	@ResponseBody
 	public EasyUIDataGridResult getPayCollectionList(
 			HttpServletRequest request,
 			@RequestParam(defaultValue = "1") Integer page,
@@ -49,8 +49,7 @@ public class PayCollectionController {
 	 * @requestBody注解常用来处理content-type不是默认的application/x-www-form-urlcoded编码的内容，
 	 * 比如说：application/json或者是application/xml等。一般情况下来说常用其来处理application/json类型。
 	 * @return
-	 */
-	
+	 */	
 	@RequestMapping(value="/PayCollection/addPayCollection",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseResult addPayCollection(HttpServletRequest request,@RequestBody String requestJson) {			

@@ -1,28 +1,22 @@
 package com.assets.service.impl;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.druid.sql.visitor.functions.Now;
 import com.assets.common.pojo.EasyUIDataGridResult;
 import com.assets.common.utils.DateUtilHelp;
 import com.assets.common.utils.ExceptionUtil;
+import com.assets.common.utils.JsonUtils;
 import com.assets.common.utils.ResponseResult;
 import com.assets.mapper.FundChangeMapper;
 import com.assets.pojo.FundChange;
-import com.assets.pojo.FundChangeExample;
 import com.assets.pojo.InsertUpdateDataPojo;
 import com.assets.service.FundChangeService;
 import com.github.pagehelper.PageHelper;
@@ -84,7 +78,9 @@ public class FundChangeServiceImpl extends BaseServiceImpl implements
 				for (InsertUpdateDataPojo fundCahnge : list) {
 					// insert的数据
 					if (fundCahnge.getType().equals("insert")) {
-						List<FundChange> insertRecord = (List<FundChange>) fundCahnge.getInsertUpdateData();
+						//将泛型getInsertUpdateData转json再转FundChange对象
+						// 强制转换出现错误：java.util.LinkedHashMap cannot be cast to com.assets.pojo.FundChange;
+						List<FundChange> insertRecord = JsonUtils.jsonToList(JsonUtils.objectToJson(fundCahnge.getInsertUpdateData()), FundChange.class) ;
 						for (FundChange fcInsert : insertRecord) {
 							fcInsert.setPsnCode((Integer) responseResult
 									.getData());
@@ -99,7 +95,9 @@ public class FundChangeServiceImpl extends BaseServiceImpl implements
 							}
 						}
 					} else if (fundCahnge.getType().equals("update")) {// update的数据
-						List<FundChange> updateRecord = (List<FundChange>) fundCahnge.getInsertUpdateData();
+						//将泛型getInsertUpdateData转json再转FundChange对象
+						// 强制转换出现错误：java.util.LinkedHashMap cannot be cast to com.assets.pojo.FundChange;
+						List<FundChange> updateRecord = JsonUtils.jsonToList(JsonUtils.objectToJson(fundCahnge.getInsertUpdateData()), FundChange.class);
 						for (FundChange fcUpdate : updateRecord) {
 							fcUpdate.setCurrentYear(DateUtilHelp
 									.getNowYearStr(fcUpdate.getConsumeDate()));
