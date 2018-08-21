@@ -102,7 +102,7 @@ public class PayCollectionServiceImpl extends BaseServiceImpl implements PayColl
 						for (PayCollection pcUpdate : updateRecord) {
 							pcUpdate.setCurrentYear(DateUtilHelp.getNowYearStr(pcUpdate.getReceiptDate()));
 							pcUpdate.setCurrentMonth(DateUtilHelp.getNowMonthStr(pcUpdate.getReceiptDate()));
-							int sumUpdate = payCollectionMapper.updateByPrimaryKey(pcUpdate);
+							int sumUpdate = payCollectionMapper.updateByPrimaryKeySelective(pcUpdate);
 							if (sumUpdate <= 0) {
 								return ResponseResult.build(500, "添加失败");
 							}

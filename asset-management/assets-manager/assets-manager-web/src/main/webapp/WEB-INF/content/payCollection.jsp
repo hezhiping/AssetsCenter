@@ -117,8 +117,8 @@
 	            for (var i = 0; i < updateRows.length; i++) { //for循环遍历添加的行
 	            	updateRow = updateRows[i];	
 	            //拼接数据为json格式		            	
-               		updateList.push({"id":updateRow.id,"receiptDate":insertRow.receiptDate,"receiptItem":insertRow.receiptItem,"person":insertRow.person,
-               			"receiptPay":insertRow.receiptPay,"psnCode":updateRow.psnCode});			                
+               		updateList.push({"id":updateRow.id,"receiptDate":updateRow.receiptDate,"receiptItem":updateRow.receiptItem,"person":updateRow.person,
+               			"receiptPay":updateRow.receiptPay,"psnCode":updateRow.psnCode});			                
 	              
 	            }
 	            _lists.push({"type":"update","insertUpdateData":updateList})

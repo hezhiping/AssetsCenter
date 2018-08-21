@@ -120,7 +120,7 @@ public class InvestBankServiceImpl extends BaseServiceImpl implements
 							ibUpdate.setCurrentMonth(DateUtilHelp
 									.getNowMonthStr(ibUpdate.getInvestDate()));
 							int sumUpdate = investBankMapper
-									.updateByPrimaryKey(ibUpdate);
+									.updateByPrimaryKeySelective(ibUpdate);
 							if (sumUpdate <= 0) {
 								return ResponseResult.build(500, "添加失败");
 							}

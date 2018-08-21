@@ -104,7 +104,7 @@ public class FundChangeServiceImpl extends BaseServiceImpl implements
 							fcUpdate.setCurrentMonth(DateUtilHelp
 									.getNowMonthStr(fcUpdate.getConsumeDate()));
 							int sumUpdate = fundChangeMapper
-									.updateByPrimaryKey(fcUpdate);
+									.updateByPrimaryKeySelective(fcUpdate);
 							if (sumUpdate <= 0) {
 								return ResponseResult.build(500, "添加失败");
 							}

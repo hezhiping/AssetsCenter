@@ -64,6 +64,29 @@ function transformDateTime(jsondate) {
     var d = new Date(jsondate);
     return DateTimeToStr(d);
 }
+// 计算相隔天数
+function getDays(userAgent,strDateStart,strDateEnd){
+	   var strSeparator = "-"; //日期分隔符
+	   var oDate1;
+	   var oDate2;
+	   var iDays;
+	   var strDateS;
+	   var strDateE;
+	   oDate1= strDateStart.split(strSeparator);
+	   oDate2= strDateEnd.split(strSeparator);
+	   // 判断IE
+	   if(userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera){
+	   		 strDateS = new Date(oDate1[0] + "-" + oDate1[1]-1 + "-" + oDate1[2]);
+	   		 strDateE = new Date(oDate2[0] + "-" + oDate2[1]-1 + "-" + oDate2[2]);
+	   }else{
+		   	strDateS = new Date(oDate1[0] + "-" + oDate1[1] + "-" + oDate1[2]);
+	   		strDateE = new Date(oDate2[0] + "-" + oDate2[1] + "-" + oDate2[2]);
+	   }
+	   iDays = parseInt(Math.abs(strDateS - strDateE ) / 1000 / 60 / 60 /24)//把相差的毫秒数转换为天数 
+
+	   return iDays ;
+	}
+
 ////开始日期
 //function STonSelect(date) {
 //    var ymd = "";

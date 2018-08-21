@@ -29,7 +29,8 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/assets-1.0.js"></script>	
 <script type="text/javascript">
-	
+
+	var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
 	var editIndex ;//全局的行索引
 	
 	function endEditing(){
@@ -43,30 +44,38 @@
 			return false;
 		}
 	}	
-	// 计算支出和收入的和
-	function setEditing(rowIndex){  
-	    var editors = $('#grid').datagrid('getEditors', rowIndex);  
-	    var payEditor = $(editors[5].target);  
-	    var incomEditor = $(editors[7].target);  
-	    var amountEditor = $(editors[2].target);  
-	    payEditor.add(incomEditor).numberbox({
-			onChange:function(){				
-		        var amount =payEditor.numberbox('getValue') - incomEditor.numberbox('getValue');   
-		        console.log(amount);
-		        amountEditor.numberbox('setValue',amount);  
-			}
-		})	    
-	}  
+	// 计算年化收益率
+	function calculateRate(rowIndex){ 				 	
+			var editors = $('#grid').datagrid('getEditors', rowIndex); 
+		    var buyDateEditor = $(editors[2].target);  
+		    var sailDateEditor = $(editors[3].target);
+		    var iMoneyEditor = $(editors[5].target);  
+		    var pMoneyEditor = $(editors[6].target);  
+		    var rateEditor = $(editors[7].target); 
+			var day ;		     	
+		    pMoneyEditor.numberbox({
+		    		onChange:function(){
+		    			 if(buyDateEditor.datebox('getValue') == sailDateEditor.datebox('getValue')){//日期相等算一天
+		    			    	day = 1;
+		    			    }else{
+		    			    	day = getDays(userAgent,buyDateEditor.datebox('getValue'),sailDateEditor.datebox('getValue'));
+		    			    }		
+						var rate = parseFloat(((pMoneyEditor.numberbox('getValue')/iMoneyEditor.numberbox('getValue'))/day)*365).toFixed(2);
+						rateEditor.numberbox('setValue',rate);  	
+					}
+			})	
+	}
 	
 	//添加一行
 	function doAdd(){
 		
 		// 当前行必填项验证通过才让追加一行
-		  if (endEditing()) { 			
-			  $('#grid').datagrid('appendRow', {receiptPay:0});	// 添加一行不初始化某些列的值	，可以指定对应的列赋值eg: id:1
+		  if (endEditing()) { 
+			 
+			  $('#grid').datagrid('appendRow', {investDate:transformDate(new Date()),investProfitDate:transformDate(new Date()),investProfit:0});	// 添加一行不初始化某些列的值	，可以指定对应的列赋值eg: id:1
 				 editIndex = $('#grid').datagrid('getRows').length - 1;
 	          $('#grid').datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
-	         
+	      	 calculateRate(editIndex);
 		  }		  
 	}
 	// 双击行修改数据
@@ -78,11 +87,13 @@
 				rowData.investProfitDate = transformDate(rowData.investProfitDate);
 				 $('#grid').datagrid('endEdit', editIndex);
 				 $('#grid').datagrid('beginEdit',rowIndex);
-					editIndex = rowIndex;				
+					editIndex = rowIndex;
+					calculateRate(rowIndex);
 			}
 		}else{			
 			$('#grid').datagrid('beginEdit',rowIndex);
-			editIndex = rowIndex;			
+			editIndex = rowIndex;
+			calculateRate(rowIndex);
 		}		
 	}
 	// 取消行
@@ -96,9 +107,10 @@
 		}
 	}
 	//结束编辑
-	function doSave(){
-		 if (endEditing()) { 
+	function doSave(){		
+		 if (endEditing()) { 			
 				$("#grid").datagrid('endEdit',editIndex );
+				
 			 }else{
 				 $.messager.alert("提示","请填写完必填项");
 			 }
@@ -134,9 +146,9 @@
 	            for (var i = 0; i < updateRows.length; i++) { //for循环遍历添加的行
 	            	updateRow = updateRows[i];	
 	            //拼接数据为json格式		            	
-               		updateList.push({"id":updateRow.id,"investCode":insertRow.investCode,"investName":insertRow.investName,"investDate":insertRow.investDate,
-               			"investType":insertRow.investType,"investMoney":insertRow.investMoney,"investProfit":insertRow.investProfit,"investProfitDate":insertRow.investProfitDate,
-               			"annualizedRateReturn":insertRow.annualizedRateReturn,"tagStatus":insertRow.tagStatus,"psnCode":updateRow.psnCode});			                
+               		updateList.push({"id":updateRow.id,"investCode":updateRow.investCode,"investName":updateRow.investName,"investDate":updateRow.investDate,
+               			"investType":updateRow.investType,"investMoney":updateRow.investMoney,"investProfit":updateRow.investProfit,"investProfitDate":updateRow.investProfitDate,
+               			"annualizedRateReturn":updateRow.annualizedRateReturn,"tagStatus":updateRow.tagStatus,"psnCode":updateRow.psnCode});			                
 	              
 	            }
 	            _lists.push({"type":"update","insertUpdateData":updateList})
@@ -184,6 +196,10 @@
 	    return dt.format("yyyy-MM-dd"); //扩展的Date的format方法(上述插件实现)  
 	}  
 	
+
+	// -------------------------------------------------//
+    
+    
 	//工具栏
 	var toolbar = [ {
 		id : 'button-add',	
@@ -250,6 +266,20 @@
 				required: true
 			} 
 		}
+	},{
+		field : 'investProfitDate',
+		title : '收益日期',
+		width : 180,
+		align : 'center',
+		formatter: formatDatebox,
+		editor :{
+			 type : 'datebox',
+			options : {
+				editable:false,
+				prompt: '请选择日期',
+				required: true
+			} 
+		}
 	}, {
 		field : 'investType',
 		title : '投资类型',
@@ -284,36 +314,22 @@
 		editor :{
 			type : 'numberbox',
 			options : {
-				precision:2,
-				required:true		
+				precision:2						
 			}
 		},
 		styler: function (value, row, index) {
             return 'color:red'
          }
-	},{
-		field : 'investProfitDate',
-		title : '收益日期',
-		width : 180,
-		align : 'center',
-		formatter: formatDatebox,
-		editor :{
-			 type : 'datebox',
-			options : {
-				editable:false,
-				prompt: '请选择日期',
-				required: true
-			} 
-		}
 	}, {
 		field : 'annualizedRateReturn',
-		title : '年化收益率',
+		title : '年化收益率(%)',
 		width : 100,
 		align : 'center',
 		editor :{
-			type : 'validatebox',
-			options : {			
-				required:true		
+			type : 'numberbox',
+			options : {	
+				precision:3,
+				readonly:true		
 			}
 		},
 		styler: function (value, row, index) {
@@ -325,10 +341,10 @@
 		width : 100,
 		align : 'center',
 		editor :{
-			type : 'validatebox',
-			options : {
-					
-			}
+			type:'checkbox',
+			options:{
+				on:'T',off:'F'
+				}
 		}
 	}] ];
 	
@@ -352,7 +368,7 @@
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow,
-			showFooter: true,
+			showFooter: true,		 	
 			rowStyler: function(index,row){			
 				if (row.investType == "合  计"){					
 					return 'background-color:#E0ECFF;color:red;font-weight:bold;height:40px;';
