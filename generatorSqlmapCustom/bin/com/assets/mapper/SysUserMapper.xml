@@ -1,46 +1,46 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.assets.mapper.SysUserMapper">
-  <resultMap id="BaseResultMap" type="com.assets.pojo.SysUser">
-    <id column="USERID" jdbcType="INTEGER" property="userid" />
-    <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
-    <result column="ENABLED" jdbcType="INTEGER" property="enabled" />
-    <result column="TOKEN_CHANGED" jdbcType="INTEGER" property="tokenChanged" />
-    <result column="NODE_ID" jdbcType="INTEGER" property="nodeId" />
-    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
-    <result column="MOBILE" jdbcType="DECIMAL" property="mobile" />
-    <result column="UKEYSN" jdbcType="VARCHAR" property="ukeysn" />
-    <result column="UKEYPWD" jdbcType="VARCHAR" property="ukeypwd" />
-    <result column="ISUKEY" jdbcType="CHAR" property="isukey" />
-    <result column="ISINTERNAL" jdbcType="CHAR" property="isinternal" />
-    <result column="PLAIN_PWD" jdbcType="VARCHAR" property="plainPwd" />
-    <result column="ADD_USER_ID" jdbcType="INTEGER" property="addUserId" />
-    <result column="AUTH_LOGIN_IP" jdbcType="VARCHAR" property="authLoginIp" />
-    <result column="LAST_ACCESS_IP" jdbcType="VARCHAR" property="lastAccessIp" />
-    <result column="LOCALE" jdbcType="VARCHAR" property="locale" />
-    <result column="PASSWORD_UPDATE_TIME" jdbcType="DATE" property="passwordUpdateTime" />
-    <result column="LAST_LOGIN_TIME" jdbcType="TIMESTAMP" property="lastLoginTime" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.assets.mapper.SysUserMapper" >
+  <resultMap id="BaseResultMap" type="com.assets.pojo.SysUser" >
+    <id column="USERID" property="userid" jdbcType="INTEGER" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="ENABLED" property="enabled" jdbcType="INTEGER" />
+    <result column="TOKEN_CHANGED" property="tokenChanged" jdbcType="INTEGER" />
+    <result column="NODE_ID" property="nodeId" jdbcType="INTEGER" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="DECIMAL" />
+    <result column="UKEYSN" property="ukeysn" jdbcType="VARCHAR" />
+    <result column="UKEYPWD" property="ukeypwd" jdbcType="VARCHAR" />
+    <result column="ISUKEY" property="isukey" jdbcType="CHAR" />
+    <result column="ISINTERNAL" property="isinternal" jdbcType="CHAR" />
+    <result column="PLAIN_PWD" property="plainPwd" jdbcType="VARCHAR" />
+    <result column="ADD_USER_ID" property="addUserId" jdbcType="INTEGER" />
+    <result column="AUTH_LOGIN_IP" property="authLoginIp" jdbcType="VARCHAR" />
+    <result column="LAST_ACCESS_IP" property="lastAccessIp" jdbcType="VARCHAR" />
+    <result column="LOCALE" property="locale" jdbcType="VARCHAR" />
+    <result column="PASSWORD_UPDATE_TIME" property="passwordUpdateTime" jdbcType="DATE" />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -51,25 +51,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -80,42 +80,42 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     USERID, LOGIN_NAME, PASSWORD, ENABLED, TOKEN_CHANGED, NODE_ID, EMAIL, MOBILE, UKEYSN, 
     UKEYPWD, ISUKEY, ISINTERNAL, PLAIN_PWD, ADD_USER_ID, AUTH_LOGIN_IP, LAST_ACCESS_IP, 
     LOCALE, PASSWORD_UPDATE_TIME, LAST_LOGIN_TIME
   </sql>
-  <select id="selectByExample" parameterType="com.assets.pojo.SysUserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.SysUserExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
     from sys_user
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from sys_user
     where USERID = #{userid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sys_user
     where USERID = #{userid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.assets.pojo.SysUserExample">
+  <delete id="deleteByExample" parameterType="com.assets.pojo.SysUserExample" >
     delete from sys_user
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.assets.pojo.SysUser">
+  <insert id="insert" parameterType="com.assets.pojo.SysUser" >
     insert into sys_user (USERID, LOGIN_NAME, PASSWORD, 
       ENABLED, TOKEN_CHANGED, NODE_ID, 
       EMAIL, MOBILE, UKEYSN, 
@@ -131,199 +131,199 @@
       #{lastAccessIp,jdbcType=VARCHAR}, #{locale,jdbcType=VARCHAR}, #{passwordUpdateTime,jdbcType=DATE}, 
       #{lastLoginTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.assets.pojo.SysUser">
+  <insert id="insertSelective" parameterType="com.assets.pojo.SysUser" >
     insert into sys_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userid != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
         USERID,
       </if>
-      <if test="loginName != null">
+      <if test="loginName != null" >
         LOGIN_NAME,
       </if>
-      <if test="password != null">
+      <if test="password != null" >
         PASSWORD,
       </if>
-      <if test="enabled != null">
+      <if test="enabled != null" >
         ENABLED,
       </if>
-      <if test="tokenChanged != null">
+      <if test="tokenChanged != null" >
         TOKEN_CHANGED,
       </if>
-      <if test="nodeId != null">
+      <if test="nodeId != null" >
         NODE_ID,
       </if>
-      <if test="email != null">
+      <if test="email != null" >
         EMAIL,
       </if>
-      <if test="mobile != null">
+      <if test="mobile != null" >
         MOBILE,
       </if>
-      <if test="ukeysn != null">
+      <if test="ukeysn != null" >
         UKEYSN,
       </if>
-      <if test="ukeypwd != null">
+      <if test="ukeypwd != null" >
         UKEYPWD,
       </if>
-      <if test="isukey != null">
+      <if test="isukey != null" >
         ISUKEY,
       </if>
-      <if test="isinternal != null">
+      <if test="isinternal != null" >
         ISINTERNAL,
       </if>
-      <if test="plainPwd != null">
+      <if test="plainPwd != null" >
         PLAIN_PWD,
       </if>
-      <if test="addUserId != null">
+      <if test="addUserId != null" >
         ADD_USER_ID,
       </if>
-      <if test="authLoginIp != null">
+      <if test="authLoginIp != null" >
         AUTH_LOGIN_IP,
       </if>
-      <if test="lastAccessIp != null">
+      <if test="lastAccessIp != null" >
         LAST_ACCESS_IP,
       </if>
-      <if test="locale != null">
+      <if test="locale != null" >
         LOCALE,
       </if>
-      <if test="passwordUpdateTime != null">
+      <if test="passwordUpdateTime != null" >
         PASSWORD_UPDATE_TIME,
       </if>
-      <if test="lastLoginTime != null">
+      <if test="lastLoginTime != null" >
         LAST_LOGIN_TIME,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userid != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
       </if>
-      <if test="loginName != null">
+      <if test="loginName != null" >
         #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
+      <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="enabled != null">
+      <if test="enabled != null" >
         #{enabled,jdbcType=INTEGER},
       </if>
-      <if test="tokenChanged != null">
+      <if test="tokenChanged != null" >
         #{tokenChanged,jdbcType=INTEGER},
       </if>
-      <if test="nodeId != null">
+      <if test="nodeId != null" >
         #{nodeId,jdbcType=INTEGER},
       </if>
-      <if test="email != null">
+      <if test="email != null" >
         #{email,jdbcType=VARCHAR},
       </if>
-      <if test="mobile != null">
+      <if test="mobile != null" >
         #{mobile,jdbcType=DECIMAL},
       </if>
-      <if test="ukeysn != null">
+      <if test="ukeysn != null" >
         #{ukeysn,jdbcType=VARCHAR},
       </if>
-      <if test="ukeypwd != null">
+      <if test="ukeypwd != null" >
         #{ukeypwd,jdbcType=VARCHAR},
       </if>
-      <if test="isukey != null">
+      <if test="isukey != null" >
         #{isukey,jdbcType=CHAR},
       </if>
-      <if test="isinternal != null">
+      <if test="isinternal != null" >
         #{isinternal,jdbcType=CHAR},
       </if>
-      <if test="plainPwd != null">
+      <if test="plainPwd != null" >
         #{plainPwd,jdbcType=VARCHAR},
       </if>
-      <if test="addUserId != null">
+      <if test="addUserId != null" >
         #{addUserId,jdbcType=INTEGER},
       </if>
-      <if test="authLoginIp != null">
+      <if test="authLoginIp != null" >
         #{authLoginIp,jdbcType=VARCHAR},
       </if>
-      <if test="lastAccessIp != null">
+      <if test="lastAccessIp != null" >
         #{lastAccessIp,jdbcType=VARCHAR},
       </if>
-      <if test="locale != null">
+      <if test="locale != null" >
         #{locale,jdbcType=VARCHAR},
       </if>
-      <if test="passwordUpdateTime != null">
+      <if test="passwordUpdateTime != null" >
         #{passwordUpdateTime,jdbcType=DATE},
       </if>
-      <if test="lastLoginTime != null">
+      <if test="lastLoginTime != null" >
         #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.assets.pojo.SysUserExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.assets.pojo.SysUserExample" resultType="java.lang.Integer" >
     select count(*) from sys_user
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update sys_user
-    <set>
-      <if test="record.userid != null">
+    <set >
+      <if test="record.userid != null" >
         USERID = #{record.userid,jdbcType=INTEGER},
       </if>
-      <if test="record.loginName != null">
+      <if test="record.loginName != null" >
         LOGIN_NAME = #{record.loginName,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null">
+      <if test="record.password != null" >
         PASSWORD = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.enabled != null">
+      <if test="record.enabled != null" >
         ENABLED = #{record.enabled,jdbcType=INTEGER},
       </if>
-      <if test="record.tokenChanged != null">
+      <if test="record.tokenChanged != null" >
         TOKEN_CHANGED = #{record.tokenChanged,jdbcType=INTEGER},
       </if>
-      <if test="record.nodeId != null">
+      <if test="record.nodeId != null" >
         NODE_ID = #{record.nodeId,jdbcType=INTEGER},
       </if>
-      <if test="record.email != null">
+      <if test="record.email != null" >
         EMAIL = #{record.email,jdbcType=VARCHAR},
       </if>
-      <if test="record.mobile != null">
+      <if test="record.mobile != null" >
         MOBILE = #{record.mobile,jdbcType=DECIMAL},
       </if>
-      <if test="record.ukeysn != null">
+      <if test="record.ukeysn != null" >
         UKEYSN = #{record.ukeysn,jdbcType=VARCHAR},
       </if>
-      <if test="record.ukeypwd != null">
+      <if test="record.ukeypwd != null" >
         UKEYPWD = #{record.ukeypwd,jdbcType=VARCHAR},
       </if>
-      <if test="record.isukey != null">
+      <if test="record.isukey != null" >
         ISUKEY = #{record.isukey,jdbcType=CHAR},
       </if>
-      <if test="record.isinternal != null">
+      <if test="record.isinternal != null" >
         ISINTERNAL = #{record.isinternal,jdbcType=CHAR},
       </if>
-      <if test="record.plainPwd != null">
+      <if test="record.plainPwd != null" >
         PLAIN_PWD = #{record.plainPwd,jdbcType=VARCHAR},
       </if>
-      <if test="record.addUserId != null">
+      <if test="record.addUserId != null" >
         ADD_USER_ID = #{record.addUserId,jdbcType=INTEGER},
       </if>
-      <if test="record.authLoginIp != null">
+      <if test="record.authLoginIp != null" >
         AUTH_LOGIN_IP = #{record.authLoginIp,jdbcType=VARCHAR},
       </if>
-      <if test="record.lastAccessIp != null">
+      <if test="record.lastAccessIp != null" >
         LAST_ACCESS_IP = #{record.lastAccessIp,jdbcType=VARCHAR},
       </if>
-      <if test="record.locale != null">
+      <if test="record.locale != null" >
         LOCALE = #{record.locale,jdbcType=VARCHAR},
       </if>
-      <if test="record.passwordUpdateTime != null">
+      <if test="record.passwordUpdateTime != null" >
         PASSWORD_UPDATE_TIME = #{record.passwordUpdateTime,jdbcType=DATE},
       </if>
-      <if test="record.lastLoginTime != null">
+      <if test="record.lastLoginTime != null" >
         LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update sys_user
     set USERID = #{record.userid,jdbcType=INTEGER},
       LOGIN_NAME = #{record.loginName,jdbcType=VARCHAR},
@@ -344,929 +344,71 @@
       LOCALE = #{record.locale,jdbcType=VARCHAR},
       PASSWORD_UPDATE_TIME = #{record.passwordUpdateTime,jdbcType=DATE},
       LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.SysUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.SysUser" >
     update sys_user
-    <set>
-      <if test="loginName != null">
+    <set >
+      <if test="loginName != null" >
         LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
+      <if test="password != null" >
         PASSWORD = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="enabled != null">
+      <if test="enabled != null" >
         ENABLED = #{enabled,jdbcType=INTEGER},
       </if>
-      <if test="tokenChanged != null">
+      <if test="tokenChanged != null" >
         TOKEN_CHANGED = #{tokenChanged,jdbcType=INTEGER},
       </if>
-      <if test="nodeId != null">
+      <if test="nodeId != null" >
         NODE_ID = #{nodeId,jdbcType=INTEGER},
       </if>
-      <if test="email != null">
+      <if test="email != null" >
         EMAIL = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="mobile != null">
+      <if test="mobile != null" >
         MOBILE = #{mobile,jdbcType=DECIMAL},
       </if>
-      <if test="ukeysn != null">
+      <if test="ukeysn != null" >
         UKEYSN = #{ukeysn,jdbcType=VARCHAR},
       </if>
-      <if test="ukeypwd != null">
+      <if test="ukeypwd != null" >
         UKEYPWD = #{ukeypwd,jdbcType=VARCHAR},
       </if>
-      <if test="isukey != null">
+      <if test="isukey != null" >
         ISUKEY = #{isukey,jdbcType=CHAR},
       </if>
-      <if test="isinternal != null">
+      <if test="isinternal != null" >
         ISINTERNAL = #{isinternal,jdbcType=CHAR},
       </if>
-      <if test="plainPwd != null">
+      <if test="plainPwd != null" >
         PLAIN_PWD = #{plainPwd,jdbcType=VARCHAR},
       </if>
-      <if test="addUserId != null">
+      <if test="addUserId != null" >
         ADD_USER_ID = #{addUserId,jdbcType=INTEGER},
       </if>
-      <if test="authLoginIp != null">
+      <if test="authLoginIp != null" >
         AUTH_LOGIN_IP = #{authLoginIp,jdbcType=VARCHAR},
       </if>
-      <if test="lastAccessIp != null">
+      <if test="lastAccessIp != null" >
         LAST_ACCESS_IP = #{lastAccessIp,jdbcType=VARCHAR},
       </if>
-      <if test="locale != null">
+      <if test="locale != null" >
         LOCALE = #{locale,jdbcType=VARCHAR},
       </if>
-      <if test="passwordUpdateTime != null">
+      <if test="passwordUpdateTime != null" >
         PASSWORD_UPDATE_TIME = #{passwordUpdateTime,jdbcType=DATE},
       </if>
-      <if test="lastLoginTime != null">
+      <if test="lastLoginTime != null" >
         LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where USERID = #{userid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.SysUser">
-    update sys_user
-    set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
-      PASSWORD = #{password,jdbcType=VARCHAR},
-      ENABLED = #{enabled,jdbcType=INTEGER},
-      TOKEN_CHANGED = #{tokenChanged,jdbcType=INTEGER},
-      NODE_ID = #{nodeId,jdbcType=INTEGER},
-      EMAIL = #{email,jdbcType=VARCHAR},
-      MOBILE = #{mobile,jdbcType=DECIMAL},
-      UKEYSN = #{ukeysn,jdbcType=VARCHAR},
-      UKEYPWD = #{ukeypwd,jdbcType=VARCHAR},
-      ISUKEY = #{isukey,jdbcType=CHAR},
-      ISINTERNAL = #{isinternal,jdbcType=CHAR},
-      PLAIN_PWD = #{plainPwd,jdbcType=VARCHAR},
-      ADD_USER_ID = #{addUserId,jdbcType=INTEGER},
-      AUTH_LOGIN_IP = #{authLoginIp,jdbcType=VARCHAR},
-      LAST_ACCESS_IP = #{lastAccessIp,jdbcType=VARCHAR},
-      LOCALE = #{locale,jdbcType=VARCHAR},
-      PASSWORD_UPDATE_TIME = #{passwordUpdateTime,jdbcType=DATE},
-      LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP}
-    where USERID = #{userid,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.assets.pojo.SysUser">
-    <id column="USERID" jdbcType="INTEGER" property="userid" />
-    <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
-    <result column="ENABLED" jdbcType="INTEGER" property="enabled" />
-    <result column="TOKEN_CHANGED" jdbcType="INTEGER" property="tokenChanged" />
-    <result column="NODE_ID" jdbcType="INTEGER" property="nodeId" />
-    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
-    <result column="MOBILE" jdbcType="DECIMAL" property="mobile" />
-    <result column="UKEYSN" jdbcType="VARCHAR" property="ukeysn" />
-    <result column="UKEYPWD" jdbcType="VARCHAR" property="ukeypwd" />
-    <result column="ISUKEY" jdbcType="CHAR" property="isukey" />
-    <result column="ISINTERNAL" jdbcType="CHAR" property="isinternal" />
-    <result column="PLAIN_PWD" jdbcType="VARCHAR" property="plainPwd" />
-    <result column="ADD_USER_ID" jdbcType="INTEGER" property="addUserId" />
-    <result column="AUTH_LOGIN_IP" jdbcType="VARCHAR" property="authLoginIp" />
-    <result column="LAST_ACCESS_IP" jdbcType="VARCHAR" property="lastAccessIp" />
-    <result column="LOCALE" jdbcType="VARCHAR" property="locale" />
-    <result column="PASSWORD_UPDATE_TIME" jdbcType="DATE" property="passwordUpdateTime" />
-    <result column="LAST_LOGIN_TIME" jdbcType="TIMESTAMP" property="lastLoginTime" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    USERID, LOGIN_NAME, PASSWORD, ENABLED, TOKEN_CHANGED, NODE_ID, EMAIL, MOBILE, UKEYSN, 
-    UKEYPWD, ISUKEY, ISINTERNAL, PLAIN_PWD, ADD_USER_ID, AUTH_LOGIN_IP, LAST_ACCESS_IP, 
-    LOCALE, PASSWORD_UPDATE_TIME, LAST_LOGIN_TIME
-  </sql>
-  <select id="selectByExample" parameterType="com.assets.pojo.SysUserExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from sys_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sys_user
-    where USERID = #{userid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from sys_user
-    where USERID = #{userid,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.assets.pojo.SysUserExample">
-    delete from sys_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.assets.pojo.SysUser">
-    insert into sys_user (USERID, LOGIN_NAME, PASSWORD, 
-      ENABLED, TOKEN_CHANGED, NODE_ID, 
-      EMAIL, MOBILE, UKEYSN, 
-      UKEYPWD, ISUKEY, ISINTERNAL, 
-      PLAIN_PWD, ADD_USER_ID, AUTH_LOGIN_IP, 
-      LAST_ACCESS_IP, LOCALE, PASSWORD_UPDATE_TIME, 
-      LAST_LOGIN_TIME)
-    values (#{userid,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{enabled,jdbcType=INTEGER}, #{tokenChanged,jdbcType=INTEGER}, #{nodeId,jdbcType=INTEGER}, 
-      #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=DECIMAL}, #{ukeysn,jdbcType=VARCHAR}, 
-      #{ukeypwd,jdbcType=VARCHAR}, #{isukey,jdbcType=CHAR}, #{isinternal,jdbcType=CHAR}, 
-      #{plainPwd,jdbcType=VARCHAR}, #{addUserId,jdbcType=INTEGER}, #{authLoginIp,jdbcType=VARCHAR}, 
-      #{lastAccessIp,jdbcType=VARCHAR}, #{locale,jdbcType=VARCHAR}, #{passwordUpdateTime,jdbcType=DATE}, 
-      #{lastLoginTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.assets.pojo.SysUser">
-    insert into sys_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userid != null">
-        USERID,
-      </if>
-      <if test="loginName != null">
-        LOGIN_NAME,
-      </if>
-      <if test="password != null">
-        PASSWORD,
-      </if>
-      <if test="enabled != null">
-        ENABLED,
-      </if>
-      <if test="tokenChanged != null">
-        TOKEN_CHANGED,
-      </if>
-      <if test="nodeId != null">
-        NODE_ID,
-      </if>
-      <if test="email != null">
-        EMAIL,
-      </if>
-      <if test="mobile != null">
-        MOBILE,
-      </if>
-      <if test="ukeysn != null">
-        UKEYSN,
-      </if>
-      <if test="ukeypwd != null">
-        UKEYPWD,
-      </if>
-      <if test="isukey != null">
-        ISUKEY,
-      </if>
-      <if test="isinternal != null">
-        ISINTERNAL,
-      </if>
-      <if test="plainPwd != null">
-        PLAIN_PWD,
-      </if>
-      <if test="addUserId != null">
-        ADD_USER_ID,
-      </if>
-      <if test="authLoginIp != null">
-        AUTH_LOGIN_IP,
-      </if>
-      <if test="lastAccessIp != null">
-        LAST_ACCESS_IP,
-      </if>
-      <if test="locale != null">
-        LOCALE,
-      </if>
-      <if test="passwordUpdateTime != null">
-        PASSWORD_UPDATE_TIME,
-      </if>
-      <if test="lastLoginTime != null">
-        LAST_LOGIN_TIME,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userid != null">
-        #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="loginName != null">
-        #{loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="enabled != null">
-        #{enabled,jdbcType=INTEGER},
-      </if>
-      <if test="tokenChanged != null">
-        #{tokenChanged,jdbcType=INTEGER},
-      </if>
-      <if test="nodeId != null">
-        #{nodeId,jdbcType=INTEGER},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        #{mobile,jdbcType=DECIMAL},
-      </if>
-      <if test="ukeysn != null">
-        #{ukeysn,jdbcType=VARCHAR},
-      </if>
-      <if test="ukeypwd != null">
-        #{ukeypwd,jdbcType=VARCHAR},
-      </if>
-      <if test="isukey != null">
-        #{isukey,jdbcType=CHAR},
-      </if>
-      <if test="isinternal != null">
-        #{isinternal,jdbcType=CHAR},
-      </if>
-      <if test="plainPwd != null">
-        #{plainPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="addUserId != null">
-        #{addUserId,jdbcType=INTEGER},
-      </if>
-      <if test="authLoginIp != null">
-        #{authLoginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="lastAccessIp != null">
-        #{lastAccessIp,jdbcType=VARCHAR},
-      </if>
-      <if test="locale != null">
-        #{locale,jdbcType=VARCHAR},
-      </if>
-      <if test="passwordUpdateTime != null">
-        #{passwordUpdateTime,jdbcType=DATE},
-      </if>
-      <if test="lastLoginTime != null">
-        #{lastLoginTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.assets.pojo.SysUserExample" resultType="java.lang.Integer">
-    select count(*) from sys_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update sys_user
-    <set>
-      <if test="record.userid != null">
-        USERID = #{record.userid,jdbcType=INTEGER},
-      </if>
-      <if test="record.loginName != null">
-        LOGIN_NAME = #{record.loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        PASSWORD = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.enabled != null">
-        ENABLED = #{record.enabled,jdbcType=INTEGER},
-      </if>
-      <if test="record.tokenChanged != null">
-        TOKEN_CHANGED = #{record.tokenChanged,jdbcType=INTEGER},
-      </if>
-      <if test="record.nodeId != null">
-        NODE_ID = #{record.nodeId,jdbcType=INTEGER},
-      </if>
-      <if test="record.email != null">
-        EMAIL = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.mobile != null">
-        MOBILE = #{record.mobile,jdbcType=DECIMAL},
-      </if>
-      <if test="record.ukeysn != null">
-        UKEYSN = #{record.ukeysn,jdbcType=VARCHAR},
-      </if>
-      <if test="record.ukeypwd != null">
-        UKEYPWD = #{record.ukeypwd,jdbcType=VARCHAR},
-      </if>
-      <if test="record.isukey != null">
-        ISUKEY = #{record.isukey,jdbcType=CHAR},
-      </if>
-      <if test="record.isinternal != null">
-        ISINTERNAL = #{record.isinternal,jdbcType=CHAR},
-      </if>
-      <if test="record.plainPwd != null">
-        PLAIN_PWD = #{record.plainPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="record.addUserId != null">
-        ADD_USER_ID = #{record.addUserId,jdbcType=INTEGER},
-      </if>
-      <if test="record.authLoginIp != null">
-        AUTH_LOGIN_IP = #{record.authLoginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lastAccessIp != null">
-        LAST_ACCESS_IP = #{record.lastAccessIp,jdbcType=VARCHAR},
-      </if>
-      <if test="record.locale != null">
-        LOCALE = #{record.locale,jdbcType=VARCHAR},
-      </if>
-      <if test="record.passwordUpdateTime != null">
-        PASSWORD_UPDATE_TIME = #{record.passwordUpdateTime,jdbcType=DATE},
-      </if>
-      <if test="record.lastLoginTime != null">
-        LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update sys_user
-    set USERID = #{record.userid,jdbcType=INTEGER},
-      LOGIN_NAME = #{record.loginName,jdbcType=VARCHAR},
-      PASSWORD = #{record.password,jdbcType=VARCHAR},
-      ENABLED = #{record.enabled,jdbcType=INTEGER},
-      TOKEN_CHANGED = #{record.tokenChanged,jdbcType=INTEGER},
-      NODE_ID = #{record.nodeId,jdbcType=INTEGER},
-      EMAIL = #{record.email,jdbcType=VARCHAR},
-      MOBILE = #{record.mobile,jdbcType=DECIMAL},
-      UKEYSN = #{record.ukeysn,jdbcType=VARCHAR},
-      UKEYPWD = #{record.ukeypwd,jdbcType=VARCHAR},
-      ISUKEY = #{record.isukey,jdbcType=CHAR},
-      ISINTERNAL = #{record.isinternal,jdbcType=CHAR},
-      PLAIN_PWD = #{record.plainPwd,jdbcType=VARCHAR},
-      ADD_USER_ID = #{record.addUserId,jdbcType=INTEGER},
-      AUTH_LOGIN_IP = #{record.authLoginIp,jdbcType=VARCHAR},
-      LAST_ACCESS_IP = #{record.lastAccessIp,jdbcType=VARCHAR},
-      LOCALE = #{record.locale,jdbcType=VARCHAR},
-      PASSWORD_UPDATE_TIME = #{record.passwordUpdateTime,jdbcType=DATE},
-      LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.SysUser">
-    update sys_user
-    <set>
-      <if test="loginName != null">
-        LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        PASSWORD = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="enabled != null">
-        ENABLED = #{enabled,jdbcType=INTEGER},
-      </if>
-      <if test="tokenChanged != null">
-        TOKEN_CHANGED = #{tokenChanged,jdbcType=INTEGER},
-      </if>
-      <if test="nodeId != null">
-        NODE_ID = #{nodeId,jdbcType=INTEGER},
-      </if>
-      <if test="email != null">
-        EMAIL = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        MOBILE = #{mobile,jdbcType=DECIMAL},
-      </if>
-      <if test="ukeysn != null">
-        UKEYSN = #{ukeysn,jdbcType=VARCHAR},
-      </if>
-      <if test="ukeypwd != null">
-        UKEYPWD = #{ukeypwd,jdbcType=VARCHAR},
-      </if>
-      <if test="isukey != null">
-        ISUKEY = #{isukey,jdbcType=CHAR},
-      </if>
-      <if test="isinternal != null">
-        ISINTERNAL = #{isinternal,jdbcType=CHAR},
-      </if>
-      <if test="plainPwd != null">
-        PLAIN_PWD = #{plainPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="addUserId != null">
-        ADD_USER_ID = #{addUserId,jdbcType=INTEGER},
-      </if>
-      <if test="authLoginIp != null">
-        AUTH_LOGIN_IP = #{authLoginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="lastAccessIp != null">
-        LAST_ACCESS_IP = #{lastAccessIp,jdbcType=VARCHAR},
-      </if>
-      <if test="locale != null">
-        LOCALE = #{locale,jdbcType=VARCHAR},
-      </if>
-      <if test="passwordUpdateTime != null">
-        PASSWORD_UPDATE_TIME = #{passwordUpdateTime,jdbcType=DATE},
-      </if>
-      <if test="lastLoginTime != null">
-        LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where USERID = #{userid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.SysUser">
-    update sys_user
-    set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
-      PASSWORD = #{password,jdbcType=VARCHAR},
-      ENABLED = #{enabled,jdbcType=INTEGER},
-      TOKEN_CHANGED = #{tokenChanged,jdbcType=INTEGER},
-      NODE_ID = #{nodeId,jdbcType=INTEGER},
-      EMAIL = #{email,jdbcType=VARCHAR},
-      MOBILE = #{mobile,jdbcType=DECIMAL},
-      UKEYSN = #{ukeysn,jdbcType=VARCHAR},
-      UKEYPWD = #{ukeypwd,jdbcType=VARCHAR},
-      ISUKEY = #{isukey,jdbcType=CHAR},
-      ISINTERNAL = #{isinternal,jdbcType=CHAR},
-      PLAIN_PWD = #{plainPwd,jdbcType=VARCHAR},
-      ADD_USER_ID = #{addUserId,jdbcType=INTEGER},
-      AUTH_LOGIN_IP = #{authLoginIp,jdbcType=VARCHAR},
-      LAST_ACCESS_IP = #{lastAccessIp,jdbcType=VARCHAR},
-      LOCALE = #{locale,jdbcType=VARCHAR},
-      PASSWORD_UPDATE_TIME = #{passwordUpdateTime,jdbcType=DATE},
-      LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP}
-    where USERID = #{userid,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.assets.pojo.SysUser">
-    <id column="USERID" jdbcType="INTEGER" property="userid" />
-    <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
-    <result column="ENABLED" jdbcType="INTEGER" property="enabled" />
-    <result column="TOKEN_CHANGED" jdbcType="INTEGER" property="tokenChanged" />
-    <result column="NODE_ID" jdbcType="INTEGER" property="nodeId" />
-    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
-    <result column="MOBILE" jdbcType="DECIMAL" property="mobile" />
-    <result column="UKEYSN" jdbcType="VARCHAR" property="ukeysn" />
-    <result column="UKEYPWD" jdbcType="VARCHAR" property="ukeypwd" />
-    <result column="ISUKEY" jdbcType="CHAR" property="isukey" />
-    <result column="ISINTERNAL" jdbcType="CHAR" property="isinternal" />
-    <result column="PLAIN_PWD" jdbcType="VARCHAR" property="plainPwd" />
-    <result column="ADD_USER_ID" jdbcType="INTEGER" property="addUserId" />
-    <result column="AUTH_LOGIN_IP" jdbcType="VARCHAR" property="authLoginIp" />
-    <result column="LAST_ACCESS_IP" jdbcType="VARCHAR" property="lastAccessIp" />
-    <result column="LOCALE" jdbcType="VARCHAR" property="locale" />
-    <result column="PASSWORD_UPDATE_TIME" jdbcType="DATE" property="passwordUpdateTime" />
-    <result column="LAST_LOGIN_TIME" jdbcType="TIMESTAMP" property="lastLoginTime" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    USERID, LOGIN_NAME, PASSWORD, ENABLED, TOKEN_CHANGED, NODE_ID, EMAIL, MOBILE, UKEYSN, 
-    UKEYPWD, ISUKEY, ISINTERNAL, PLAIN_PWD, ADD_USER_ID, AUTH_LOGIN_IP, LAST_ACCESS_IP, 
-    LOCALE, PASSWORD_UPDATE_TIME, LAST_LOGIN_TIME
-  </sql>
-  <select id="selectByExample" parameterType="com.assets.pojo.SysUserExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from sys_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sys_user
-    where USERID = #{userid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from sys_user
-    where USERID = #{userid,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.assets.pojo.SysUserExample">
-    delete from sys_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.assets.pojo.SysUser">
-    insert into sys_user (USERID, LOGIN_NAME, PASSWORD, 
-      ENABLED, TOKEN_CHANGED, NODE_ID, 
-      EMAIL, MOBILE, UKEYSN, 
-      UKEYPWD, ISUKEY, ISINTERNAL, 
-      PLAIN_PWD, ADD_USER_ID, AUTH_LOGIN_IP, 
-      LAST_ACCESS_IP, LOCALE, PASSWORD_UPDATE_TIME, 
-      LAST_LOGIN_TIME)
-    values (#{userid,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{enabled,jdbcType=INTEGER}, #{tokenChanged,jdbcType=INTEGER}, #{nodeId,jdbcType=INTEGER}, 
-      #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=DECIMAL}, #{ukeysn,jdbcType=VARCHAR}, 
-      #{ukeypwd,jdbcType=VARCHAR}, #{isukey,jdbcType=CHAR}, #{isinternal,jdbcType=CHAR}, 
-      #{plainPwd,jdbcType=VARCHAR}, #{addUserId,jdbcType=INTEGER}, #{authLoginIp,jdbcType=VARCHAR}, 
-      #{lastAccessIp,jdbcType=VARCHAR}, #{locale,jdbcType=VARCHAR}, #{passwordUpdateTime,jdbcType=DATE}, 
-      #{lastLoginTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.assets.pojo.SysUser">
-    insert into sys_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userid != null">
-        USERID,
-      </if>
-      <if test="loginName != null">
-        LOGIN_NAME,
-      </if>
-      <if test="password != null">
-        PASSWORD,
-      </if>
-      <if test="enabled != null">
-        ENABLED,
-      </if>
-      <if test="tokenChanged != null">
-        TOKEN_CHANGED,
-      </if>
-      <if test="nodeId != null">
-        NODE_ID,
-      </if>
-      <if test="email != null">
-        EMAIL,
-      </if>
-      <if test="mobile != null">
-        MOBILE,
-      </if>
-      <if test="ukeysn != null">
-        UKEYSN,
-      </if>
-      <if test="ukeypwd != null">
-        UKEYPWD,
-      </if>
-      <if test="isukey != null">
-        ISUKEY,
-      </if>
-      <if test="isinternal != null">
-        ISINTERNAL,
-      </if>
-      <if test="plainPwd != null">
-        PLAIN_PWD,
-      </if>
-      <if test="addUserId != null">
-        ADD_USER_ID,
-      </if>
-      <if test="authLoginIp != null">
-        AUTH_LOGIN_IP,
-      </if>
-      <if test="lastAccessIp != null">
-        LAST_ACCESS_IP,
-      </if>
-      <if test="locale != null">
-        LOCALE,
-      </if>
-      <if test="passwordUpdateTime != null">
-        PASSWORD_UPDATE_TIME,
-      </if>
-      <if test="lastLoginTime != null">
-        LAST_LOGIN_TIME,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userid != null">
-        #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="loginName != null">
-        #{loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="enabled != null">
-        #{enabled,jdbcType=INTEGER},
-      </if>
-      <if test="tokenChanged != null">
-        #{tokenChanged,jdbcType=INTEGER},
-      </if>
-      <if test="nodeId != null">
-        #{nodeId,jdbcType=INTEGER},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        #{mobile,jdbcType=DECIMAL},
-      </if>
-      <if test="ukeysn != null">
-        #{ukeysn,jdbcType=VARCHAR},
-      </if>
-      <if test="ukeypwd != null">
-        #{ukeypwd,jdbcType=VARCHAR},
-      </if>
-      <if test="isukey != null">
-        #{isukey,jdbcType=CHAR},
-      </if>
-      <if test="isinternal != null">
-        #{isinternal,jdbcType=CHAR},
-      </if>
-      <if test="plainPwd != null">
-        #{plainPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="addUserId != null">
-        #{addUserId,jdbcType=INTEGER},
-      </if>
-      <if test="authLoginIp != null">
-        #{authLoginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="lastAccessIp != null">
-        #{lastAccessIp,jdbcType=VARCHAR},
-      </if>
-      <if test="locale != null">
-        #{locale,jdbcType=VARCHAR},
-      </if>
-      <if test="passwordUpdateTime != null">
-        #{passwordUpdateTime,jdbcType=DATE},
-      </if>
-      <if test="lastLoginTime != null">
-        #{lastLoginTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.assets.pojo.SysUserExample" resultType="java.lang.Integer">
-    select count(*) from sys_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update sys_user
-    <set>
-      <if test="record.userid != null">
-        USERID = #{record.userid,jdbcType=INTEGER},
-      </if>
-      <if test="record.loginName != null">
-        LOGIN_NAME = #{record.loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        PASSWORD = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.enabled != null">
-        ENABLED = #{record.enabled,jdbcType=INTEGER},
-      </if>
-      <if test="record.tokenChanged != null">
-        TOKEN_CHANGED = #{record.tokenChanged,jdbcType=INTEGER},
-      </if>
-      <if test="record.nodeId != null">
-        NODE_ID = #{record.nodeId,jdbcType=INTEGER},
-      </if>
-      <if test="record.email != null">
-        EMAIL = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.mobile != null">
-        MOBILE = #{record.mobile,jdbcType=DECIMAL},
-      </if>
-      <if test="record.ukeysn != null">
-        UKEYSN = #{record.ukeysn,jdbcType=VARCHAR},
-      </if>
-      <if test="record.ukeypwd != null">
-        UKEYPWD = #{record.ukeypwd,jdbcType=VARCHAR},
-      </if>
-      <if test="record.isukey != null">
-        ISUKEY = #{record.isukey,jdbcType=CHAR},
-      </if>
-      <if test="record.isinternal != null">
-        ISINTERNAL = #{record.isinternal,jdbcType=CHAR},
-      </if>
-      <if test="record.plainPwd != null">
-        PLAIN_PWD = #{record.plainPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="record.addUserId != null">
-        ADD_USER_ID = #{record.addUserId,jdbcType=INTEGER},
-      </if>
-      <if test="record.authLoginIp != null">
-        AUTH_LOGIN_IP = #{record.authLoginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lastAccessIp != null">
-        LAST_ACCESS_IP = #{record.lastAccessIp,jdbcType=VARCHAR},
-      </if>
-      <if test="record.locale != null">
-        LOCALE = #{record.locale,jdbcType=VARCHAR},
-      </if>
-      <if test="record.passwordUpdateTime != null">
-        PASSWORD_UPDATE_TIME = #{record.passwordUpdateTime,jdbcType=DATE},
-      </if>
-      <if test="record.lastLoginTime != null">
-        LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update sys_user
-    set USERID = #{record.userid,jdbcType=INTEGER},
-      LOGIN_NAME = #{record.loginName,jdbcType=VARCHAR},
-      PASSWORD = #{record.password,jdbcType=VARCHAR},
-      ENABLED = #{record.enabled,jdbcType=INTEGER},
-      TOKEN_CHANGED = #{record.tokenChanged,jdbcType=INTEGER},
-      NODE_ID = #{record.nodeId,jdbcType=INTEGER},
-      EMAIL = #{record.email,jdbcType=VARCHAR},
-      MOBILE = #{record.mobile,jdbcType=DECIMAL},
-      UKEYSN = #{record.ukeysn,jdbcType=VARCHAR},
-      UKEYPWD = #{record.ukeypwd,jdbcType=VARCHAR},
-      ISUKEY = #{record.isukey,jdbcType=CHAR},
-      ISINTERNAL = #{record.isinternal,jdbcType=CHAR},
-      PLAIN_PWD = #{record.plainPwd,jdbcType=VARCHAR},
-      ADD_USER_ID = #{record.addUserId,jdbcType=INTEGER},
-      AUTH_LOGIN_IP = #{record.authLoginIp,jdbcType=VARCHAR},
-      LAST_ACCESS_IP = #{record.lastAccessIp,jdbcType=VARCHAR},
-      LOCALE = #{record.locale,jdbcType=VARCHAR},
-      PASSWORD_UPDATE_TIME = #{record.passwordUpdateTime,jdbcType=DATE},
-      LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.assets.pojo.SysUser">
-    update sys_user
-    <set>
-      <if test="loginName != null">
-        LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        PASSWORD = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="enabled != null">
-        ENABLED = #{enabled,jdbcType=INTEGER},
-      </if>
-      <if test="tokenChanged != null">
-        TOKEN_CHANGED = #{tokenChanged,jdbcType=INTEGER},
-      </if>
-      <if test="nodeId != null">
-        NODE_ID = #{nodeId,jdbcType=INTEGER},
-      </if>
-      <if test="email != null">
-        EMAIL = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        MOBILE = #{mobile,jdbcType=DECIMAL},
-      </if>
-      <if test="ukeysn != null">
-        UKEYSN = #{ukeysn,jdbcType=VARCHAR},
-      </if>
-      <if test="ukeypwd != null">
-        UKEYPWD = #{ukeypwd,jdbcType=VARCHAR},
-      </if>
-      <if test="isukey != null">
-        ISUKEY = #{isukey,jdbcType=CHAR},
-      </if>
-      <if test="isinternal != null">
-        ISINTERNAL = #{isinternal,jdbcType=CHAR},
-      </if>
-      <if test="plainPwd != null">
-        PLAIN_PWD = #{plainPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="addUserId != null">
-        ADD_USER_ID = #{addUserId,jdbcType=INTEGER},
-      </if>
-      <if test="authLoginIp != null">
-        AUTH_LOGIN_IP = #{authLoginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="lastAccessIp != null">
-        LAST_ACCESS_IP = #{lastAccessIp,jdbcType=VARCHAR},
-      </if>
-      <if test="locale != null">
-        LOCALE = #{locale,jdbcType=VARCHAR},
-      </if>
-      <if test="passwordUpdateTime != null">
-        PASSWORD_UPDATE_TIME = #{passwordUpdateTime,jdbcType=DATE},
-      </if>
-      <if test="lastLoginTime != null">
-        LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where USERID = #{userid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.SysUser">
+  <update id="updateByPrimaryKey" parameterType="com.assets.pojo.SysUser" >
     update sys_user
     set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
       PASSWORD = #{password,jdbcType=VARCHAR},

@@ -11,16 +11,19 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd">
     
-    <!-- 配置包扫描器   子容器的扫描范围controller，（com.assets把所有的注解都扫描进来）springmvc会优先用自己容器中的，
+    <!-- 配置包扫描器   子容器的扫描范围controller，（com.assets把所有的注解都扫描进来）Springmvc会优先用自己容器中的，
     	在父容器spring中配置的事务就不好使，所以这里指定只扫描controller -->    
-    <context:component-scan base-package="com.assets.controller"></context:component-scan>
+    <context:component-scan base-package="com.assets.pojo,com.assets.controller"/>
     <!-- 要在子容器中访问父容器中的属性：
     	1.可以在子容器中配置 加载配置文件	<context:property-placeholder location="classpath:properties/*.properties" /> 
     	2.可以将父容器中加载的属性，改成public或者提供一个get方法
     -->
     <context:property-placeholder location="classpath:properties/resource.properties" /> 
-    <!-- 配置注解驱动 -->
-    <mvc:annotation-driven/>
+    <!-- 配置注解驱动 -->   
+    <mvc:annotation-driven />
+   
+   
+    
     <!-- 视图解析器 -->
     <!--prefix下的value路径 + controller中返回的页面名称 + suffix的value后缀 -->
     <bean

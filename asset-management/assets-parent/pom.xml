@@ -44,7 +44,7 @@
 			<dependency>
 				<groupId>joda-time</groupId>
 				<artifactId>joda-time</artifactId>
-				<version>${joda-time.version}</version>
+				<version>${joda-time.version}</version>				
 			</dependency>
 			<!-- Apache工具组件 -->
 			<dependency>

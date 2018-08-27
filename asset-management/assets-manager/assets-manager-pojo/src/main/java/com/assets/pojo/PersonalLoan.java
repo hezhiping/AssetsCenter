@@ -10,12 +10,12 @@ public class PersonalLoan {
 
     private String currentMonth;
 
-    private String lendPerson;
-
+    private String lendPerson;    
+ 
     private Date lendDate;
 
-    private BigDecimal lendMoney;
-
+    private BigDecimal lendMoney;    
+    
     private BigDecimal accumulateProfit;
 
     private String going;

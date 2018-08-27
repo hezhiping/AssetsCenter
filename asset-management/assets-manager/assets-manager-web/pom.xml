@@ -15,6 +15,11 @@
 			<artifactId>assets-manager-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- 时间操作组件 -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>	 		
+		</dependency>
 		<!-- JSP相关 -->
 		<dependency>
 			<groupId>jstl</groupId>

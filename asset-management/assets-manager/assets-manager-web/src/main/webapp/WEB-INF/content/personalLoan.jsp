@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>固定资产管理</title>
+<title>个人借款</title>
 <!-- 导入jquery核心类库 -->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
@@ -29,7 +29,23 @@
 <script
 	src="${pageContext.request.contextPath }/js/easyui/outOfBounds.js"
 	type="text/javascript"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/assets-1.0.js"></script>	
 <script type="text/javascript">
+//格式化表格显示日期
+	function formatDatebox(value) {  
+	    if (value == null || value == '') {  
+	        return '';  
+	    }  
+	    var dt;  
+	    if (value instanceof Date) {  
+	        dt = value;  
+	    } else {  
+	        dt = new Date(value);  
+	    } 	  
+	    return dt.format("yyyy-MM-dd"); //扩展的Date的format方法(上述插件实现)  
+	} 
+
 	// 工具栏
 	var toolbar = [ {
 		id : 'button-view',
@@ -55,11 +71,7 @@
 	} ] ];
 
 	// 定义标题栏
-	var columns = [ [ {
-		field : 'assetName',
-		title : '固定资产名称',
-		width : 160,
-	}, {
+	var columns = [ [  {
 		field : 'currentYear',
 		title : '年',
 		width : 80,
@@ -69,18 +81,38 @@
 		title : '月份',
 		width : 80,
 		align : 'center'
+	},{
+		field : 'lendPerson',
+		title : '借款人',
+		width : 160,
 	}, {
-		field : 'assetMoney',
-		title : '资产金额',
+		field : 'lendDate',
+		title : '借款日期',
+		width : 160,
+		formatter: formatDatebox,
+		align : 'center'
+	}, {
+		field : 'lendMoney',
+		title : '借款金额',
 		width : 160,
 		align : 'center'
 	}, {
+		field : 'accumulateProfit',
+		title : '累计收益',
+		width : 160,
+		align : 'center'
+	}, {
+		field : 'going',
+		title : '投向',
+		width : 160,
+		align : 'center'
+	},{
 		field : 'tagStatus',
 		title : '状态',
 		width : 160,
 		align : 'center'
 	}, {
-		field : 'assetRemark',
+		field : 'remark',
 		title : '备注',
 		width : 320,
 		align : 'center'
@@ -88,6 +120,7 @@
 		field : 'createDate',
 		title : '创建时间',
 		width : 160,
+		formatter: formatDatebox,
 		align : 'center'
 	} ] ];
 	$(function() {
@@ -101,9 +134,9 @@
 			singleSelect : true,
 			striped : true,
 			toolbar : toolbar,
-			url : "/assets/FixedAssets/fixedAssetsList",
+			url : "/assets/PersonalLoan/personalLoanList",
 			method : 'get',
-			pageList : [ 10, 20, 30 ],
+			pageList : [ 100, 150, 200 ],
 			pagination : true,
 			idField : 'id',
 			frozenColumns : frozenColumns,
@@ -115,9 +148,9 @@
 		$("body").css({
 			visibility : "visible"
 		});
-
+	 	
 		// 添加取派员窗口
-		$('#addFixedAssetsWindow').window({
+		$('#addPersonalLoanWindow').window({
 			title : '添加菜单',
 			width : 480,
 			modal : true,//遮罩效果
@@ -131,7 +164,7 @@
 		});
 
 		// 修改取派员窗口
-		$('#editFixedAssetsWindow').window({
+		$('#editPersonalLoanWindow').window({
 			title : '修改菜单',
 			width : 480,
 			modal : true,//遮罩效果
@@ -157,7 +190,7 @@
 
 	function doAdd() {
 		//location.href = "addFixedAssetsWindow";
-		$('#addFixedAssetsWindow').window("open");
+		$('#addPersonalLoanWindow').window("open");
 	}
 
 	function doEdit() {
@@ -166,8 +199,9 @@
 			$.messager.alert('提示', '未选中记录!');
 			return;
 		}
-		$('#editFixedAssetsWindow').window("open");
-		$('#editFixedAssetsForm').form('load', item);
+		item.lendDate = transformDate(item.lendDate);
+		$('#editPersonalLoanWindow').window("open");
+		$('#editPersonalLoanForm').form('load', item);
 	}
 
 	function doDelete() {
@@ -182,9 +216,8 @@
 			if (r) {
 				for (var i = 0; i < items.length; i++) {
 					ids.push(items[i].id);
-				}
-				alert(ids);
-				$.post("/assets/FixedAssets/deleteFixedAssets/" + ids,
+				}				
+				$.post("/assets/PersonalLoan/deletePersonalLoan/" + ids,
 						function(result) {
 							if (result.status == 200) {
 								$.messager.alert('提示', '删除成功!', undefined,
@@ -206,7 +239,7 @@
 	<div region="center" border="false">
 		<table id="grid"></table>
 	</div>
-	<div class="easyui-dialog" title="添加固定资产项" id="addFixedAssetsWindow"
+	<div class="easyui-dialog" title="添加个人借款" id="addPersonalLoanWindow"
 		collapsible="false" minimizable="false" maximizable="false"
 		style="top: 40px; left: 200px" toolbar="#add-toolbar">
 		<div id="add-toolbar" class="datagrid-toolbar" split="false"
@@ -217,29 +250,47 @@
 
 		<div region="center" style="overflow: auto; padding: 5px;"
 			border="false">
-			<form id="addFixedAssetsForm"
-				 method="post">
+			<form id="addPersonalLoanForm"	 method="post">
 				<table class="table-edit" align="center">
 					<tr class="title">
-						<td colspan="2">添加固定资产项</td>
+						<td colspan="2">添加个人借款</td>
 					</tr>
 					<tr>
-						<td>固定资产名称：</td>
-						<td><input type="text" name="assetName"
+						<td width="30%">借款人：</td>
+						<td width="60%"><input type="text" name="lendPerson"
 							class="easyui-validatebox" required="true"
 							style="width: 96%; height: 22px" /></td>
 					</tr>
-					<tr>
-						<td width="30%">金额：</td>
-						<td width="60%"><input type="text" name="assetMoney"
-							class="easyui-validatebox" style="width: 96%; height: 22px" /></td>
+						<tr>
+						<td>借款日期：</td>
+						<td><input type="text" name="lendDate"
+							class="easyui-datebox" required="true" editable="false"
+							style=" width: 96%; height: 22px" /></td>
 					</tr>
+						<tr>
+						<td>借款金额：</td>
+						<td><input type="text" name="lendMoney"
+							class="easyui-numberbox" required="true" precision="2"
+							style="width: 96%; height: 22px" /></td>
+					</tr>
+					<tr>
+						<td >累计收益：</td>
+						<td ><input type="text" name="accumulateProfit"
+							class="easyui-numberbox" precision="2" style="width: 96%; height: 22px" /></td>
+					</tr>
+					<tr>
+						<td width="16%">投向：</td>
+						<td width="84%"><input type="text" name="going"
+							class="easyui-textbox" data-options="multiline:true"
+							style="width: 100%; height: 60px" />
+						</td>
+					</tr>					
 					<tr>
 						<td width="30%">年：</td>
 						<td width="60%"><input class="easyui-combobox"
 							name="currentYear"
 							data-options="
-								url:'/assets/FixedAssets/getYear', 
+								url:'/assets/Base/getYear', 
 								valueField:'dateKey',
 								textField:'dateValue',
 			                    required:true,
@@ -252,7 +303,7 @@
 						<td width="60%"><input class="easyui-combobox"
 							name="currentMonth"
 							data-options="
-								url:'/assets/FixedAssets/getMonth', 
+								url:'/assets/Base/getMonth', 
 								valueField:'dateKey',
 								textField:'dateValue',
 			                    required:true,
@@ -264,16 +315,15 @@
 						<td width="30%">状态：</td>
 						<td width="60%"><input checked="checked" name="tagStatus"
 							style="width: 20px; height: 10px; background-color: white"
-							type="radio" value="0" />正常 <input name="tag_status"
+							type="radio" value="0" />正常 <input name="tagStatus"
 							style="width: 20px; height: 10px; background-color: white"
 							type="radio" value="1" />冻结</td>
 					</tr>
 					<tr>
 						<td width="16%">备注：</td>
-						<td width="84%"><input type="text" name="assetRemark"
+						<td width="84%"><input type="text" name="remark"
 							class="easyui-textbox" data-options="multiline:true"
-							style="width: 100%; height: 60px" />
-						</td>
+							style="width: 100%; height: 60px" /></td>
 
 					</tr>
 				</table>
@@ -282,7 +332,7 @@
 	</div>
 
 	<!-- 修改窗口 -->
-	<div class="easyui-dialog" title="修改固定资产项" id="editFixedAssetsWindow"
+	<div class="easyui-dialog" title="修改个人借款" id="editPersonalLoanWindow"
 		collapsible="false" minimizable="false" maximizable="false"
 		style="top: 20px; left: 200px" toolbar="#edit-toolbar">
 		<div id="edit-toolbar" class="datagrid-toolbar">
@@ -292,58 +342,79 @@
 
 		<div region="center" style="overflow: auto; padding: 5px;"
 			border="false">
-			<form id="editFixedAssetsForm" method="post">
+			<form id="editPersonalLoanForm" method="post">
 				<input type="hidden" name="id">
 				<table class="table-edit" align="center">
 					<tr class="title">
-						<td colspan="2">修改固定资产项</td>
+						<td colspan="2">添加个人借款</td>
 					</tr>
 					<tr>
-						<td>固定资产名称：</td>
-						<td><input type="text" name="assetName"
-							class="easyui-validatebox" readonly="readonly"
+						<td width="30%">借款人：</td>
+						<td width="60%"><input type="text" name="lendPerson"
+							class="easyui-validatebox" required="true"
+							style="width: 96%; height: 22px" /></td>
+					</tr>
+						<tr>
+						<td>借款日期：</td>
+						<td><input type="text" name="lendDate"
+							class="easyui-datebox" required="true" editable="false"
+							style=" width: 96%; height: 22px" /></td>
+					</tr>
+						<tr>
+						<td>借款金额：</td>
+						<td><input type="text" name="lendMoney"
+							class="easyui-numberbox" required="true" precision="2"
 							style="width: 96%; height: 22px" /></td>
 					</tr>
 					<tr>
-						<td width="30%">金额：</td>
-						<td width="60%"><input type="text" name="assetMoney"
-							class="easyui-validatebox" style="width: 96%; height: 22px" /></td>
+						<td >累计收益：</td>
+						<td ><input type="text" name="accumulateProfit"
+							class="easyui-numberbox" precision="2" style="width: 96%; height: 22px" /></td>
 					</tr>
+					<tr>
+						<td width="16%">投向：</td>
+						<td width="84%"><input type="text" name="going"
+							class="easyui-textbox" data-options="multiline:true"
+							style="width: 100%; height: 60px" />
+						</td>
+					</tr>					
 					<tr>
 						<td width="30%">年：</td>
 						<td width="60%"><input class="easyui-combobox"
 							name="currentYear"
 							data-options="
-								url:'/assets/FixedAssets/getYear', 
+								url:'/assets/Base/getYear', 
 								valueField:'dateKey',
 								textField:'dateValue',
 			                    required:true,
 			                    editable:false"
 							style="width: 100%; height: 24px">
+						</td>
 					</tr>
 					<tr>
 						<td width="30%">月份：</td>
 						<td width="60%"><input class="easyui-combobox"
 							name="currentMonth"
 							data-options="
-								url:'/assets/FixedAssets/getMonth', 
+								url:'/assets/Base/getMonth', 
 								valueField:'dateKey',
 								textField:'dateValue',
 			                    required:true,
 			                    editable:false"
-							style="width: 100%; height: 24px"></td>
+							style="width: 100%; height: 24px">
+						</td>
 					</tr>
 					<tr>
 						<td width="30%">状态：</td>
 						<td width="60%"><input checked="checked" name="tagStatus"
 							style="width: 20px; height: 10px; background-color: white"
-							type="radio" value="0" />正常 <input name="tag_status"
+							type="radio" value="0" />正常 <input name="tagStatus"
 							style="width: 20px; height: 10px; background-color: white"
 							type="radio" value="1" />冻结</td>
 					</tr>
 					<tr>
 						<td width="16%">备注：</td>
-						<td width="84%"><input type="text" name="assetRemark"
+						<td width="84%"><input type="text" name="remark"
 							class="easyui-textbox" data-options="multiline:true"
 							style="width: 100%; height: 60px" /></td>
 
@@ -358,7 +429,7 @@
 		//绑定事件
 		$("#save").click(function() {
 			//校验表单输入项
-			var v = $("#addFixedAssetsForm").form("validate");
+			var v = $("#addPersonalLoanForm").form("validate");
 			if (v) {
 				//校验通过，提交表单
 				//$("#addFixedAssetsForm").submit();				
@@ -366,13 +437,12 @@
 					//几个参数需要注意一下
 					type : "POST",//方法类型
 					//dataType : "json",//预期服务器返回的数据类型
-					url : "/assets/FixedAssets/addFixedAssets",//url
-					data : $('#addFixedAssetsForm').serialize(),
+					url : "/assets/PersonalLoan/addPersonalLoan",//url
+					data : $('#addPersonalLoanForm').serialize(),
 					success : function(result) {
 						console.log(result);//打印服务端返回的数据(调试用)
-						if (result.status == 200) {
-							alert("success");
-							  $('#addFixedAssetsWindow').dialog('close');
+						if (result.status == 200) {							
+							  $('#addPersonalLoanWindow').dialog('close');
 							// window.location.reload();// 刷新当前页面
 								$('#grid').datagrid('reload');
 						}else {
@@ -391,7 +461,7 @@
 		//绑定事件
 		$("#edit").click(function() {
 			//校验表单输入项
-			var v = $("#editFixedAssetsForm").form("validate");
+			var v = $("#editPersonalLoanForm").form("validate");
 			if (v) {
 				//校验通过，提交表单
 				//$("#editFixedAssetsForm").submit();
@@ -399,13 +469,12 @@
 					//几个参数需要注意一下
 					type : "POST",//方法类型
 					//dataType : "json",//预期服务器返回的数据类型
-					url : "/assets/FixedAssets/modifyFixedAssets",//url
-					data : $('#editFixedAssetsForm').serialize(),
+					url : "/assets/PersonalLoan/modifyPersonalLoan",//url
+					data : $('#editPersonalLoanForm').serialize(),
 					success : function(result) {
 						console.log(result);//打印服务端返回的数据(调试用)
-						if (result.status == 200) {
-							alert("success");
-							  $('#editFixedAssetsWindow').dialog('close');
+						if (result.status == 200) {							
+							  $('#editPersonalLoanWindow').dialog('close');
 							// window.location.reload();// 刷新当前页面
 								$('#grid').datagrid('reload');
 						}else {
