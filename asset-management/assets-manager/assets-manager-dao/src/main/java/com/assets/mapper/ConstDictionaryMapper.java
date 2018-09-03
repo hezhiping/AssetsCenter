@@ -33,4 +33,6 @@ public interface ConstDictionaryMapper {
     
     // 添加语句，获取常数配置项
     List<ConstDictionary> selectUserSetAllDic(Map<String, Object> map);
+
+	String selectNameByPrimaryKey(Integer costCode);
 }

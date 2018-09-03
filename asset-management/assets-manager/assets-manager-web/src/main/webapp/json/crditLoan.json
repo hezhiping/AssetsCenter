@@ -1,0 +1,15 @@
+{
+"total":100,
+"rows":[
+		{ "creditLoanItem":"借呗", "openingBalance":"100", "currentUse":"100", "currentRepay":"100", "endingBalance":"100"},
+		{ "creditLoanItem":"借呗", "openingBalance":"100", "currentUse":"100", "currentRepay":"100", "endingBalance":"100"},
+		{ "creditLoanItem":"借呗", "openingBalance":"100", "currentUse":"100", "currentRepay":"100", "endingBalance":"100"},
+		{ "creditLoanItem":"借呗", "openingBalance":"100", "currentUse":"100", "currentRepay":"100", "endingBalance":"100"},
+		{ "creditLoanItem":"借呗", "openingBalance":"100", "currentUse":"100", "currentRepay":"100", "endingBalance":"100"},
+		{ "creditLoanItem":"借呗", "openingBalance":"100", "currentUse":"100", "currentRepay":"100", "endingBalance":"100"},
+		{ "creditLoanItem":"借呗", "openingBalance":"100", "currentUse":"100", "currentRepay":"100", "endingBalance":"100"}
+	],"footer":[
+	{"creditLoanItem":"Average","openingBalance":60.40,"currentUse":"100","currentRepay":604.00,"endingBalance":"604.00"},
+	{"creditLoanItem":"Total","openingBalance":604.00,"currentUse":"200","currentRepay":604.00,"endingBalance":"604.00"}
+]
+}

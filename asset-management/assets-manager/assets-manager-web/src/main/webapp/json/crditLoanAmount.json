@@ -1,0 +1,14 @@
+{
+"total":100,
+"rows":[
+		{ "creditLoanAmount":"借呗", "creditAmount":"100", "creditExposure":"100"},
+		{ "creditLoanAmount":"借呗", "creditAmount":"100", "creditExposure":"100"},
+		{ "creditLoanAmount":"借呗", "creditAmount":"100", "creditExposure":"100"},
+		{ "creditLoanAmount":"借呗", "creditAmount":"100", "creditExposure":"100"},
+		{ "creditLoanAmount":"借呗", "creditAmount":"100", "creditExposure":"100"},
+		{ "creditLoanAmount":"借呗", "creditAmount":"100", "creditExposure":"100"}
+	],"footer":[
+	{"creditAmount":19.80,"creditExposure":60.40,"creditLoanAmount":"Average:"},
+	{"creditAmount":198.00,"creditExposure":604.00,"creditLoanAmount":"Total:"}
+]
+}

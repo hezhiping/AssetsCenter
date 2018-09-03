@@ -28,7 +28,19 @@ public class CreditLoan {
 
     private Date createDate;
 
-    public Integer getId() {
+    private Integer costCode;
+    
+    private String constName;
+
+    public String getConstName() {
+		return constName;
+	}
+
+	public void setConstName(String constName) {
+		this.constName = constName;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -122,5 +134,13 @@ public class CreditLoan {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public Integer getCostCode() {
+        return costCode;
+    }
+
+    public void setCostCode(Integer costCode) {
+        this.costCode = costCode;
     }
 }

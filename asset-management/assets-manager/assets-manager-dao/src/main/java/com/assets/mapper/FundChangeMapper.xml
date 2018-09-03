@@ -21,6 +21,13 @@
     <result column="incom_mode_name" property="incomModeName" jdbcType="VARCHAR" />
     
   </resultMap>
+  
+  
+	<resultMap id="sumMap" type="java.util.HashMap">
+		<result property="totalSum" column="totalSum" />
+	</resultMap>
+	
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -367,6 +374,15 @@
     WHERE fc.psn_code = #{psnCode} AND  fc.current_year = #{currentYear} AND fc.current_month=#{currentMonth}
     order by fc.consume_date asc
   </select>
-  
+    <!-- add by hzp 查询资金变动表中支出总和-->
+   <select id="selectPaySumByConsCode" resultMap="sumMap" parameterType="map" >
+  	SELECT	IFNULL(SUM(t.pay_money),0) AS totalSum  FROM fund_change t 
+  	WHERE t.psn_code = #{psnCode} AND t.current_year = #{currentYear} AND t.current_month = #{currentMonth} AND t.pay_mode = #{payConsCode}
+  </select>
+   <!-- add by hzp 查询资金变动表中偿还总和-->
+   <select id="selectRepaySumByConsCode" resultMap="sumMap" parameterType="map" >
+  	SELECT	IFNULL(SUM(t.incom_money),0) AS totalSum  FROM fund_change t 
+  	WHERE t.psn_code = #{psnCode} AND t.current_year = #{currentYear} AND t.current_month = #{currentMonth} AND t.incom_mode = #{repayConsCode}
+  </select>
   
 </mapper>

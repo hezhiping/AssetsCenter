@@ -855,6 +855,66 @@ public class CreditLoanExample {
             addCriterion("create_date not between", value1, value2, "createDate");
             return (Criteria) this;
         }
+
+        public Criteria andCostCodeIsNull() {
+            addCriterion("cost_code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeIsNotNull() {
+            addCriterion("cost_code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeEqualTo(Integer value) {
+            addCriterion("cost_code =", value, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeNotEqualTo(Integer value) {
+            addCriterion("cost_code <>", value, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeGreaterThan(Integer value) {
+            addCriterion("cost_code >", value, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("cost_code >=", value, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeLessThan(Integer value) {
+            addCriterion("cost_code <", value, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeLessThanOrEqualTo(Integer value) {
+            addCriterion("cost_code <=", value, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeIn(List<Integer> values) {
+            addCriterion("cost_code in", values, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeNotIn(List<Integer> values) {
+            addCriterion("cost_code not in", values, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeBetween(Integer value1, Integer value2) {
+            addCriterion("cost_code between", value1, value2, "costCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andCostCodeNotBetween(Integer value1, Integer value2) {
+            addCriterion("cost_code not between", value1, value2, "costCode");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

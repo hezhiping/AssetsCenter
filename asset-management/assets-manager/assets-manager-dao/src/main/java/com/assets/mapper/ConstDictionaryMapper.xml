@@ -279,6 +279,11 @@
     SELECT
     <include refid="Base_Column_List" /> 
 	FROM const_dictionary WHERE category = #{category} ORDER BY seq_no   	
-  </select>  
+  </select>    
   
+   <!-- 获取名称 -->
+   <select id="selectNameByPrimaryKey" resultType="java.lang.String" parameterType="java.lang.Integer"  >
+    SELECT  zh_cn_caption 
+	FROM const_dictionary WHERE cost_code = #{costCode,jdbcType=INTEGER}   	
+  </select>  
 </mapper>
