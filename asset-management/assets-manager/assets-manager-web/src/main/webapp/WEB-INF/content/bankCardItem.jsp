@@ -30,12 +30,64 @@
 	src="${pageContext.request.contextPath }/js/easyui/outOfBounds.js"
 	type="text/javascript"></script>
 <script type="text/javascript">
-	
+var editIndex ;//全局的行索引
+
+function endEditing(){
+	if (editIndex == undefined){return true}
+	if ($('#showItem').datagrid('validateRow', editIndex)){			
+			$('#showItem').datagrid('endEdit', editIndex);
+			editIndex = undefined;
+			return true;
+		
+	} else {			
+		return false;
+	}
+}
+// 单击行修改数据
+function doClickRow(rowIndex, rowData){
+	if(rowIndex != editIndex ){ //判断正在编辑的行和双击选中的行是否相等
+		if(endEditing()){ // 验证内容是否通过，通过结束当前编辑行，开启双击选中行			
+			 $('#showItem').datagrid('endEdit', editIndex);
+			 $('#showItem').datagrid('beginEdit',rowIndex);
+				editIndex = rowIndex;				
+		}
+	}else{			
+		$('#showItem').datagrid('beginEdit',rowIndex);
+		editIndex = rowIndex;		
+	}		
+}
+
+//结束编辑
+function doCancle(){		
+	 if (endEditing()) { 			
+			$("#showItem").datagrid('endEdit',editIndex );			
+		 }else{
+			 $.messager.alert("提示","请填写完必填项");
+		 }
+}
+
 	// 定义标题栏
-	var frozenShowColumns = [ [ {
+	var frozenShowColumns = [ [{
+		field : 'id',
+		title : '编号',
+		hidden : true
+	}, {
 		field : 'costName',
 		title : '银行卡',
-		width : 300
+		width : 160
+	},{		
+		field : 'beginMoney',
+		title : '期初金额',
+		width : 300,
+		editor :{
+			type : 'numberbox',
+			options : {
+				precision:2		
+			}
+		},
+		styler: function (value, row, index) {
+            return 'color:red'
+         }
 	} ] ];
 
 	//定义冻结列
@@ -68,7 +120,7 @@
 			url : "/assets/UserConstDic/getUserBankCardDic",
 			method : 'get',			
 			frozenColumns : frozenShowColumns,
-			
+			onClickRow : doClickRow,
 		});
 
 		$('#addItem').datagrid({
@@ -83,6 +135,7 @@
 			idField : 'id',
 			frozenColumns : frozenAddColumns,
 			columns : addColumns
+			
 		});
 
 		$("body").css({
@@ -115,25 +168,76 @@
 					}
 			});	
 		});
+		//绑定事件
+		$("#showSave").click(function() {			  
+			   var updateList = [];//定义一个数据
+		        var updateRows = $('#showItem').datagrid('getChanges','updated');
+		        $('#showItem').datagrid('acceptChanges');
+		        if (updateRows.length <= 0) {
+		            $.messager.alert("提示", "未修改数据，无需保存！", "info");
+		            return false;
+		        } else {		         
+		            var updateRow;		           
+		            // 修改的数据
+		            for (var i = 0; i < updateRows.length; i++) { //for循环遍历添加的行
+		            	updateRow = updateRows[i];
+		            //拼接数据为json格式		            	
+	               		updateList.push({"id":updateRow.id,"costCode":updateRow.costCode,"beginMoney":updateRow.beginMoney,"category":updateRow.category,"psnCode":updateRow.psnCode});	
+		            }
+		            console.log(updateList);
+		            $.ajax({
+		                type: "POST",
+		                url: "/assets/UserConstDic/saveBankCardBeginMoney",
+		                contentType:'application/json;charset=UTF-8',//关键是要加上这行
+		                traditional:true,//这使json格式的字符不会被转码
+		                dataType: 'JSON',
+		                data:JSON.stringify(updateList),
+		                success: function (data) {
+		                	 console.log(data);
+		                    $('#showItem').datagrid('acceptChanges', 'updated');
+		                    if (data.status == 200) {
+		                    	editIndex = undefined;
+		                        //重载记录
+		                        $('#showItem').datagrid('reload');		                      
+		                    }
+		                    else {
+		                        $.messager.alert("提示",data.msg);
+		                        return false;
+		                    }	                   
+		                }
+		            });
+		        }
+		});
+		//绑定事件
+		$("#showCancle").click(function() {		
+			doCancle();
+		});
 	});
 </script>
 </head>
 <body class="easyui-layout">
 	<div region="center" border="false">
 		<div
-			style="margin-top: 60px; width: 800px; height: 500px; margin-left: -400px; position: absolute; left: 50%;">
+			style="margin-top: 60px; width: 900px; height: 500px; margin-left: -450px; position: absolute; left: 50%;">
 			<div style="float: left;">
 				<div class="easyui-panel" title="已配置银行卡" collapsible="false"
 					minimizable="false" maximizable="false"
-					style="top: 120px; left: 200px; width: 300px; height: 450px;">
+					style="top: 120px; left: 300px; width: 400px; height: 450px;">
+					<div id="add-toolbar" class="datagrid-toolbar" split="false"
+						border="false">
+						<a id="showSave" icon="icon-save" href="#" class="easyui-linkbutton"
+							plain="true">保存</a>
+						<a id="showCancle" icon="icon-undo" href="#" class="easyui-linkbutton"
+							plain="true">取消</a>
+					</div>
 					<table id="showItem"></table>
 				</div>
 			</div>
-			<p style=" left:50%; width:100px; margin-left:-11%;; top:50%;font-size:120%; position: absolute;">《《《《《《《《《</p>
+			<p style=" left:50%; width:100px; margin-left:-4%; top:50%;font-size:120%; position: absolute;">《《《《《《《《《</p>
 			<div style="float: left; margin-left: 160px;">
 				<div class="easyui-panel" title="全部银行卡" collapsible="false"
 					minimizable="false" maximizable="false"
-					style="top: 120px; left: 400px; width: 300px; height: 450px;"
+					style="top: 120px; left: 450px; width: 300px; height: 450px;"
 					toolbar="#add-toolbar">
 					<div id="add-toolbar" class="datagrid-toolbar" split="false"
 						border="false">

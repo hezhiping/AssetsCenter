@@ -33,6 +33,16 @@ public interface UserConstDicService extends BaseService {
 	 * @return
 	 */
 	List<UserConstDic> getProfitLossPayIncomType(HttpServletRequest request,Map<String, Object> map);
+
+	/**
+	 * 添加用户配置项中的期初金额
+	 * @param list
+	 * @param request
+	 * @param cREDIT_LOAN_KEY
+	 * @return
+	 */
+	ResponseResult saveBeginMoney(List<UserConstDic> list,
+			HttpServletRequest request, String itemKey);
 	
 	
 

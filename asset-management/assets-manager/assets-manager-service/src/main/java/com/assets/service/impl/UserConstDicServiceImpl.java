@@ -46,7 +46,7 @@ public class UserConstDicServiceImpl extends BaseServiceImpl implements
 	/**
 	 * 添加用户配置的项
 	 */
-	@Override
+/*	@Override
 	public ResponseResult AddUserSetDic(String ids, HttpServletRequest request,String itemKey) {
 		try {
 			ResponseResult result = getUserPsnCodeByRequest(request);
@@ -79,12 +79,57 @@ public class UserConstDicServiceImpl extends BaseServiceImpl implements
 		}
 		return ResponseResult.ok();
 	}
+*/
+	/**
+	 * 添加用户配置的项
+	 */
+	@Override
+	public ResponseResult AddUserSetDic(String ids, HttpServletRequest request,String itemKey) {
+		try {
+			ResponseResult result = getUserPsnCodeByRequest(request);
+			int insertSuccessTag = 0;
+			// 获取登录的人员信息
+			if (result.getStatus() == 200) {
+				Long psn_code = Long.valueOf(result.getData().toString());
+				// 1、先删除数据
+				UserConstDicExample example = new UserConstDicExample();
+				Criteria criteria = example.createCriteria();
+				criteria.andCategoryEqualTo(itemKey);
+				criteria.andPsnCodeEqualTo(psn_code);
+				userConstDicMapper.deleteByExample(example);				
+				
+				// 再插入数据
+				String[] constCodes = ids.split(",");
+				for (String cosCode : constCodes) {
+					UserConstDic userConstDic = new UserConstDic();
+					userConstDic.setCategory(itemKey);
+					userConstDic.setPsnCode(psn_code);
+					userConstDic.setCostCode(cosCode);
+					int insertCount = userConstDicMapper.insert(userConstDic);
+					if(insertCount <= 0){
+						return ResponseResult.build(500, "添加失败!");
+					}else {
+						insertSuccessTag ++;					
+					}					
+				}
+				// 只要大于0就清空缓存
+				if(insertSuccessTag>0){
+					Cache uDicCache = cacheManager.getCache(EHCACHE_U_CONST_DIC_KEY); // 获取缓存配置中的缓存容器
+					uDicCache.clear(); // 清空用户配置的常数缓存，清空容器
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseResult.build(500, ExceptionUtil.getStackTrace(e));
+		}
+		return ResponseResult.ok();
+	}
 
 	
 	/**
 	 * 获取用户配置的项
 	 */
-	@Override
+	/*@Override
 	public List<UserConstDic> getUserSetDic(HttpServletRequest request,Map<String, Object> map) {
 		
 		List<UserConstDic> list = new ArrayList<UserConstDic>();
@@ -109,6 +154,26 @@ public class UserConstDicServiceImpl extends BaseServiceImpl implements
 			return list;
 		}
 		return list;
+	}*/
+	@Override
+	public List<UserConstDic> getUserSetDic(HttpServletRequest request,Map<String, Object> map) {
+		
+		List<UserConstDic> list = new ArrayList<UserConstDic>();
+		try {
+			// 获取登录的人员信息
+			ResponseResult result = getUserPsnCodeByRequest(request);
+			// 判断缓存中是否存在
+			if (result.getStatus() == 200) {
+				// 创建map 存取mapper中查询条件的值				
+				map.put("psnCode", result.getData());
+				// 查找用户设置的参数
+				list = userConstDicMapper.selectUserSetDic(map);						
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return list;
+		}
+		return list;
 	}
 
 	/**
@@ -116,7 +181,7 @@ public class UserConstDicServiceImpl extends BaseServiceImpl implements
 	 * @param list
 	 * @param constDic
 	 */
-	private void getConstDicById(List<UserConstDic> list,
+	/*private void getConstDicById(List<UserConstDic> list,
 			UserConstDic constDic) {
 		// 获取到配置的参数主键，形式为：4,5,6,7,8,9,15
 		String constCodes = constDic.getCostCode();
@@ -134,18 +199,18 @@ public class UserConstDicServiceImpl extends BaseServiceImpl implements
 			// 添加进集合
 			list.add(userConstDic);
 		}
-	}
+	}*/
 	/**
 	 * comboBox添加请选择一栏
 	 * @param list
 	 */
-	private void addComboxValue(List<UserConstDic> list) {
+	/*private void addComboxValue(List<UserConstDic> list) {
 		UserConstDic constDic = new UserConstDic();
 		// 添加请选择项
 		constDic.setCostCode("0");
 		constDic.setCostName("请选择");
 		list.add(constDic);
-	}
+	}*/
 
 	/**
 	 * 获取用户配置损益、分类
@@ -171,20 +236,16 @@ public class UserConstDicServiceImpl extends BaseServiceImpl implements
 				// 通过健去获取缓存中的值
 				ValueWrapper valueWrapper = uDicCache.get(cacheKey);  
 				if (valueWrapper == null) {
-					// 损益分类这个不需要请选择项,用 ==去判断会出现不等情况，用字符串比较方法equals			
-					if(!cacheType.equals(PROFIT_LOSS_CACHETYPE)){	
-						// comboBox添加请选择一栏	
-						addComboxValue(list);
-					}
+					// 损益分类这个不需要请选择项,用 ==去判断会出现不等情况，用字符串比较方法equals		
 					// 第一次加载，从数据库取;								
 					map.put("psnCode", psnCode);
-					// 查找用户设置的参数
-					UserConstDic constDic = userConstDicMapper.selectProfitLossPayIncomType(map);
-					if (constDic == null) {
-						return list;
-					}
-					// 根据用户配置的常数id,获取常熟字典的信息	
-					getConstDicById(list, constDic);
+					if(!cacheType.equals(PROFIT_LOSS_CACHETYPE)){	
+						// comboBox添加请选择一栏						
+						list = userConstDicMapper.selectPayIncomType(map);
+					}else {
+						// 查找用户设置的参数 拼接
+						list = userConstDicMapper.selectProfitLossType(map);
+					}					
 					// 加入缓存
 					uDicCache.put(cacheKey, JsonUtils.objectToJson(list));
 				}else {
@@ -198,6 +259,28 @@ public class UserConstDicServiceImpl extends BaseServiceImpl implements
 			return list;
 		}
 		return list;
+	}
+	
+	/**
+	 * 添加用户配置项中的期初金额
+	 */
+
+
+	@Override
+	public ResponseResult saveBeginMoney(List<UserConstDic> list,
+			HttpServletRequest request, String itemKey) {
+		try {
+			for (UserConstDic userConstDic : list) {
+				UserConstDicExample example = new UserConstDicExample();
+				Criteria criteria = example.createCriteria();
+				criteria.andIdEqualTo(userConstDic.getId());
+				userConstDicMapper.updateByExampleSelective(userConstDic, example);
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+			ResponseResult.build(500, ExceptionUtil.getStackTrace(e));
+		}
+		return ResponseResult.ok();
 	}
 	
 	

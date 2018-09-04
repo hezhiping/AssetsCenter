@@ -11,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.assets.common.utils.JsonUtils;
 import com.assets.common.utils.ResponseResult;
 import com.assets.pojo.UserConstDic;
 import com.assets.service.UserConstDicService;
@@ -72,6 +75,20 @@ public class UserConstDicController {
 	}
 
 	/**
+	 * 添加用户配置的支出项 /assets/UserConstDic/AddUserPayDic/" + ids
+	 */
+	@RequestMapping(value = "/UserConstDic/AddUserPayDic/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult AddUserPayDic(@PathVariable String ids,
+			HttpServletRequest request) {
+		// 传入为支出项的类型 PAY_ITEM_KEY
+		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
+				PAY_ITEM_KEY);
+		return result;
+	}
+
+	
+	/**
 	 * 获取用户配置的收入项 /assets/UserConstDic/getUserPayDic
 	 */
 	@RequestMapping("UserConstDic/getUserIncomDic")
@@ -85,6 +102,20 @@ public class UserConstDicController {
 		return list;
 	}
 
+	/**
+	 * 添加用户配置的收入项 /assets/UserConstDic/AddUserIncomDic/" + ids
+	 */
+	@RequestMapping(value = "/UserConstDic/AddUserIncomDic/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult AddUserIncomDic(@PathVariable String ids,
+			HttpServletRequest request) {
+		// 传入为收入项的类型 INCOM_ITEM_KEY
+		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
+				INCOM_ITEM_KEY);
+		return result;
+	}
+	
+	
 	/**
 	 * 获取用户配置的银行卡 /assets/UserConstDic/getUserBankCardDic
 	 */
@@ -100,7 +131,34 @@ public class UserConstDicController {
 	}
 
 	/**
-	 * 获取用户配置的线上银行 /assets/UserConstDic/getUserOlineBankDic
+	 * 添加用户配置的银行卡 /assets/UserConstDic/AddUserBankCardDic/" + ids
+	 */
+	@RequestMapping(value = "/UserConstDic/AddUserBankCardDic/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult AddUserBankCardDic(@PathVariable String ids,
+			HttpServletRequest request) {
+		// 传入为支出项的类型 PAY_ITEM_KEY
+		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
+				BANK_CARD_KEY);
+		return result;
+	}
+	
+	/**
+	 * 保存用户配置的银行卡期初金额   /assets/UserConstDic/saveBankCardBeginMoney
+	 */	
+	@RequestMapping(value = "/UserConstDic/saveBankCardBeginMoney", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult saveBankCardBeginMoney(@RequestBody String json,
+			HttpServletRequest request) {
+		List<UserConstDic> list = JsonUtils.jsonToList(json, UserConstDic.class);
+		// 传入为支出项的类型 PAY_ITEM_KEY
+		ResponseResult result = userConstDicService.saveBeginMoney(list, request,
+				CREDIT_LOAN_KEY);
+		return result;
+	}
+	
+	/**
+	 * 获取用户配置的线上支付方式 /assets/UserConstDic/getUserOlineBankDic
 	 */
 	@RequestMapping("UserConstDic/getUserOlineBankDic")
 	@ResponseBody
@@ -114,6 +172,33 @@ public class UserConstDicController {
 	}
 
 	/**
+	 * 添加用户配置的线上支付方式 /assets/UserConstDic/AddUserOlineBankDic/" + ids
+	 */
+	@RequestMapping(value = "/UserConstDic/AddUserOlineBankDic/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult AddUserOlineBankDic(@PathVariable String ids,
+			HttpServletRequest request) {
+		// 传入为支出项的类型 PAY_ITEM_KEY
+		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
+				ONLINE_BANK_KEY);
+		return result;
+	}
+
+	/**
+	 * 保存用户配置的线上支付方式期初金额  /assets/UserConstDic/saveOlineBankBeginMoney
+	 */	
+	@RequestMapping(value = "/UserConstDic/saveOlineBankBeginMoney", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult saveOlineBankBeginMoney(@RequestBody String json,
+			HttpServletRequest request) {
+		List<UserConstDic> list = JsonUtils.jsonToList(json, UserConstDic.class);
+		// 传入为支出项的类型 PAY_ITEM_KEY
+		ResponseResult result = userConstDicService.saveBeginMoney(list, request,
+				CREDIT_LOAN_KEY);
+		return result;
+	}
+	
+	/**
 	 * 获取用户配置的不计损益项 /assets/UserConstDic/getUserNoLossDic
 	 */
 	@RequestMapping("UserConstDic/getUserNoLossDic")
@@ -126,6 +211,20 @@ public class UserConstDicController {
 				map);
 		return list;
 	}
+	
+	/**
+	 * 添加用户配置的不计损益项 /assets/UserConstDic/AddUserNoLossDic/" + ids
+	 */
+	@RequestMapping(value = "/UserConstDic/AddUserNoLossDic/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult AddUserNoLossDic(@PathVariable String ids,
+			HttpServletRequest request) {
+		// 传入为支出项的类型 PAY_ITEM_KEY
+		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
+				NOLOSS_ITEM_KEY);
+		return result;
+	}
+
 
 	/**
 	 * 获取用户配置的信用借款项 /assets/UserConstDic/getUserCreditLoanDic
@@ -153,72 +252,21 @@ public class UserConstDicController {
 				CREDIT_LOAN_KEY);
 		return result;
 	}
-
-	/**
-	 * 添加用户配置的不计损益项 /assets/UserConstDic/AddUserNoLossDic/" + ids
-	 */
-	@RequestMapping(value = "/UserConstDic/AddUserNoLossDic/{ids}", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseResult AddUserNoLossDic(@PathVariable String ids,
-			HttpServletRequest request) {
-		// 传入为支出项的类型 PAY_ITEM_KEY
-		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
-				NOLOSS_ITEM_KEY);
-		return result;
-	}
-
-	/**
-	 * 添加用户配置的线上银行 /assets/UserConstDic/AddUserOlineBankDic/" + ids
-	 */
-	@RequestMapping(value = "/UserConstDic/AddUserOlineBankDic/{ids}", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseResult AddUserOlineBankDic(@PathVariable String ids,
-			HttpServletRequest request) {
-		// 传入为支出项的类型 PAY_ITEM_KEY
-		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
-				ONLINE_BANK_KEY);
-		return result;
-	}
-
-	/**
-	 * 添加用户配置的银行卡 /assets/UserConstDic/AddUserBankCardDic/" + ids
-	 */
-	@RequestMapping(value = "/UserConstDic/AddUserBankCardDic/{ids}", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseResult AddUserBankCardDic(@PathVariable String ids,
-			HttpServletRequest request) {
-		// 传入为支出项的类型 PAY_ITEM_KEY
-		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
-				BANK_CARD_KEY);
-		return result;
-	}
-
-	/**
-	 * 添加用户配置的支出项 /assets/UserConstDic/AddUserPayDic/" + ids
-	 */
-	@RequestMapping(value = "/UserConstDic/AddUserPayDic/{ids}", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseResult AddUserPayDic(@PathVariable String ids,
-			HttpServletRequest request) {
-		// 传入为支出项的类型 PAY_ITEM_KEY
-		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
-				PAY_ITEM_KEY);
-		return result;
-	}
-
-	/**
-	 * 添加用户配置的支出项 /assets/UserConstDic/AddUserIncomDic/" + ids
-	 */
-	@RequestMapping(value = "/UserConstDic/AddUserIncomDic/{ids}", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseResult AddUserIncomDic(@PathVariable String ids,
-			HttpServletRequest request) {
-		// 传入为收入项的类型 INCOM_ITEM_KEY
-		ResponseResult result = userConstDicService.AddUserSetDic(ids, request,
-				INCOM_ITEM_KEY);
-		return result;
-	}
 	
+	/**
+	 * 保存用户配置的信用借款期初金额  /assets/UserConstDic/saveCreditLoanBeginMoney
+	 */	
+	@RequestMapping(value = "/UserConstDic/saveCreditLoanBeginMoney", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseResult saveCreditLoanBeginMoney(@RequestBody String json,
+			HttpServletRequest request) {
+		List<UserConstDic> list = JsonUtils.jsonToList(json, UserConstDic.class);
+		// 传入为支出项的类型 PAY_ITEM_KEY
+		ResponseResult result = userConstDicService.saveBeginMoney(list, request,
+				CREDIT_LOAN_KEY);
+		return result;
+	}
+
 	/**
 	 * 获取用户配置的损益分类 /assets/UserConstDic/getProfitLossType
 	 * 合并列值: category IN ('2_ZCX','3_SRX','4_BJSY')

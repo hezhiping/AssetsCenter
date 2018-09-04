@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.druid.sql.visitor.functions.Ucase;
 import com.assets.common.pojo.EasyUIDataGridResult;
 import com.assets.common.utils.DateUtilHelp;
 import com.assets.common.utils.ResponseResult;
@@ -77,24 +78,26 @@ public class CreditLoanServiceImpl extends BaseServiceImpl implements
 				map.put("currentYear", curYear); // 当前年
 				map.put("currentMonth", curMonth); // 当前月
 				// TODO 上个月的记录  这个要判断是否是年初  ，是的话要取上一年的 和月份都得改
-				UserConstDic userSetDic = userConstMapper.selectUserSetDic(map);
+				//UserConstDic userSetDic = userConstMapper.selectUserSetDic(map);
+				List<UserConstDic> dicList = userConstMapper.selectUserSetDic(map);
 				
 				// 4. 将数据以，分割
-				String[] arrConst = userSetDic.getCostCode().split(",");
+				//String[] arrConst = userSetDic.getCostCode().split(",");
+				
 				// 5. 创建 creditLoan List
 				List<CreditLoan> list = new ArrayList<CreditLoan>();	
 				// 6. 循环取数据
-				for (String consId : arrConst) {
+				for (UserConstDic ucDic : dicList) {
 					CreditLoan creditLoan = new CreditLoan();
 					// 根据key 查找 名称name
-					String constName = dictionaryMapper.selectNameByPrimaryKey(Integer.valueOf(consId));
-					
+					//String constName = dictionaryMapper.selectNameByPrimaryKey(Integer.valueOf(consId));
+					String constName = ucDic.getCostName();
 					// 6.1 拿到配置项去fundChange表中获取 
 					// TODO  6.1.0 当前借款项的期初
 					BigDecimal beginBalance = new BigDecimal(0.00) ;
 					beginTotal = beginTotal.add(beginBalance);
 					// 6.1.1 当前借款项的支出总和
-					map.put("payConsCode", consId);
+					map.put("payConsCode", ucDic.getCostCode());
 					BigDecimal paySum = new BigDecimal(0.00) ;
 					Map<String, Object> paySumInfo = fundChangeMapper.selectPaySumByConsCode(map);
 					if (paySumInfo != null) {
@@ -104,7 +107,7 @@ public class CreditLoanServiceImpl extends BaseServiceImpl implements
 						}
 					}			
 					// 6.1.2 当前借款项的偿还总和
-					map.put("repayConsCode", consId);
+					map.put("repayConsCode", ucDic.getCostCode());
 					BigDecimal repaySum = new BigDecimal(0.00) ;
 					Map<String, Object> repaySumInfo = fundChangeMapper.selectRepaySumByConsCode(map);
 					if (repaySumInfo != null) {
@@ -181,27 +184,28 @@ public class CreditLoanServiceImpl extends BaseServiceImpl implements
 				map.put("currentYear", curYear); // 当前年
 				map.put("currentMonth", curMonth); // 当前月
 				// TODO 上个月的记录  这个要判断是否是年初  ，是的话要取上一年的 和月份都得改
-				UserConstDic userSetDic = userConstMapper.selectUserSetDic(map);
-				
+				//UserConstDic userSetDic = userConstMapper.selectUserSetDic(map);
+				List<UserConstDic> dicList = userConstMapper.selectUserSetDic(map);
 				// 4. 将数据以，分割
-				String[] arrConst = userSetDic.getCostCode().split(",");
+				//String[] arrConst = userSetDic.getCostCode().split(",");
 				// 5. 创建 creditLoan List
 				List<CreditLoan> list = new ArrayList<CreditLoan>();	
 				// 6. 循环取数据
-				for (String consId : arrConst) {
+				for (UserConstDic ucDic : dicList) {
 					CreditLoan creditLoan = new CreditLoan();
 					// 根据key 查找 名称name
-					String constName = dictionaryMapper.selectNameByPrimaryKey(Integer.valueOf(consId));
-					
+					//String constName = dictionaryMapper.selectNameByPrimaryKey(Integer.valueOf(consId));
+					String constName = ucDic.getCostName();
+							
 					// 6.1 拿到配置项去fundChange表中获取 
 					// TODO  6.1.0 当前借款项的期初
 					BigDecimal beginBalance = new BigDecimal(0.00) ;
 					beginTotal = beginTotal.add(beginBalance);
 					// 信用额度
-					BigDecimal creditAmount = new BigDecimal(10000.00) ;
+					BigDecimal creditAmount = ucDic.getBeginMoney();					
 					creditAmtTotal = creditAmtTotal.add(creditAmount);
 					// 6.1.1 当前借款项的支出总和
-					map.put("payConsCode", consId);
+					map.put("payConsCode", ucDic.getCostCode());
 					BigDecimal paySum = new BigDecimal(0.00) ;
 					Map<String, Object> paySumInfo = fundChangeMapper.selectPaySumByConsCode(map);
 					if (paySumInfo != null) {
@@ -211,7 +215,7 @@ public class CreditLoanServiceImpl extends BaseServiceImpl implements
 						}
 					}			
 					// 6.1.2 当前借款项的偿还总和
-					map.put("repayConsCode", consId);
+					map.put("repayConsCode", ucDic.getCostCode());
 					BigDecimal repaySum = new BigDecimal(0.00) ;
 					Map<String, Object> repaySumInfo = fundChangeMapper.selectRepaySumByConsCode(map);
 					if (repaySumInfo != null) {

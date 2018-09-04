@@ -1,5 +1,6 @@
 package com.assets.pojo;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -361,6 +362,66 @@ public class UserConstDicExample {
 
         public Criteria andIdNotBetween(Integer value1, Integer value2) {
             addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeginMoneyIsNull() {
+            addCriterion("begin_money is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeginMoneyIsNotNull() {
+            addCriterion("begin_money is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeginMoneyEqualTo(BigDecimal value) {
+            addCriterion("begin_money =", value, "beginMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeginMoneyNotEqualTo(BigDecimal value) {
+            addCriterion("begin_money <>", value, "beginMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeginMoneyGreaterThan(BigDecimal value) {
+            addCriterion("begin_money >", value, "beginMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeginMoneyGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("begin_money >=", value, "beginMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeginMoneyLessThan(BigDecimal value) {
+            addCriterion("begin_money <", value, "beginMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeginMoneyLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("begin_money <=", value, "beginMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeginMoneyIn(List<BigDecimal> values) {
+            addCriterion("begin_money in", values, "beginMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeginMoneyNotIn(List<BigDecimal> values) {
+            addCriterion("begin_money not in", values, "beginMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeginMoneyBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("begin_money between", value1, value2, "beginMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeginMoneyNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("begin_money not between", value1, value2, "beginMoney");
             return (Criteria) this;
         }
     }

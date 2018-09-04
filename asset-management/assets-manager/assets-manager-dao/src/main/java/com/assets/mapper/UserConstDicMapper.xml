@@ -5,7 +5,9 @@
     <result column="category" property="category" jdbcType="VARCHAR" />
     <result column="psn_code" property="psnCode" jdbcType="DECIMAL" />
     <result column="cost_code" property="costCode" jdbcType="VARCHAR" />
-    <result column="zh_cn_caption" property="costName" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="begin_money" property="beginMoney" jdbcType="DECIMAL" />
+     <result column="zh_cn_caption" property="costName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    category, psn_code, cost_code
+    category, psn_code, cost_code, id, begin_money
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.UserConstDicExample" >
     select
@@ -89,10 +91,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.assets.pojo.UserConstDic" >
-    insert into user_const_dic (category, psn_code, cost_code
-      )
-    values (#{category,jdbcType=VARCHAR}, #{psnCode,jdbcType=DECIMAL}, #{costCode,jdbcType=VARCHAR}
-      )
+    insert into user_const_dic (category, psn_code, cost_code, 
+      id, begin_money)
+    values (#{category,jdbcType=VARCHAR}, #{psnCode,jdbcType=DECIMAL}, #{costCode,jdbcType=VARCHAR}, 
+      #{id,jdbcType=INTEGER}, #{beginMoney,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.assets.pojo.UserConstDic" >
     insert into user_const_dic
@@ -106,6 +108,12 @@
       <if test="costCode != null" >
         cost_code,
       </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="beginMoney != null" >
+        begin_money,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="category != null" >
@@ -116,6 +124,12 @@
       </if>
       <if test="costCode != null" >
         #{costCode,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="beginMoney != null" >
+        #{beginMoney,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -137,6 +151,12 @@
       <if test="record.costCode != null" >
         cost_code = #{record.costCode,jdbcType=VARCHAR},
       </if>
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.beginMoney != null" >
+        begin_money = #{record.beginMoney,jdbcType=DECIMAL},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -146,25 +166,39 @@
     update user_const_dic
     set category = #{record.category,jdbcType=VARCHAR},
       psn_code = #{record.psnCode,jdbcType=DECIMAL},
-      cost_code = #{record.costCode,jdbcType=VARCHAR}
+      cost_code = #{record.costCode,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=INTEGER},
+      begin_money = #{record.beginMoney,jdbcType=DECIMAL}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   
-  <select id="selectUserSetDic" resultMap="BaseResultMap" parameterType="map" >   
-    SELECT usd.category,usd.psn_code,usd.cost_code
- 	FROM user_const_dic usd 
+  <select id="selectUserSetDic" resultMap="BaseResultMap" parameterType="map" >    
+ 	SELECT usd.id,usd.category,usd.psn_code,usd.cost_code,usd.begin_money,cd.zh_cn_caption
+ 	FROM user_const_dic usd  INNER JOIN const_dictionary cd ON usd.cost_code = cd.cost_code
 	WHERE usd.category =#{category}  AND usd.psn_code = #{psnCode}
   </select>
   
-  <select id="selectProfitLossPayIncomType" resultMap="BaseResultMap" parameterType="map" >   
-   SELECT  GROUP_CONCAT(cost_code SEPARATOR ',') AS cost_code FROM user_const_dic 
-   WHERE  psn_code = #{psnCode} 
-   AND  category IN 
+  <select id="selectProfitLossType" resultMap="BaseResultMap" parameterType="map" >  
+   SELECT usd.cost_code,cd.zh_cn_caption FROM user_const_dic usd  INNER JOIN const_dictionary cd ON usd.cost_code = cd.cost_code
+   WHERE  usd.psn_code = #{psnCode} 
+   AND  usd.category IN 
     <foreach collection="profitLossPayIncomTypeList" index="index" item="category" open="(" separator="," close=")">
               #{category}       
 	</foreach>  
+	
   </select>
   
+  <select id="selectPayIncomType" resultMap="BaseResultMap" parameterType="map" > 
+   SELECT '0' AS cost_code,'请选择' AS zh_cn_caption  
+   UNION 
+   (SELECT usd.cost_code,cd.zh_cn_caption FROM user_const_dic usd  INNER JOIN const_dictionary cd ON usd.cost_code = cd.cost_code
+   WHERE  usd.psn_code = #{psnCode} 
+   AND  usd.category IN 
+    <foreach collection="profitLossPayIncomTypeList" index="index" item="category" open="(" separator="," close=")">
+              #{category}       
+	</foreach>  
+	)
+  </select>
 </mapper>

@@ -1,5 +1,7 @@
 package com.assets.pojo;
 
+import java.math.BigDecimal;
+
 public class UserConstDic {
     private String category;
 
@@ -8,6 +10,8 @@ public class UserConstDic {
     private String costCode;
 
     private Integer id;
+
+    private BigDecimal beginMoney;
 
     public String getCategory() {
         return category;
@@ -39,5 +43,13 @@ public class UserConstDic {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public BigDecimal getBeginMoney() {
+        return beginMoney;
+    }
+
+    public void setBeginMoney(BigDecimal beginMoney) {
+        this.beginMoney = beginMoney;
     }
 }
