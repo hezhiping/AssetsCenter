@@ -109,14 +109,15 @@ CREATE TABLE `credit_loan` (
   `psn_code` int(11) DEFAULT NULL COMMENT '用户编号',
   `current_year` varchar(10) DEFAULT NULL COMMENT '当前年',
   `current_month` varchar(10) DEFAULT NULL COMMENT '当前月',
-  `credit_exposure` decimal(18,2) DEFAULT NULL COMMENT '信用敞口',
-  `credit_amount` decimal(18,2) DEFAULT NULL COMMENT '信用额度',
-  `opening_balance` decimal(18,2) DEFAULT NULL COMMENT '期初余额',
-  `current_use` decimal(18,2) DEFAULT NULL COMMENT '本期使用',
-  `current_repay` decimal(18,2) DEFAULT NULL COMMENT '本期偿还',
-  `ending_balance` decimal(18,2) DEFAULT NULL COMMENT '期末余额',
+  `credit_exposure` decimal(18,2) unsigned zerofill DEFAULT NULL COMMENT '信用敞口',
+  `credit_amount` decimal(18,2) unsigned zerofill DEFAULT NULL COMMENT '信用额度',
+  `opening_balance` decimal(18,2) unsigned zerofill DEFAULT NULL COMMENT '期初余额',
+  `current_use` decimal(18,2) unsigned zerofill DEFAULT NULL COMMENT '本期使用',
+  `current_repay` decimal(18,2) unsigned zerofill DEFAULT NULL COMMENT '本期偿还',
+  `ending_balance` decimal(18,2) unsigned zerofill DEFAULT NULL COMMENT '期末余额',
   `tag_status` char(1) DEFAULT NULL COMMENT '状态',
   `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `cost_code` int(11) NOT NULL COMMENT '信用借款项',
   PRIMARY KEY (`id`),
   KEY `FK_Reference_13` (`psn_code`),
   CONSTRAINT `FK_Reference_13` FOREIGN KEY (`psn_code`) REFERENCES `person` (`psn_code`)
@@ -129,18 +130,21 @@ CREATE TABLE `credit_loan` (
 DROP TABLE IF EXISTS `currency_fund`;
 
 CREATE TABLE `currency_fund` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `psn_code` int(11) DEFAULT NULL,
-  `current_month` varchar(10) DEFAULT NULL,
-  `opening_balance` decimal(18,2) DEFAULT NULL,
-  `period_incom` decimal(18,2) DEFAULT NULL,
-  `period_pay` decimal(18,2) DEFAULT NULL,
-  `ending_balance` decimal(18,2) DEFAULT NULL,
-  `tag_status` char(1) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `current_year` varchar(10) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `psn_code` int(11) DEFAULT NULL COMMENT '所属人员',
+  `current_year` varchar(10) DEFAULT NULL COMMENT '当前年',
+  `current_month` varchar(10) DEFAULT NULL COMMENT '当前月',
+  `opening_balance` decimal(18,2) DEFAULT NULL COMMENT '期初余额',
+  `period_incom` decimal(18,2) DEFAULT NULL COMMENT '本期收到',
+  `period_pay` decimal(18,2) DEFAULT NULL COMMENT '本期支出',
+  `ending_balance` decimal(18,2) DEFAULT NULL COMMENT '期末余额',
+  `tag_status` char(1) DEFAULT NULL COMMENT '状态',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `cost_code` int(11) DEFAULT NULL COMMENT '货币资金项',
   PRIMARY KEY (`id`),
   KEY `FK_Reference_9` (`psn_code`),
+  KEY `FK_Reference_14` (`cost_code`),
+  CONSTRAINT `FK_Reference_14` FOREIGN KEY (`cost_code`) REFERENCES `const_dictionary` (`cost_code`),
   CONSTRAINT `FK_Reference_9` FOREIGN KEY (`psn_code`) REFERENCES `person` (`psn_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -191,59 +195,63 @@ CREATE TABLE `fund_change` (
   PRIMARY KEY (`id`),
   KEY `FK_Reference_10` (`psn_code`),
   CONSTRAINT `FK_Reference_10` FOREIGN KEY (`psn_code`) REFERENCES `person` (`psn_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 /*Data for the table `fund_change` */
 
-insert  into `fund_change`(`id`,`psn_code`,`current_month`,`consume_date`,`item`,`money`,`profit_loss_sort`,`pay_mode`,`pay_money`,`incom_mode`,`incom_money`,`create_date`,`tag_status`,`current_year`) values (1,1,'08',NULL,'12',NULL,'6',NULL,NULL,NULL,NULL,NULL,NULL,'2018'),(2,1,'09',NULL,'12',NULL,'7',NULL,NULL,NULL,NULL,NULL,NULL,'2018');
+insert  into `fund_change`(`id`,`psn_code`,`current_month`,`consume_date`,`item`,`money`,`profit_loss_sort`,`pay_mode`,`pay_money`,`incom_mode`,`incom_money`,`create_date`,`tag_status`,`current_year`) values (1,1,'09','2018-08-17','第0次','-12.00','5','19','20.00','20','32.00',NULL,NULL,'2018'),(2,1,'09',NULL,'12','-10.00','7','21','4.00','24',NULL,NULL,NULL,'2018'),(3,1,'09','2018-08-16','第一次','10.00','4','27','10.00','','0.00',NULL,NULL,'2018'),(4,1,'09','2018-08-16','第二次','10.00','4','22','10.00','','0.00',NULL,NULL,'2018'),(5,1,'09','2018-08-17','第四次','-22.00','5','19','12.00','19','34.00',NULL,NULL,'2018'),(6,1,'09','2018-08-17','第五次','22.00','5','19','22.00','','0.00','2018-08-17 10:29:00',NULL,'2018'),(7,1,'09','2018-08-17','第六次','10.00','4','26','10.00','','0.00',NULL,NULL,'2018'),(8,1,'09','2018-08-18','第七次','20.00','6','22','20.00','','0.00','2018-08-17 15:38:12',NULL,'2018'),(9,1,'09','2018-08-19','第八次','100.00','7','22','100.00','0','0.00','2018-08-17 15:39:56',NULL,'2018'),(10,1,'09','2018-08-20','第九次','-10.00','11','23','10.00','22','20.00',NULL,NULL,'2018'),(11,1,'09','2018-08-20','第十次','23.00','5','19','23.00','','0.00',NULL,NULL,'2018'),(12,1,'09','2018-08-21','qq','12.00','5','19','12.00','','0.00','2018-08-20 13:44:04',NULL,'2018'),(13,1,'09','2018-08-21','ww','34.00','6','20','34.00','','0.00','2018-08-20 13:44:04',NULL,'2018'),(14,1,'09','2018-09-04','就越','10.00','4','22','10.00','22','0.00','2018-09-04 10:45:02',NULL,'2018'),(15,1,'09','2018-09-03','九月','10.00','4','23','10.00','','0.00','2018-09-04 10:45:29',NULL,'2018'),(16,1,'09','2018-09-04','dsf','8.00','5','25','10.00','24','2.00','2018-09-04 11:02:17',NULL,'2018'),(17,1,'09','2018-09-04','fdf','10.00','4','22','10.00','','0.00','2018-09-04 11:02:17',NULL,'2018');
 
 /*Table structure for table `invest_bank` */
 
 DROP TABLE IF EXISTS `invest_bank`;
 
 CREATE TABLE `invest_bank` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `psn_code` int(11) DEFAULT NULL,
-  `invest_code` int(11) DEFAULT NULL,
-  `current_month` varchar(10) DEFAULT NULL,
-  `invest_name` varchar(200) DEFAULT NULL,
-  `invest_date` date DEFAULT NULL,
-  `invest_type` varchar(20) DEFAULT NULL,
-  `invest_money` decimal(18,2) DEFAULT NULL,
-  `invest_profit` decimal(18,2) DEFAULT NULL,
-  `invest_profit_date` date DEFAULT NULL,
-  `annualized_rate_return` varchar(50) DEFAULT NULL,
-  `tag_status` char(1) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `current_year` varchar(10) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `psn_code` int(11) DEFAULT NULL COMMENT '人员编号',
+  `invest_code` int(11) DEFAULT NULL COMMENT '投资项目的代码',
+  `current_month` varchar(10) DEFAULT NULL COMMENT '当前月',
+  `invest_name` varchar(200) DEFAULT NULL COMMENT '投资项',
+  `invest_date` date DEFAULT NULL COMMENT '投资日期',
+  `invest_type` varchar(20) DEFAULT NULL COMMENT '投资类型',
+  `invest_money` decimal(18,2) DEFAULT NULL COMMENT '投资金额',
+  `invest_profit` decimal(18,2) DEFAULT NULL COMMENT '投资收益',
+  `invest_profit_date` date DEFAULT NULL COMMENT '投资收益日期',
+  `annualized_rate_return` varchar(50) DEFAULT NULL COMMENT '年化收益率',
+  `tag_status` char(1) DEFAULT NULL COMMENT '状态',
+  `create_date` datetime DEFAULT NULL COMMENT '创建日期',
+  `current_year` varchar(10) DEFAULT NULL COMMENT '当前年',
   PRIMARY KEY (`id`),
   KEY `FK_Reference_4` (`psn_code`),
   CONSTRAINT `FK_Reference_4` FOREIGN KEY (`psn_code`) REFERENCES `person` (`psn_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 /*Data for the table `invest_bank` */
+
+insert  into `invest_bank`(`id`,`psn_code`,`invest_code`,`current_month`,`invest_name`,`invest_date`,`invest_type`,`invest_money`,`invest_profit`,`invest_profit_date`,`annualized_rate_return`,`tag_status`,`create_date`,`current_year`) values (1,1,1,'08','1','2018-08-21','1','1.00','1.00','2018-08-21','1','T','2018-08-20 20:47:40','2018'),(2,1,2,'08','2','2018-08-20','2','2.00','2.00','2018-08-21','365.000','T',NULL,'2018'),(3,1,3,'08','3','2018-08-20','3','3.00','3.00','2018-08-20','365.000','F',NULL,'2018'),(4,1,4,'08','4','2018-08-21','4','4.00','4.00','2018-08-21','365.000','F',NULL,'2018'),(5,1,454,'08','4545','2018-08-21','45','10.00','5.00','2018-09-21','5.887','F',NULL,'2018'),(6,1,555,'08','5555','2018-08-01','555','10.00','5.00','2018-09-01','5.887','F',NULL,'2018'),(7,1,666,'08','666','2018-08-01','666','10.00','5.00','2018-09-01','5.887096774193548','F','2018-08-21 11:51:56','2018'),(8,1,777,'08','777','2018-08-01','777','10.00','5.00','2018-09-01','5.887','F',NULL,'2018'),(9,1,88,'08','888','2018-08-01','888','10.00','5.00','2018-09-01','5.887','F','2018-08-21 13:46:36','2018'),(10,1,999,'08','999','2018-08-21','999','10.00','2.00','2018-09-21','2.355','F',NULL,'2018'),(11,1,12,'08','12','2018-08-21','12','12.00','3.00','2018-08-22','91.250','F',NULL,'2018'),(12,1,13,'08','13','2018-08-21','13','13.00','3.00','2018-08-22','84.23076923076924','F','2018-08-21 14:02:31','2018'),(13,1,14,'08','14','2018-08-21','14','14.00','4.00','2018-08-21','104.290','F','2018-08-21 15:03:53','2018');
 
 /*Table structure for table `pay_collection` */
 
 DROP TABLE IF EXISTS `pay_collection`;
 
 CREATE TABLE `pay_collection` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `psn_code` int(11) DEFAULT NULL,
-  `current_month` varchar(10) DEFAULT NULL,
-  `receipt_item` varchar(500) DEFAULT NULL,
-  `receipt_date` date DEFAULT NULL,
-  `person` varchar(200) DEFAULT NULL,
-  `receipt_pay` decimal(18,2) DEFAULT NULL,
-  `tag_status` char(1) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `current_year` varchar(10) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `psn_code` int(11) DEFAULT NULL COMMENT '人员编号',
+  `current_month` varchar(10) DEFAULT NULL COMMENT '当前月份',
+  `receipt_item` varchar(500) DEFAULT NULL COMMENT '垫付事项',
+  `receipt_date` date DEFAULT NULL COMMENT '垫付时间',
+  `person` varchar(200) DEFAULT NULL COMMENT '给谁垫付，填名称',
+  `receipt_pay` decimal(18,2) DEFAULT NULL COMMENT '垫付的金额',
+  `tag_status` char(1) DEFAULT NULL COMMENT '状态',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `current_year` varchar(10) DEFAULT NULL COMMENT '当前年',
   PRIMARY KEY (`id`),
   KEY `FK_Reference_6` (`psn_code`),
   CONSTRAINT `FK_Reference_6` FOREIGN KEY (`psn_code`) REFERENCES `person` (`psn_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 /*Data for the table `pay_collection` */
+
+insert  into `pay_collection`(`id`,`psn_code`,`current_month`,`receipt_item`,`receipt_date`,`person`,`receipt_pay`,`tag_status`,`create_date`,`current_year`) values (1,NULL,'08','qqqqqq','2018-08-20','434','63.00',NULL,NULL,'2018'),(2,1,'08','wer','2018-08-21','er','33.00',NULL,'2018-08-20 14:05:37','2018'),(3,1,'08','wer','2018-08-21','er','33.00',NULL,'2018-08-20 14:05:37','2018'),(4,1,'08','wer','2018-08-21','er','33.35',NULL,'2018-08-20 14:05:37','2018'),(5,1,'08','wer','2018-08-21','er','33.00',NULL,'2018-08-20 14:05:37','2018'),(6,1,'08','wer','2018-08-21','er','33.00',NULL,'2018-08-20 14:05:37','2018'),(7,1,'08','wer','2018-08-21','er','33.00',NULL,'2018-08-20 14:05:37','2018'),(8,1,'08','wer','2018-08-21','er','33.00',NULL,'2018-08-20 14:05:37','2018'),(9,1,'08','wer','2018-08-21','er','33.00',NULL,'2018-08-20 14:05:37','2018'),(10,1,'08','wer','2018-08-21','er','33.00',NULL,'2018-08-20 14:05:37','2018'),(11,1,'08','wer','2018-08-21','er','33.00',NULL,'2018-08-20 14:05:37','2018'),(12,1,'08','qqqqqq','2018-08-20','434','63.00',NULL,'2018-08-20 17:38:34','2018');
 
 /*Table structure for table `person` */
 
@@ -284,24 +292,26 @@ insert  into `person`(`psn_code`,`cname`,`fname`,`lname`,`gender`,`title_no`,`or
 DROP TABLE IF EXISTS `personal_loan`;
 
 CREATE TABLE `personal_loan` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `psn_code` int(11) DEFAULT NULL,
-  `current_month` varchar(10) DEFAULT NULL,
-  `lend_person` varchar(100) DEFAULT NULL,
-  `lend_date` date DEFAULT NULL,
-  `lend_money` decimal(18,2) DEFAULT NULL,
-  `accumulate_profit` decimal(18,2) DEFAULT NULL,
-  `going` varchar(500) DEFAULT NULL,
-  `remark` text,
-  `create_date` datetime DEFAULT NULL,
-  `tag_status` char(1) DEFAULT NULL,
-  `current_year` varchar(10) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `psn_code` int(11) DEFAULT NULL COMMENT '人员编号',
+  `current_month` varchar(10) DEFAULT NULL COMMENT '当前月',
+  `lend_person` varchar(100) DEFAULT NULL COMMENT '出借人',
+  `lend_date` date DEFAULT NULL COMMENT '出借日期',
+  `lend_money` decimal(18,2) DEFAULT NULL COMMENT '借款金额',
+  `accumulate_profit` decimal(18,2) DEFAULT NULL COMMENT '累计收益',
+  `going` varchar(500) DEFAULT NULL COMMENT '投向哪',
+  `remark` text COMMENT '备注',
+  `create_date` datetime DEFAULT NULL COMMENT '创建日期',
+  `tag_status` char(1) DEFAULT NULL COMMENT '状态',
+  `current_year` varchar(10) DEFAULT NULL COMMENT '当前年',
   PRIMARY KEY (`id`),
   KEY `FK_Reference_7` (`psn_code`),
   CONSTRAINT `FK_Reference_7` FOREIGN KEY (`psn_code`) REFERENCES `person` (`psn_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `personal_loan` */
+
+insert  into `personal_loan`(`id`,`psn_code`,`current_month`,`lend_person`,`lend_date`,`lend_money`,`accumulate_profit`,`going`,`remark`,`create_date`,`tag_status`,`current_year`) values (1,1,'07','dfsg','2018-08-23','34.00','45.00','sdfg','rt','2018-08-23 20:57:57','0','2016'),(2,1,'08','dfsg','2018-08-27','234.00',NULL,'qwer','dsaf','2018-08-27 10:43:32','0','2018');
 
 /*Table structure for table `sys_authoritie` */
 
@@ -368,7 +378,7 @@ CREATE TABLE `sys_resource` (
 
 /*Data for the table `sys_resource` */
 
-insert  into `sys_resource`(`RESOURCE_ID`,`RESOURCE_TYPE`,`VALUE`,`ORDER_NUM`,`PARENT_ID`,`TARGET`,`ZH_CN_NAME`,`STATUS`,`LAVELS`,`REMARK`,`IMG_URL`,`TOTAL_SQL`,`NAV_IMG_URL`,`NAV_ENABLED`,`OLD_TOTAL_SQL`,`ZH_TW_NAME`,`EN_US_NAME`,`FLAG_LAN`,`STMS_MENU_ID`,`CLASS_NAME`) values ('1000','1','/assets/menulist',NULL,'0',NULL,'菜单管理','1',NULL,'菜单管理',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('1010','1','/assets/userlist',NULL,'0',NULL,'用户管理','1',NULL,'用户管理',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('1011','1','/assets/constCategory',NULL,'0',NULL,'数据字典类别','0',NULL,'数字字典类别',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('1012','1','/assets/constDictionary',NULL,'0',NULL,'数据字典信息','1',NULL,'数据字典，存储一些基本数据信息',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2010','2','/assets/personInfo',NULL,'0',NULL,'修改个人信息','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2020','2','',NULL,'0',NULL,'个人参数配置','0',NULL,'配置个人参数，例如使用的银行卡，支付方式等',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2021','2','/assets/payItem',NULL,'2020',NULL,'配置支出项','0',NULL,'生活中会使用到的支出项',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2022','2','/assets/incomItem',NULL,'2020',NULL,'配置收入项','0',NULL,'生活中收入的项',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2023','2','/assets/bankCardItem',NULL,'2020',NULL,'配置银行卡种类','0',NULL,'个人使用的银行卡',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2024','2','/assets/onlineBankItem',NULL,'2020',NULL,'配置线上货币银行','0',NULL,'线上支付的平台，eg:支付宝、微信等',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2025','2','/assets/creditLoanItem',NULL,'2020',NULL,'信用借款','0',NULL,'刷的信用卡、花呗、白条等信用消费',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3030','3','/assets/fundChange',NULL,'0',NULL,'资金变动','0',NULL,'资金流水记录表，所有数据的来源',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3080','3','/assets/fixedAssets',NULL,'0',NULL,'固定资产','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `sys_resource`(`RESOURCE_ID`,`RESOURCE_TYPE`,`VALUE`,`ORDER_NUM`,`PARENT_ID`,`TARGET`,`ZH_CN_NAME`,`STATUS`,`LAVELS`,`REMARK`,`IMG_URL`,`TOTAL_SQL`,`NAV_IMG_URL`,`NAV_ENABLED`,`OLD_TOTAL_SQL`,`ZH_TW_NAME`,`EN_US_NAME`,`FLAG_LAN`,`STMS_MENU_ID`,`CLASS_NAME`) values ('1000','1','/assets/menulist',NULL,'0',NULL,'菜单管理','1',NULL,'菜单管理',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('1010','1','/assets/userlist',NULL,'0',NULL,'用户管理','1',NULL,'用户管理',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('1011','1','/assets/constCategory',NULL,'0',NULL,'数据字典类别','0',NULL,'数字字典类别',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('1012','1','/assets/constDictionary',NULL,'0',NULL,'数据字典信息','1',NULL,'数据字典，存储一些基本数据信息',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2010','2','/assets/personInfo',NULL,'0',NULL,'修改个人信息','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2020','2','',NULL,'0',NULL,'个人参数配置','0',NULL,'配置个人参数，例如使用的银行卡，支付方式等',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2021','2','/assets/payItem',NULL,'2020',NULL,'配置支出项','0',NULL,'生活中会使用到的支出项',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2022','2','/assets/incomItem',NULL,'2020',NULL,'配置收入项','0',NULL,'生活中收入的项',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2023','2','/assets/bankCardItem',NULL,'2020',NULL,'配置银行卡种类','0',NULL,'个人使用的银行卡',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2024','2','/assets/onlineBankItem',NULL,'2020',NULL,'配置线上货币银行','0',NULL,'线上支付的平台，eg:支付宝、微信等',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('2025','2','/assets/creditLoanItem',NULL,'2020',NULL,'信用借款种类','0',NULL,'刷的信用卡、花呗、白条等信用消费',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3010','3','/assets/test',NULL,'0',NULL,'资产负债','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3020','3','/assets/test',NULL,'0',NULL,'资金盈余表','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3030','3','/assets/fundChange',NULL,'0',NULL,'资金变动','0',NULL,'资金流水记录表，所有数据的来源',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3040','3','/assets/test',NULL,'0',NULL,'货币基金','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3050','3','/assets/creditLoan',NULL,'0',NULL,'信用借款','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3060','3','/assets/personalLoan',NULL,'0',NULL,'个人借款','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3070','3','/assets/payCollection',NULL,'0',NULL,'待收款项','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3080','3','/assets/fixedAssets',NULL,'0',NULL,'固定资产','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),('3090','3','/assets/investBank',NULL,'0',NULL,'投资理财','0',NULL,'',NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `sys_resource_authoritie` */
 
@@ -466,12 +476,13 @@ CREATE TABLE `user_const_dic` (
   `psn_code` decimal(18,0) DEFAULT NULL,
   `cost_code` varchar(500) DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增序列',
+  `begin_money` decimal(18,2) DEFAULT NULL COMMENT '期初金额',
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user_const_dic` */
 
-insert  into `user_const_dic`(`category`,`psn_code`,`cost_code`,`id`) values ('2_ZCX','1','4,5,6,7,8,9,15',8),('3_SRX','1','10,11,12,13,14',9),('5_YHKZL','1','19,20,21,26',10),('6_XSYH','1','22,23,24,25',11),('4_BJSY','1','16',12),('7_XYJK','1','27,28,29',13),('2_ZCX','2','1,2,3',14);
+insert  into `user_const_dic`(`category`,`psn_code`,`cost_code`,`id`,`begin_money`) values ('4_BJSY','1','16',12,NULL),('2_ZCX','2','1,2,3',14,NULL),('6_XSYH','1','22',18,'10000.00'),('6_XSYH','1','23',19,'1000.00'),('6_XSYH','1','24',20,'1000.00'),('6_XSYH','1','25',21,'10000.00'),('5_YHKZL','1','18',22,'10000.00'),('5_YHKZL','1','19',23,'10000.00'),('5_YHKZL','1','20',24,'10000.00'),('5_YHKZL','1','21',25,'10000.00'),('5_YHKZL','1','26',26,'10000.00'),('2_ZCX','1','4',32,NULL),('2_ZCX','1','5',33,NULL),('2_ZCX','1','6',34,NULL),('2_ZCX','1','7',35,NULL),('2_ZCX','1','8',36,NULL),('2_ZCX','1','9',37,NULL),('2_ZCX','1','15',38,NULL),('7_XYJK','1','27',39,'10000.00'),('7_XYJK','1','28',40,'10000.00'),('7_XYJK','1','29',41,'0.00'),('3_SRX','1','10',44,NULL),('3_SRX','1','11',45,NULL),('3_SRX','1','12',46,NULL),('3_SRX','1','13',47,NULL),('3_SRX','1','14',48,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

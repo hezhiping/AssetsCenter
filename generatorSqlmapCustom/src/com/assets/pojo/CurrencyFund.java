@@ -8,6 +8,8 @@ public class CurrencyFund {
 
     private Integer psnCode;
 
+    private String currentYear;
+
     private String currentMonth;
 
     private BigDecimal openingBalance;
@@ -22,7 +24,7 @@ public class CurrencyFund {
 
     private Date createDate;
 
-    private String currentYear;
+    private Integer costCode;
 
     public Integer getId() {
         return id;
@@ -38,6 +40,14 @@ public class CurrencyFund {
 
     public void setPsnCode(Integer psnCode) {
         this.psnCode = psnCode;
+    }
+
+    public String getCurrentYear() {
+        return currentYear;
+    }
+
+    public void setCurrentYear(String currentYear) {
+        this.currentYear = currentYear == null ? null : currentYear.trim();
     }
 
     public String getCurrentMonth() {
@@ -96,11 +106,11 @@ public class CurrencyFund {
         this.createDate = createDate;
     }
 
-    public String getCurrentYear() {
-        return currentYear;
+    public Integer getCostCode() {
+        return costCode;
     }
 
-    public void setCurrentYear(String currentYear) {
-        this.currentYear = currentYear == null ? null : currentYear.trim();
+    public void setCostCode(Integer costCode) {
+        this.costCode = costCode;
     }
 }

@@ -8,7 +8,9 @@ public class CurrencyFund {
 
     private Integer psnCode;
 
-    private Date currentMonthDate;
+    private String currentYear;
+
+    private String currentMonth;
 
     private BigDecimal openingBalance;
 
@@ -22,7 +24,19 @@ public class CurrencyFund {
 
     private Date createDate;
 
-    public Integer getId() {
+    private Integer costCode;
+    
+    private String constName;
+
+    public String getConstName() {
+		return constName;
+	}
+
+	public void setConstName(String constName) {
+		this.constName = constName;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -38,12 +52,20 @@ public class CurrencyFund {
         this.psnCode = psnCode;
     }
 
-    public Date getCurrentMonthDate() {
-        return currentMonthDate;
+    public String getCurrentYear() {
+        return currentYear;
     }
 
-    public void setCurrentMonthDate(Date currentMonthDate) {
-        this.currentMonthDate = currentMonthDate;
+    public void setCurrentYear(String currentYear) {
+        this.currentYear = currentYear == null ? null : currentYear.trim();
+    }
+
+    public String getCurrentMonth() {
+        return currentMonth;
+    }
+
+    public void setCurrentMonth(String currentMonth) {
+        this.currentMonth = currentMonth == null ? null : currentMonth.trim();
     }
 
     public BigDecimal getOpeningBalance() {
@@ -92,5 +114,13 @@ public class CurrencyFund {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public Integer getCostCode() {
+        return costCode;
+    }
+
+    public void setCostCode(Integer costCode) {
+        this.costCode = costCode;
     }
 }

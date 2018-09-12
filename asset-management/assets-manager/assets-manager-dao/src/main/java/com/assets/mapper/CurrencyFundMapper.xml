@@ -4,13 +4,15 @@
   <resultMap id="BaseResultMap" type="com.assets.pojo.CurrencyFund" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="psn_code" property="psnCode" jdbcType="INTEGER" />
-    <result column="current_month_date" property="currentMonthDate" jdbcType="DATE" />
+    <result column="current_year" property="currentYear" jdbcType="VARCHAR" />
+    <result column="current_month" property="currentMonth" jdbcType="VARCHAR" />
     <result column="opening_balance" property="openingBalance" jdbcType="DECIMAL" />
     <result column="period_incom" property="periodIncom" jdbcType="DECIMAL" />
     <result column="period_pay" property="periodPay" jdbcType="DECIMAL" />
     <result column="ending_balance" property="endingBalance" jdbcType="DECIMAL" />
     <result column="tag_status" property="tagStatus" jdbcType="CHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="cost_code" property="costCode" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, psn_code, current_month_date, opening_balance, period_incom, period_pay, ending_balance, 
-    tag_status, create_date
+    id, psn_code, current_year, current_month, opening_balance, period_incom, period_pay, 
+    ending_balance, tag_status, create_date, cost_code
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.assets.pojo.CurrencyFundExample" >
     select
@@ -105,14 +107,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.assets.pojo.CurrencyFund" >
-    insert into currency_fund (id, psn_code, current_month_date, 
-      opening_balance, period_incom, period_pay, 
-      ending_balance, tag_status, create_date
-      )
-    values (#{id,jdbcType=INTEGER}, #{psnCode,jdbcType=INTEGER}, #{currentMonthDate,jdbcType=DATE}, 
-      #{openingBalance,jdbcType=DECIMAL}, #{periodIncom,jdbcType=DECIMAL}, #{periodPay,jdbcType=DECIMAL}, 
-      #{endingBalance,jdbcType=DECIMAL}, #{tagStatus,jdbcType=CHAR}, #{createDate,jdbcType=TIMESTAMP}
-      )
+    insert into currency_fund (id, psn_code, current_year, 
+      current_month, opening_balance, period_incom, 
+      period_pay, ending_balance, tag_status, 
+      create_date, cost_code)
+    values (#{id,jdbcType=INTEGER}, #{psnCode,jdbcType=INTEGER}, #{currentYear,jdbcType=VARCHAR}, 
+      #{currentMonth,jdbcType=VARCHAR}, #{openingBalance,jdbcType=DECIMAL}, #{periodIncom,jdbcType=DECIMAL}, 
+      #{periodPay,jdbcType=DECIMAL}, #{endingBalance,jdbcType=DECIMAL}, #{tagStatus,jdbcType=CHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{costCode,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.assets.pojo.CurrencyFund" >
     insert into currency_fund
@@ -123,8 +125,11 @@
       <if test="psnCode != null" >
         psn_code,
       </if>
-      <if test="currentMonthDate != null" >
-        current_month_date,
+      <if test="currentYear != null" >
+        current_year,
+      </if>
+      <if test="currentMonth != null" >
+        current_month,
       </if>
       <if test="openingBalance != null" >
         opening_balance,
@@ -144,6 +149,9 @@
       <if test="createDate != null" >
         create_date,
       </if>
+      <if test="costCode != null" >
+        cost_code,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -152,8 +160,11 @@
       <if test="psnCode != null" >
         #{psnCode,jdbcType=INTEGER},
       </if>
-      <if test="currentMonthDate != null" >
-        #{currentMonthDate,jdbcType=DATE},
+      <if test="currentYear != null" >
+        #{currentYear,jdbcType=VARCHAR},
+      </if>
+      <if test="currentMonth != null" >
+        #{currentMonth,jdbcType=VARCHAR},
       </if>
       <if test="openingBalance != null" >
         #{openingBalance,jdbcType=DECIMAL},
@@ -173,6 +184,9 @@
       <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="costCode != null" >
+        #{costCode,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.assets.pojo.CurrencyFundExample" resultType="java.lang.Integer" >
@@ -190,8 +204,11 @@
       <if test="record.psnCode != null" >
         psn_code = #{record.psnCode,jdbcType=INTEGER},
       </if>
-      <if test="record.currentMonthDate != null" >
-        current_month_date = #{record.currentMonthDate,jdbcType=DATE},
+      <if test="record.currentYear != null" >
+        current_year = #{record.currentYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentMonth != null" >
+        current_month = #{record.currentMonth,jdbcType=VARCHAR},
       </if>
       <if test="record.openingBalance != null" >
         opening_balance = #{record.openingBalance,jdbcType=DECIMAL},
@@ -211,6 +228,9 @@
       <if test="record.createDate != null" >
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.costCode != null" >
+        cost_code = #{record.costCode,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -220,13 +240,15 @@
     update currency_fund
     set id = #{record.id,jdbcType=INTEGER},
       psn_code = #{record.psnCode,jdbcType=INTEGER},
-      current_month_date = #{record.currentMonthDate,jdbcType=DATE},
+      current_year = #{record.currentYear,jdbcType=VARCHAR},
+      current_month = #{record.currentMonth,jdbcType=VARCHAR},
       opening_balance = #{record.openingBalance,jdbcType=DECIMAL},
       period_incom = #{record.periodIncom,jdbcType=DECIMAL},
       period_pay = #{record.periodPay,jdbcType=DECIMAL},
       ending_balance = #{record.endingBalance,jdbcType=DECIMAL},
       tag_status = #{record.tagStatus,jdbcType=CHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      cost_code = #{record.costCode,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -237,8 +259,11 @@
       <if test="psnCode != null" >
         psn_code = #{psnCode,jdbcType=INTEGER},
       </if>
-      <if test="currentMonthDate != null" >
-        current_month_date = #{currentMonthDate,jdbcType=DATE},
+      <if test="currentYear != null" >
+        current_year = #{currentYear,jdbcType=VARCHAR},
+      </if>
+      <if test="currentMonth != null" >
+        current_month = #{currentMonth,jdbcType=VARCHAR},
       </if>
       <if test="openingBalance != null" >
         opening_balance = #{openingBalance,jdbcType=DECIMAL},
@@ -258,19 +283,24 @@
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="costCode != null" >
+        cost_code = #{costCode,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.assets.pojo.CurrencyFund" >
     update currency_fund
     set psn_code = #{psnCode,jdbcType=INTEGER},
-      current_month_date = #{currentMonthDate,jdbcType=DATE},
+      current_year = #{currentYear,jdbcType=VARCHAR},
+      current_month = #{currentMonth,jdbcType=VARCHAR},
       opening_balance = #{openingBalance,jdbcType=DECIMAL},
       period_incom = #{periodIncom,jdbcType=DECIMAL},
       period_pay = #{periodPay,jdbcType=DECIMAL},
       ending_balance = #{endingBalance,jdbcType=DECIMAL},
       tag_status = #{tagStatus,jdbcType=CHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      cost_code = #{costCode,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

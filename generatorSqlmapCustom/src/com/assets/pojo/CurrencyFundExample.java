@@ -226,6 +226,76 @@ public class CurrencyFundExample {
             return (Criteria) this;
         }
 
+        public Criteria andCurrentYearIsNull() {
+            addCriterion("current_year is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearIsNotNull() {
+            addCriterion("current_year is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearEqualTo(String value) {
+            addCriterion("current_year =", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearNotEqualTo(String value) {
+            addCriterion("current_year <>", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearGreaterThan(String value) {
+            addCriterion("current_year >", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearGreaterThanOrEqualTo(String value) {
+            addCriterion("current_year >=", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearLessThan(String value) {
+            addCriterion("current_year <", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearLessThanOrEqualTo(String value) {
+            addCriterion("current_year <=", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearLike(String value) {
+            addCriterion("current_year like", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearNotLike(String value) {
+            addCriterion("current_year not like", value, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearIn(List<String> values) {
+            addCriterion("current_year in", values, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearNotIn(List<String> values) {
+            addCriterion("current_year not in", values, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearBetween(String value1, String value2) {
+            addCriterion("current_year between", value1, value2, "currentYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andCurrentYearNotBetween(String value1, String value2) {
+            addCriterion("current_year not between", value1, value2, "currentYear");
+            return (Criteria) this;
+        }
+
         public Criteria andCurrentMonthIsNull() {
             addCriterion("current_month is null");
             return (Criteria) this;
@@ -666,73 +736,63 @@ public class CurrencyFundExample {
             return (Criteria) this;
         }
 
-        public Criteria andCurrentYearIsNull() {
-            addCriterion("current_year is null");
+        public Criteria andCostCodeIsNull() {
+            addCriterion("cost_code is null");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentYearIsNotNull() {
-            addCriterion("current_year is not null");
+        public Criteria andCostCodeIsNotNull() {
+            addCriterion("cost_code is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentYearEqualTo(String value) {
-            addCriterion("current_year =", value, "currentYear");
+        public Criteria andCostCodeEqualTo(Integer value) {
+            addCriterion("cost_code =", value, "costCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentYearNotEqualTo(String value) {
-            addCriterion("current_year <>", value, "currentYear");
+        public Criteria andCostCodeNotEqualTo(Integer value) {
+            addCriterion("cost_code <>", value, "costCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentYearGreaterThan(String value) {
-            addCriterion("current_year >", value, "currentYear");
+        public Criteria andCostCodeGreaterThan(Integer value) {
+            addCriterion("cost_code >", value, "costCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentYearGreaterThanOrEqualTo(String value) {
-            addCriterion("current_year >=", value, "currentYear");
+        public Criteria andCostCodeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("cost_code >=", value, "costCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentYearLessThan(String value) {
-            addCriterion("current_year <", value, "currentYear");
+        public Criteria andCostCodeLessThan(Integer value) {
+            addCriterion("cost_code <", value, "costCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentYearLessThanOrEqualTo(String value) {
-            addCriterion("current_year <=", value, "currentYear");
+        public Criteria andCostCodeLessThanOrEqualTo(Integer value) {
+            addCriterion("cost_code <=", value, "costCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentYearLike(String value) {
-            addCriterion("current_year like", value, "currentYear");
+        public Criteria andCostCodeIn(List<Integer> values) {
+            addCriterion("cost_code in", values, "costCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentYearNotLike(String value) {
-            addCriterion("current_year not like", value, "currentYear");
+        public Criteria andCostCodeNotIn(List<Integer> values) {
+            addCriterion("cost_code not in", values, "costCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentYearIn(List<String> values) {
-            addCriterion("current_year in", values, "currentYear");
+        public Criteria andCostCodeBetween(Integer value1, Integer value2) {
+            addCriterion("cost_code between", value1, value2, "costCode");
             return (Criteria) this;
         }
 
-        public Criteria andCurrentYearNotIn(List<String> values) {
-            addCriterion("current_year not in", values, "currentYear");
-            return (Criteria) this;
-        }
-
-        public Criteria andCurrentYearBetween(String value1, String value2) {
-            addCriterion("current_year between", value1, value2, "currentYear");
-            return (Criteria) this;
-        }
-
-        public Criteria andCurrentYearNotBetween(String value1, String value2) {
-            addCriterion("current_year not between", value1, value2, "currentYear");
+        public Criteria andCostCodeNotBetween(Integer value1, Integer value2) {
+            addCriterion("cost_code not between", value1, value2, "costCode");
             return (Criteria) this;
         }
     }
